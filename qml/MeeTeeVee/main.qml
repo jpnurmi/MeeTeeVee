@@ -12,19 +12,27 @@ PageStackWindow {
 
     ToolBarLayout {
         id: commonTools
-        visible: true
         ToolIcon {
-            platformIconId: "toolbar-view-menu"
-            anchors.right: (parent === undefined) ? undefined : parent.right
-            onClicked: (myMenu.status === DialogStatus.Closed) ? myMenu.open() : myMenu.close()
+            iconId: "toolbar-back"
+            enabled: pageStack.depth > 1
+            opacity: enabled ? 1.0 : 0.25
+        }
+        ButtonRow {
+            exclusive: true
+            TabButton {
+                iconSource: "image://theme/icon-m-toolbar-home-white"
+            }
+            TabButton {
+                iconSource: "image://theme/icon-m-toolbar-search-white"
+            }
+            TabButton {
+                iconSource: "image://theme/icon-m-toolbar-favorite-mark-white"
+            }
+            TabButton {
+                iconSource: "image://theme/icon-m-toolbar-history-white"
+            }
         }
     }
 
-    Menu {
-        id: myMenu
-        visualParent: pageStack
-        MenuLayout {
-            MenuItem { text: qsTr("Sample menu item") }
-        }
-    }
+    Component.onCompleted: theme.inverted = true
 }
