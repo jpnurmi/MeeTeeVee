@@ -7,35 +7,47 @@ PageStackWindow {
     id: window
 
     initialPage: Page {
-        tools: commonTools
+        tools: tabBar
         TabGroup {
             id: tabGroup
             currentTab: homeTab
             PageStack {
                 id: homeTab
-                HomePage { id: homePage }
+                HomePage {
+                    id: homePage
+                    tools: tabBar
+                }
                 Component.onCompleted: homeTab.push(homePage)
             }
             PageStack {
                 id: searchTab
-                SearchPage { id: searchPage }
+                SearchPage {
+                    id: searchPage
+                    tools: tabBar
+                }
                 Component.onCompleted: searchTab.push(searchPage)
             }
             PageStack {
                 id: favoritesTab
-                FavoritesPage { id: favoritesPage }
+                FavoritesPage {
+                    id: favoritesPage
+                    tools: tabBar
+                }
                 Component.onCompleted: favoritesTab.push(favoritesPage)
             }
             PageStack {
                 id: historyTab
-                HistoryPage { id: historyPage }
+                HistoryPage {
+                    id: historyPage
+                    tools: tabBar
+                }
                 Component.onCompleted: historyTab.push(historyPage)
             }
         }
     }
 
     ToolBarLayout {
-        id: commonTools
+        id: tabBar
         ToolIcon {
             iconId: "toolbar-back"
             opacity: enabled ? 1.0 : UI.DISABLED_OPACITY
