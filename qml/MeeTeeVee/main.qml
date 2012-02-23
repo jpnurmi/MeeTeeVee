@@ -2,18 +2,35 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 
 PageStackWindow {
-    id: appWindow
+    id: window
 
     property string serverTime
 
     initialPage: Page {
         tools: commonTools
         TabGroup {
+            id: tabGroup
             currentTab: homeTab
-            HomePage { id: homeTab }
-            SearchPage { id: searchTab }
-            FavoritesPage { id: favoritesTab }
-            HistoryPage { id: historyTab }
+            PageStack {
+                id: homeTab
+                HomePage { id: homePage }
+                Component.onCompleted: homeTab.push(homePage)
+            }
+            PageStack {
+                id: searchTab
+                SearchPage { id: searchPage }
+                Component.onCompleted: searchTab.push(searchPage)
+            }
+            PageStack {
+                id: favoritesTab
+                FavoritesPage { id: favoritesPage }
+                Component.onCompleted: favoritesTab.push(favoritesPage)
+            }
+            PageStack {
+                id: historyTab
+                HistoryPage { id: historyPage }
+                Component.onCompleted: historyTab.push(historyPage)
+            }
         }
     }
 
@@ -21,8 +38,9 @@ PageStackWindow {
         id: commonTools
         ToolIcon {
             iconId: "toolbar-back"
-            enabled: pageStack.depth > 1
             opacity: enabled ? 1.0 : 0.25
+            enabled: tabGroup.currentTab.depth > 1
+            onClicked: tabGroup.currentTab.pop()
         }
         ButtonRow {
             exclusive: true
@@ -55,7 +73,7 @@ PageStackWindow {
                         for (var i = 0; i < root.childNodes.length; ++i) {
                             var child = root.childNodes[i];
                             if (child.nodeName === "Time") {
-                                appWindow.serverTime = child.firstChild.nodeValue;
+                                window.serverTime = child.firstChild.nodeValue;
                                 break;
                             }
                         }
