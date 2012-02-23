@@ -1,10 +1,9 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
+import "Engine.js" as Engine
 
 PageStackWindow {
     id: window
-
-    property string serverTime
 
     initialPage: Page {
         tools: commonTools
@@ -65,21 +64,6 @@ PageStackWindow {
 
     Component.onCompleted: {
         theme.inverted = true;
-
-        var req = new XMLHttpRequest();
-        req.onreadystatechange = function() {
-                    if (req.readyState === XMLHttpRequest.DONE) {
-                        var root = req.responseXML.documentElement;
-                        for (var i = 0; i < root.childNodes.length; ++i) {
-                            var child = root.childNodes[i];
-                            if (child.nodeName === "Time") {
-                                window.serverTime = child.firstChild.nodeValue;
-                                break;
-                            }
-                        }
-                    }
-                }
-        req.open("GET", "http://www.thetvdb.com/api/Updates.php?type=none");
-        req.send();
+        Engine.initialize();
     }
 }
