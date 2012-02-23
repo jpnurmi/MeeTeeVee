@@ -1,23 +1,25 @@
 import QtQuick 1.1
 
 XmlListModel {
-    property string keyword: "alcatraz"
-    property string language
+    property string keyword
+    property string language: "en"
 
-    onKeywordChanged: {
-        source = "http://www.thetvdb.com/api/GetSeries.php?seriesname=" + keyword;
+    onLanguageChanged: search()
+    onKeywordChanged: search()
+
+    function search() {
+        source = "http://www.thetvdb.com/api/GetSeries.php?seriesname=" + keyword + "&language=" + language
         reload();
     }
 
     query: "/Data/Series"
 
-    XmlRole { name: "id"; query: "id/string()" }
-    XmlRole { name: "seriesId"; query: "seriesid/string()" }
+    XmlRole { name: "seriesid"; query: "seriesid/string()" }
     XmlRole { name: "language"; query: "language/string()" }
-    XmlRole { name: "title"; query: "SeriesName/string()" }
-    XmlRole { name: "subtitle"; query: "Overview/string()" }
-    XmlRole { name: "iconSource"; query: "banner/string()" }
-    XmlRole { name: "firstAired"; query: "FirstAired/string()" }
-    XmlRole { name: "imdbId"; query: "IMDB_ID/string()" }
-    XmlRole { name: "zap2itId"; query: "zap2it_id/string()" }
+    XmlRole { name: "SeriesName"; query: "SeriesName/string()" }
+    XmlRole { name: "Overview"; query: "Overview/string()" }
+    XmlRole { name: "banner"; query: "banner/string()" }
+    XmlRole { name: "FirstAired"; query: "FirstAired/string()" }
+    XmlRole { name: "IMDB_ID"; query: "IMDB_ID/string()" }
+    XmlRole { name: "zap2it_id"; query: "zap2it_id/string()" }
 }
