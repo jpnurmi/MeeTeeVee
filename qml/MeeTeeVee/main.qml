@@ -1,6 +1,7 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
 import "Engine.js" as Engine
+import "UIConstants.js" as UI
 
 PageStackWindow {
     id: window
@@ -37,7 +38,7 @@ PageStackWindow {
         id: commonTools
         ToolIcon {
             iconId: "toolbar-back"
-            opacity: enabled ? 1.0 : 0.25
+            opacity: enabled ? 1.0 : UI.DISABLED_OPACITY
             enabled: tabGroup.currentTab.depth > 1
             onClicked: tabGroup.currentTab.pop()
         }
