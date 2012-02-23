@@ -4,8 +4,10 @@ XmlListModel {
     property string seriesId
     property string language: "en"
 
-    onSeriesIdChanged: {
-        // <mirrorpath_xml>/api/<apikey>/series/<seriesid>/<language>.xm
+    onLanguageChanged: search()
+    onSeriesIdChanged: search()
+
+    function search() {
         source = "http://www.thetvdb.com/api/621D3F0031E8B2BA/series/" + seriesId + "/" + language + ".xml"
         reload();
     }
@@ -23,12 +25,12 @@ XmlListModel {
     XmlRole { name: "Language"; query: "Language/string()" }
     XmlRole { name: "Network"; query: "Network/string()" }
     XmlRole { name: "NetworkID"; query: "NetworkID/string()" }
-    XmlRole { name: "subtitle"; query: "Overview/string()" }
+    XmlRole { name: "Overview"; query: "Overview/string()" }
     XmlRole { name: "Rating"; query: "Rating/number()" }
     XmlRole { name: "RatingCount"; query: "RatingCount/number()" }
     XmlRole { name: "Runtime"; query: "Runtime/number()" }
     XmlRole { name: "SeriesID"; query: "SeriesID/string()" }
-    XmlRole { name: "title"; query: "SeriesName/string()" }
+    XmlRole { name: "SeriesName"; query: "SeriesName/string()" }
     XmlRole { name: "Status"; query: "Status/string()" }
     XmlRole { name: "added"; query: "added/string()" }
     XmlRole { name: "addedBy"; query: "addedBy/string()" }

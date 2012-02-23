@@ -6,10 +6,10 @@ import "models"
 Page {
     id: root
 
-//    Component {
-//        id: seriesPage
-//        SeriesPage { }
-//    }
+    Component {
+        id: seriesPage
+        SeriesPage { }
+    }
 
     SearchModel {
         id: searchModel
@@ -51,9 +51,9 @@ Page {
             title: SeriesName
             subtitle: Overview
             onClicked: {
-//                var page = seriesPage.createObject(root.pageStack);
-//                page.seriesId = seriesid;
-//                root.pageStack.push(page);
+                var page = seriesPage.createObject(root.pageStack);
+                page.seriesId = seriesid;
+                root.pageStack.push(page);
             }
         }
     }
