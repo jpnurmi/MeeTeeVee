@@ -109,7 +109,6 @@ Page {
             }
 
             Separator {
-                width: parent.width
                 title: qsTr("Overview")
                 visible: overview.text !== "" && !root.loading
             }
@@ -122,7 +121,6 @@ Page {
             }
 
             Separator {
-                width: parent.width
                 title: qsTr("Information")
                 visible: (infoModel.count > 0 || rating.count > 0) && !root.loading
             }

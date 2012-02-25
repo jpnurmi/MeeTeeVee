@@ -7,6 +7,7 @@ Item {
     property alias title: label.text
 
     height: label.height
+    width: parent.width
 
     Rectangle {
         color: UI.SUBTITLE_COLOR
