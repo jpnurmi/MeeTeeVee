@@ -8,12 +8,12 @@ Page {
     id: root
 
     property bool loading: true
-    property alias seriesId: model.seriesId
+    property alias seriesId: seriesModel.seriesId
 
     SeriesModel {
-        id: model
+        id: seriesModel
         onStatusChanged: if (status === XmlListModel.Ready && count > 0) {
-            var item = model.get(0);
+            var item = seriesModel.get(0);
             if (item.banner !== "")
                 banner.source = "http://www.thetvdb.com/banners/" + item.banner;
             name.text = item.SeriesName;
