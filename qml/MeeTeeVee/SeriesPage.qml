@@ -53,6 +53,7 @@ Page {
     Column {
         visible: root.loading
         anchors.centerIn: parent
+        spacing: UI.LARGE_SPACING
         BusyIndicator {
             running: root.loading
             style: BusyIndicatorStyle { size: "large" }
