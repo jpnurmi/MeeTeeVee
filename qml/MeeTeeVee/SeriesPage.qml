@@ -110,15 +110,20 @@ Page {
             }
 
             Separator {
+                id: separator
                 title: qsTr("Overview")
                 visible: overview.text !== "" && !root.loading
             }
 
-            PlainText {
-                id: overview
+            Expander {
                 width: parent.width
-                font.pixelSize: UI.SMALL_FONT
-                wrapMode: Text.WordWrap
+                preferredHeight: 6 * separator.height
+                PlainText {
+                    id: overview
+                    width: parent.width
+                    font.pixelSize: UI.SMALL_FONT
+                    wrapMode: Text.WordWrap
+                }
             }
 
             Separator {
@@ -126,36 +131,40 @@ Page {
                 visible: (infoModel.count > 0 || rating.count > 0) && !root.loading
             }
 
-            Column {
-                id: infoColumn
+            Expander {
                 width: parent.width
-                spacing: UI.SMALL_SPACING
-                Repeater {
-                    model: infoModel
-                    Row {
-                        width: infoColumn.width
-                        spacing: UI.SMALL_SPACING
-                        PlainText {
-                            id: keyItem
-                            text: key
-                            font.pixelSize: UI.SMALL_FONT
-                        }
-                        PlainText {
-                            id: valueItem
-                            text: value
-                            font.pixelSize: UI.SMALL_FONT
-                            wrapMode: Text.WordWrap
-                            width: parent.width - keyItem.width - parent.spacing
+                preferredHeight: 6 * separator.height
+                Column {
+                    id: infoColumn
+                    width: parent.width
+                    spacing: UI.SMALL_SPACING
+                    Repeater {
+                        model: infoModel
+                        Row {
+                            width: infoColumn.width
+                            spacing: UI.SMALL_SPACING
+                            PlainText {
+                                id: keyItem
+                                text: key
+                                font.pixelSize: UI.SMALL_FONT
+                            }
+                            PlainText {
+                                id: valueItem
+                                text: value
+                                font.pixelSize: UI.SMALL_FONT
+                                wrapMode: Text.WordWrap
+                                width: parent.width - keyItem.width - parent.spacing
+                            }
                         }
                     }
-                }
-                Row {
-                    visible: rating.count > 0
-                    spacing: UI.SMALL_SPACING
-                    PlainText { text: qsTr("Rating:"); font.pixelSize: UI.SMALL_FONT }
-                    RatingIndicator {
-                        id: rating
-                        maximumValue: 10
+                    Row {
+                        visible: rating.count > 0
+                        spacing: UI.SMALL_SPACING
+                        PlainText { text: qsTr("Rating:"); font.pixelSize: UI.SMALL_FONT }
+                        RatingIndicator {
+                            id: rating
+                            maximumValue: 10
+                        }
                     }
                 }
             }
