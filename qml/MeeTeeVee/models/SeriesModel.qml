@@ -8,10 +8,11 @@ XmlListModel {
     onSeriesIdChanged: search()
 
     function search() {
-        source = "http://www.thetvdb.com/api/621D3F0031E8B2BA/series/" + seriesId + "/" + language + ".xml"
+        //source = "http://www.thetvdb.com/api/621D3F0031E8B2BA/series/" + seriesId + "/" + language + ".xml"
         reload();
     }
 
+    source: "../testdata/series.xml"
     query: "/Data/Series"
 
     XmlRole { name: "id"; query: "id/string()" }
