@@ -34,6 +34,8 @@ Page {
             left: parent.left
             right: parent.right
         }
+        Keys.onEnterPressed: { closeSoftwareInputPanel(); parent.forceActiveFocus(); }
+        Keys.onReturnPressed: { closeSoftwareInputPanel(); parent.forceActiveFocus(); }
     }
 
     ListView {
