@@ -1,6 +1,5 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
-import "Engine.js" as Engine
 import "UIConstants.js" as UI
 
 PageStackWindow {
@@ -77,6 +76,5 @@ PageStackWindow {
 
     Component.onCompleted: {
         theme.inverted = true;
-        Engine.initialize();
     }
 }
