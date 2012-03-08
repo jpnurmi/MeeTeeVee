@@ -60,7 +60,7 @@ Item {
     MoreIndicator {
         id: indicator
         anchors.right: parent.right
-        anchors.rightMargin: -UI.MEDIUM_SPACING
+        anchors.rightMargin: UI.MEDIUM_SPACING
         anchors.verticalCenter: parent.verticalCenter
         opacity: mouseArea.pressed ? UI.DISABLED_OPACITY : 1.0
     }

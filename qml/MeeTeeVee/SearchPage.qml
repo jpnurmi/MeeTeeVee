@@ -1,23 +1,13 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
 import "UIConstants.js" as UI
-import "models"
 
 Page {
     id: root
 
-    Component {
-        id: seriesPage
-        SeriesPage { }
-    }
-
-    SearchModel {
-        id: searchModel
-        keyword: searchBox.text
-    }
-
     Text {
-        anchors.centerIn: listView
+        parent: listView.contentItem
+        anchors.centerIn: parent
         text: qsTr("No results")
         visible: listView.count <= 0
         font.family: UI.FONT_FAMILY_LIGHT
@@ -25,46 +15,35 @@ Page {
         color: UI.INFO_COLOR
     }
 
-    SearchBox {
-        id: searchBox
-        placeholderText: qsTr("Search")
-        busy: searchModel.status === XmlListModel.Loading
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-        }
-        Keys.onEnterPressed: { closeSoftwareInputPanel(); parent.forceActiveFocus(); }
-        Keys.onReturnPressed: { closeSoftwareInputPanel(); parent.forceActiveFocus(); }
-    }
-
     ListView {
         id: listView
-        clip: true
-        model: searchModel
-        anchors {
-            top: searchBox.bottom
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-            topMargin: UI.SMALL_SPACING
+
+        anchors.fill: parent
+
+        header: SearchBox {
+            id: searchBox
+            placeholderText: qsTr("Search")
+            busy: searchModel.status === XmlListModel.Loading
+            anchors.left: parent.left
+            anchors.right: parent.right
+            onTextChanged: searchModel.showName = text
+            Keys.onEnterPressed: { closeSoftwareInputPanel(); parent.forceActiveFocus(); }
+            Keys.onReturnPressed: { closeSoftwareInputPanel(); parent.forceActiveFocus(); }
         }
+
+        model: SearchModel {
+            id: searchModel
+        }
+
         delegate: SearchDelegate {
-            title: SeriesName
-            subtitle: Overview
-            onClicked: {
-                var page = seriesPage.createObject(root.pageStack);
-                page.seriesId = seriesid;
-                root.pageStack.push(page);
-            }
+            title: name
+            subtitle: link
+            onClicked: Qt.openUrlExternally(link)
         }
     }
 
-    Image {
-        id: shadow
-        width: parent.width
-        anchors.top: searchBox.bottom
-        source: "images/top-shadow.png"
-        fillMode: Image.TileHorizontally
+    ScrollDecorator {
+        flickableItem: listView
+        anchors.topMargin: 52 + Math.abs(Math.min(0, listView.contentY))
     }
 }

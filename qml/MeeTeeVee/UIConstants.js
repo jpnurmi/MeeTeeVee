@@ -2,7 +2,7 @@
 
 var PAGE_MARGIN = 16;
 var LARGE_SPACING = 16;
-var MEDIUM_SPACING = 6;
+var MEDIUM_SPACING = 8;
 var SMALL_SPACING = 2;
 
 var FONT_FAMILY = "Nokia Pure Text";
