@@ -35,6 +35,7 @@ Item {
             width: visible ? column.height : 0
             height: visible ? column.height : 0
             color: UI.INFO_COLOR
+            opacity: mouseArea.pressed ? UI.DISABLED_OPACITY : 1.0
             anchors.verticalCenter: parent.verticalCenter
             Image {
                 id: thumbnail
