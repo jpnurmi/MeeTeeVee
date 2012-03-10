@@ -170,7 +170,10 @@ Page {
             ListItem {
                 title: qsTr("Seasons and episodes")
                 subtitle: root.model ? qsTr("%1 seasons").arg(root.model.seasons) : ""
-                onClicked: console.log("TODO...")
+                onClicked: {
+                    var page = episodeListPage.createObject(root, {showId: root.model.showId});
+                    pageStack.push(page);
+                }
             }
 
             ListItem {
@@ -179,6 +182,11 @@ Page {
                 onClicked: Qt.openUrlExternally(root.model.link)
             }
         }
+    }
+
+    Component {
+        id: episodeListPage
+        EpisodeListPage { }
     }
 
     ScrollDecorator {

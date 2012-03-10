@@ -42,8 +42,7 @@ Page {
             thumbnailVisible: true
             thumbnail: showModel.image
             onClicked: {
-                var page = showPage.createObject(root);
-                page.model = showModel;
+                var page = showPage.createObject(root, {model: showModel});
                 pageStack.push(page);
             }
             ShowModel {
