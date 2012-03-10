@@ -12,7 +12,7 @@ XmlListModel {
     property string ended
     property url image
     property string country
-    property string status
+    property string showStatus
     property string classification
     property string genres
     property int runtime
@@ -31,7 +31,7 @@ XmlListModel {
     XmlRole { name: "ended"; query: "ended/string()" }
     XmlRole { name: "image"; query: "image/string()" }
     XmlRole { name: "country"; query: "origin_country/string()" }
-    XmlRole { name: "status"; query: "status/string()" }
+    XmlRole { name: "showstatus"; query: "status/string()" }
     XmlRole { name: "classification"; query: "classification/string()" }
     XmlRole { name: "genres"; query: "string-join(genres/genre,', ')" }
     XmlRole { name: "runtime"; query: "runtime/number()" }
@@ -50,7 +50,7 @@ XmlListModel {
             root.ended = item.ended;
             root.image = item.image;
             root.country = item.country;
-            root.status = item.status;
+            root.showStatus = item.showstatus;
             root.classification = item.classification;
             root.genres = item.genres;
             root.runtime = item.runtime;
