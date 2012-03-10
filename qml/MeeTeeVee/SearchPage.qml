@@ -19,6 +19,7 @@ Page {
         id: listView
 
         anchors.fill: parent
+        cacheBuffer: 4000
 
         header: SearchBox {
             id: searchBox
@@ -38,7 +39,12 @@ Page {
         delegate: SearchDelegate {
             title: name
             subtitle: link
+            thumbnail: showModel.image
             onClicked: Qt.openUrlExternally(link)
+            ShowModel {
+                id: showModel
+                showId: showid
+            }
         }
     }
 
