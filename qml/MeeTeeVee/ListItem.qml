@@ -9,16 +9,17 @@ Item {
     property alias title: title.text
     property alias subtitle: subtitle.text
     property alias thumbnail: thumbnail.source
+    property alias thumbnailVisible: placeholder.visible
 
     signal clicked
     signal pressAndHold
 
     width: parent.width
-    height: 88
+    height: column.height + 2 * UI.MEDIUM_SPACING
 
     Row {
         id: row
-        spacing: UI.MEDIUM_SPACING
+        spacing: placeholder.visible ? UI.MEDIUM_SPACING : 0
 
         anchors {
             top: parent.top
@@ -30,8 +31,9 @@ Item {
 
         Rectangle {
             id: placeholder
-            width: root.height - 2 * UI.MEDIUM_SPACING
-            height: width
+            visible: false
+            width: visible ? column.height : 0
+            height: visible ? column.height : 0
             color: UI.INFO_COLOR
             anchors.verticalCenter: parent.verticalCenter
             Image {

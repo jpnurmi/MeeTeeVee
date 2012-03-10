@@ -167,9 +167,16 @@ Page {
                 }
             }
 
-            SearchDelegate {
-                title: qsTr("%1 seasons").arg(root.model.seasons)
-                onClicked: console.log("clicked")
+            ListItem {
+                title: qsTr("Seasons and episodes")
+                subtitle: root.model ? qsTr("%1 seasons").arg(root.model.seasons) : ""
+                onClicked: console.log("TODO...")
+            }
+
+            ListItem {
+                title: qsTr("Open TVRage.com")
+                subtitle: root.model ? root.model.link : ""
+                onClicked: Qt.openUrlExternally(root.model.link)
             }
         }
     }

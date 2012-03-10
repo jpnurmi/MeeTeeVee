@@ -36,12 +36,12 @@ Page {
             id: searchModel
         }
 
-        delegate: SearchDelegate {
+        delegate: ListItem {
             title: name
             subtitle: link
+            thumbnailVisible: true
             thumbnail: showModel.image
             onClicked: {
-                //Qt.openUrlExternally(link)
                 var page = showPage.createObject(root);
                 page.model = showModel;
                 pageStack.push(page);
