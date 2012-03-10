@@ -40,12 +40,22 @@ Page {
             title: name
             subtitle: link
             thumbnail: showModel.image
-            onClicked: Qt.openUrlExternally(link)
+            onClicked: {
+                //Qt.openUrlExternally(link)
+                var page = showPage.createObject(root);
+                page.model = showModel;
+                pageStack.push(page);
+            }
             ShowModel {
                 id: showModel
                 showId: showid
             }
         }
+    }
+
+    Component {
+        id: showPage
+        ShowPage { }
     }
 
     ScrollDecorator {
