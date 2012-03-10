@@ -21,6 +21,8 @@ Page {
         anchors.fill: parent
         cacheBuffer: 4000
 
+        property real headerHeight: 0
+
         header: SearchBox {
             id: searchBox
             placeholderText: qsTr("Search")
@@ -30,6 +32,7 @@ Page {
             onTextChanged: searchModel.showName = text
             Keys.onEnterPressed: { closeSoftwareInputPanel(); parent.forceActiveFocus(); }
             Keys.onReturnPressed: { closeSoftwareInputPanel(); parent.forceActiveFocus(); }
+            onHeightChanged: listView.headerHeight = height
         }
 
         model: SearchModel {
@@ -59,6 +62,6 @@ Page {
 
     ScrollDecorator {
         flickableItem: listView
-        anchors.topMargin: 52 + Math.abs(Math.min(0, listView.contentY))
+        anchors.topMargin: listView.headerHeight + Math.abs(Math.min(0, listView.contentY))
     }
 }
