@@ -14,7 +14,7 @@ Item {
     signal clicked
     signal pressAndHold
 
-    width: parent.width
+    width: parent ? parent.width : 0
     height: column.height + 2 * UI.MEDIUM_SPACING
 
     Row {

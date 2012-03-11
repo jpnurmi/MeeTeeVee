@@ -5,15 +5,15 @@ import "UIConstants.js" as UI
 Page {
     id: root
 
-    property alias showId: episodeListModel.showId
-    property alias season: episodeListModel.season
-    property string showName
+    property string title
+    property string subtitle
+    property alias model: listView.model
 
     BusyIndicator {
         parent: listView.contentItem
         anchors.centerIn: parent
-        visible: episodeListModel.status === XmlListModel.Loading
-        running: episodeListModel.status === XmlListModel.Loading
+        visible: root.model.status === XmlListModel.Loading
+        running: root.model.status === XmlListModel.Loading
         style: BusyIndicatorStyle { size: "large" }
     }
 
@@ -29,7 +29,7 @@ Page {
             spacing: UI.MEDIUM_SPACING
             onHeightChanged: listView.headerHeight = height
             Label {
-                text: root.showName
+                text: root.title
                 width: parent.width
                 font.family: UI.FONT_FAMILY
                 font.pixelSize: UI.LARGE_FONT
@@ -37,12 +37,8 @@ Page {
                 textFormat: Text.PlainText
             }
             ListSectionItem {
-                title: qsTr("Season %1").arg(root.season)
+                title: qsTr("Season %1").arg(root.model.season)
             }
-        }
-
-        model: EpisodeListModel {
-            id: episodeListModel
         }
 
         delegate: ListItem {

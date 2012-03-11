@@ -13,8 +13,6 @@ Rectangle {
 
     Label {
         id: label
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.margins: UI.MEDIUM_SPACING
+        width: parent.width
     }
 }

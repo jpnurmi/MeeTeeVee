@@ -8,10 +8,18 @@ Page {
 
     property ShowModel model
 
+    BusyIndicator {
+        parent: flickable.contentItem
+        anchors.centerIn: parent
+        visible: root.model.status === XmlListModel.Loading
+        running: root.model.status === XmlListModel.Loading
+        style: BusyIndicatorStyle { size: "large" }
+    }
+
     Flickable {
         id: flickable
         anchors.fill: parent
-        contentHeight: column.height
+        contentHeight: Math.max(column.height, root.height)
 
         Column {
             id: column
@@ -29,6 +37,7 @@ Page {
 
             ListSectionItem {
                 title: qsTr("Info")
+                visible: root.model.status === XmlListModel.Ready
             }
 
             Row {
@@ -106,6 +115,7 @@ Page {
                     }
                     RatingIndicator {
                         maximumValue: 5
+                        visible: root.model.status === XmlListModel.Ready
                     }
                 }
 
@@ -144,10 +154,15 @@ Page {
                     model: root.model ? root.model.seasons : 0
                     ListItem {
                         title: qsTr("Season %1").arg(index + 1)
-                        subtitle: "How many episodes...?"
+                        subtitle: episodeListModel.count > 0 ? qsTr("%1 episodes").arg(episodeListModel.count) : qsTr("Loading...")
                         onClicked: {
-                            var page = episodeListPage.createObject(root, {showId: root.model.showId, season: index + 1, showName: root.model.name});
+                            var page = episodeListPage.createObject(root, {title: root.model.name, model: episodeListModel});
                             pageStack.push(page);
+                        }
+                        EpisodeListModel {
+                            id: episodeListModel
+                            showId: root.model.showId
+                            season: index + 1
                         }
                     }
                 }
