@@ -6,11 +6,29 @@ Page {
     id: root
 
     property alias showId: episodeListModel.showId
+    property string showName
+
+    BusyIndicator {
+        parent: listView.contentItem
+        anchors.centerIn: parent
+        visible: episodeListModel.status === XmlListModel.Loading
+        running: episodeListModel.status === XmlListModel.Loading
+        style: BusyIndicatorStyle { size: "large" }
+    }
 
     ListView {
         id: listView
 
         anchors.fill: parent
+
+        header: Label {
+            text: root.showName
+            width: parent.width
+            font.family: UI.FONT_FAMILY
+            font.pixelSize: UI.LARGE_FONT
+            font.weight: Font.Bold
+            textFormat: Text.PlainText
+        }
 
         model: EpisodeListModel {
             id: episodeListModel

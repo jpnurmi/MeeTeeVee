@@ -1,5 +1,6 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
+import com.nokia.extras 1.0
 import "UIConstants.js" as UI
 
 Page {
@@ -26,161 +27,135 @@ Page {
                 textFormat: Text.PlainText
             }
 
-            Image {
-                source: root.model ? root.model.image : ""
-            }
+            Row {
+                width: parent.width
+                height: Math.max(image.height, general.height)
+                spacing: UI.MEDIUM_SPACING
 
-            Grid {
-                id: grid
-                columns: 2
+                Column {
+                    id: general
+                    width: (parent.width - parent.spacing) / 2
+                    anchors.verticalCenter: parent.verticalCenter
 
-                property real contentWidth: parent.width - classification.width
-
-                Label {
-                    id: classification
-                    text: qsTr("Classification: ")
-                    font.family: UI.FONT_FAMILY
-                    font.pixelSize: UI.MEDIUM_FONT
-                    font.weight: Font.Bold
-                    textFormat: Text.PlainText
-                }
-                Label {
-                    text: root.model && root.model.classification.length ? root.model.classification : qsTr("-")
-                    font.family: UI.FONT_FAMILY
-                    font.pixelSize: UI.MEDIUM_FONT
-                    textFormat: Text.PlainText
-                    width: grid.contentWidth
-                }
-
-                Label {
-                    text: qsTr("Genre: ")
-                    font.family: UI.FONT_FAMILY
-                    font.pixelSize: UI.MEDIUM_FONT
-                    font.weight: Font.Bold
-                    textFormat: Text.PlainText
-                }
-                Label {
-                    text: root.model && root.model.genres.length ? root.model.genres : qsTr("-")
-                    font.family: UI.FONT_FAMILY
-                    font.pixelSize: UI.MEDIUM_FONT
-                    textFormat: Text.PlainText
-                    width: grid.contentWidth
-                }
-
-                Label {
-                    text: qsTr("Status: ")
-                    font.family: UI.FONT_FAMILY
-                    font.pixelSize: UI.MEDIUM_FONT
-                    font.weight: Font.Bold
-                    textFormat: Text.PlainText
-                }
-                Label {
-                    text: root.model && root.model.showStatus.length ? root.model.showStatus : qsTr("-")
-                    font.family: UI.FONT_FAMILY
-                    font.pixelSize: UI.MEDIUM_FONT
-                    textFormat: Text.PlainText
-                    width: grid.contentWidth
-                }
-
-                Label {
-                    text: qsTr("Network: ")
-                    font.family: UI.FONT_FAMILY
-                    font.pixelSize: UI.MEDIUM_FONT
-                    font.weight: Font.Bold
-                    textFormat: Text.PlainText
-                }
-                Label {
-                    text: root.model && root.model.network.length ? root.model.network : qsTr("-")
-                    font.family: UI.FONT_FAMILY
-                    font.pixelSize: UI.MEDIUM_FONT
-                    textFormat: Text.PlainText
-                    width: grid.contentWidth
-                }
-
-                Label {
-                    text: qsTr("Airs: ")
-                    font.family: UI.FONT_FAMILY
-                    font.pixelSize: UI.MEDIUM_FONT
-                    font.weight: Font.Bold
-                    textFormat: Text.PlainText
-                }
-                Label {
-                    function airs(airday, airtime) {
-                        if (airday.length && airtime.length)
-                            return qsTr("%1s at %2").arg(airday).arg(airtime);
-                        if (airday.length)
-                            return qsTr("%1s").arg(airday);
-                        if (airtime.length)
-                            return airtime;
-                        return qsTr("-");
+                    Label {
+                        width: parent.width
+                        visible: text.length
+                        text: {
+                            var strings = [];
+                            if (root.model && root.model.classification.length)
+                                strings.push(root.model.classification);
+                            if (root.model && root.model.network.length)
+                                strings.push(root.model.network);
+                            return strings.join(" on ");
+                        }
+                        font.family: UI.FONT_FAMILY
+                        font.pixelSize: UI.SMALL_FONT
+                        textFormat: Text.PlainText
                     }
-                    text: root.model ? airs(root.model.airday, root.model.airtime) : ""
-                    font.family: UI.FONT_FAMILY
-                    font.pixelSize: UI.MEDIUM_FONT
-                    textFormat: Text.PlainText
-                    width: grid.contentWidth
+                    Label {
+                        width: parent.width
+                        visible: text.length
+                        text: root.model ? root.model.genres : ""
+                        font.family: UI.FONT_FAMILY
+                        font.pixelSize: UI.SMALL_FONT
+                        textFormat: Text.PlainText
+                    }
+                    Label {
+                        width: parent.width
+                        visible: text.length
+                        text: root.model ? root.model.showStatus : ""
+                        font.family: UI.FONT_FAMILY
+                        font.pixelSize: UI.SMALL_FONT
+                        textFormat: Text.PlainText
+                    }
+                    Label {
+                        width: parent.width
+                        visible: text.length
+                        text: {
+                            var strings = [];
+                            if (root.model && root.model.started.length)
+                                strings.push(root.model.started);
+                            if (root.model && root.model.ended.length)
+                                strings.push(root.model.ended);
+                            return strings.join(" - ");
+                        }
+                        font.family: UI.FONT_FAMILY
+                        font.pixelSize: UI.SMALL_FONT
+                        textFormat: Text.PlainText
+                    }
+                    Label {
+                        width: parent.width
+                        visible: text.length
+                        text: {
+                            var strings = [];
+                            if (root.model && root.model.airday.length)
+                                strings.push(root.model.airday);
+                            if (root.model && root.model.airtime.length)
+                                strings.push(qsTr("at %1").arg(root.model.airtime));
+                            if (root.model && root.model.runtime.length)
+                                strings.push(qsTr("(%1min)").arg(root.model.runtime));
+                            return strings.join(" ");
+                        }
+                        font.family: UI.FONT_FAMILY
+                        font.pixelSize: UI.SMALL_FONT
+                        textFormat: Text.PlainText
+                    }
+                    RatingIndicator {
+                        maximumValue: 5
+                    }
                 }
 
-                Label {
-                    text: qsTr("Runtime: ")
-                    font.family: UI.FONT_FAMILY
-                    font.pixelSize: UI.MEDIUM_FONT
-                    font.weight: Font.Bold
-                    textFormat: Text.PlainText
-                }
-                Label {
-                    text: root.model && root.model.runtime > 0 ? qsTr("%1 minutes").arg(root.model.runtime) : qsTr("-")
-                    font.family: UI.FONT_FAMILY
-                    font.pixelSize: UI.MEDIUM_FONT
-                    textFormat: Text.PlainText
-                    width: grid.contentWidth
-                }
-
-                Label {
-                    text: qsTr("Premiere: ")
-                    font.family: UI.FONT_FAMILY
-                    font.pixelSize: UI.MEDIUM_FONT
-                    font.weight: Font.Bold
-                    textFormat: Text.PlainText
-                }
-                Label {
-                    text: root.model && root.model.started.length ? root.model.started : qsTr("-")
-                    font.family: UI.FONT_FAMILY
-                    font.pixelSize: UI.MEDIUM_FONT
-                    textFormat: Text.PlainText
-                    width: grid.contentWidth
-                }
-
-                Label {
-                    text: qsTr("Ended: ")
-                    font.family: UI.FONT_FAMILY
-                    font.pixelSize: UI.MEDIUM_FONT
-                    font.weight: Font.Bold
-                    textFormat: Text.PlainText
-                }
-                Label {
-                    text: root.model && root.model.ended.length ? root.model.ended : qsTr("-")
-                    font.family: UI.FONT_FAMILY
-                    font.pixelSize: UI.MEDIUM_FONT
-                    textFormat: Text.PlainText
-                    width: grid.contentWidth
+                Image {
+                    id: image
+                    width: (parent.width - parent.spacing) / 2
+                    anchors.verticalCenter: parent.verticalCenter
+                    source: root.model ? root.model.image : ""
+                    fillMode: Image.PreserveAspectFit
                 }
             }
 
-            ListItem {
-                title: qsTr("Seasons and episodes")
-                subtitle: root.model ? qsTr("%1 seasons").arg(root.model.seasons) : ""
-                onClicked: {
-                    var page = episodeListPage.createObject(root, {showId: root.model.showId});
-                    pageStack.push(page);
+            ButtonRow {
+                exclusive: false
+                width: parent.width
+                TabButton {
+                    tab: summary
+                    checked: summary.visible
+                    text: qsTr("Summary")
+                    visible: summary.text.length
+                }
+                TabButton {
+                    text: qsTr("Episodes...")
+                    onClicked: {
+                        var page = episodeListPage.createObject(root, {showId: root.model.showId, showName: root.model.name});
+                        pageStack.push(page);
+                    }
                 }
             }
 
-            ListItem {
-                title: qsTr("Open TVRage.com")
-                subtitle: root.model ? root.model.link : ""
-                onClicked: Qt.openUrlExternally(root.model.link)
+            TabGroup {
+                width: parent.width
+                currentTab: summary
+                height: currentTab.height
+
+                Label {
+                    id: summary
+                    text: root.model ? root.model.summary : ""
+                    font.family: UI.FONT_FAMILY
+                    font.pixelSize: UI.MEDIUM_FONT
+                    width: parent.width
+                }
             }
+
+//            ListItem {
+//                title: qsTr("Seasons and episodes")
+//                subtitle: root.model ? qsTr("%1 seasons").arg(root.model.seasons) : ""
+//            }
+
+//            ListItem {
+//                title: qsTr("Open TVRage.com")
+//                subtitle: root.model ? root.model.link : ""
+//                onClicked: Qt.openUrlExternally(root.model.link)
+//            }
         }
     }
 
