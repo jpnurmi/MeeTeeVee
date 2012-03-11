@@ -46,14 +46,8 @@ Page {
                 }
             }
 
-            Rectangle {
-                color: UI.INFO_COLOR
-                width: parent.width
-                height: label.height
-                Label {
-                    id: label
-                    text: qsTr("Latest updates (6h)")
-                }
+            ListSectionItem {
+                title: qsTr("Latest updates (6h)")
             }
         }
 

@@ -27,6 +27,10 @@ Page {
                 textFormat: Text.PlainText
             }
 
+            ListSectionItem {
+                title: qsTr("Info")
+            }
+
             Row {
                 width: parent.width
                 height: Math.max(image.height, general.height)
@@ -114,35 +118,38 @@ Page {
                 }
             }
 
-            ButtonRow {
-                exclusive: false
-                width: parent.width
-                TabButton {
-                    tab: summary
-                    checked: summary.visible
-                    text: qsTr("Summary")
-                    visible: summary.text.length
-                }
-                TabButton {
-                    text: qsTr("Episodes...")
-                    onClicked: {
-                        var page = episodeListPage.createObject(root, {showId: root.model.showId, showName: root.model.name});
-                        pageStack.push(page);
-                    }
-                }
+            ListSectionItem {
+                title: qsTr("Summary")
+                visible: summary.text.length
             }
 
-            TabGroup {
+            Label {
+                id: summary
                 width: parent.width
-                currentTab: summary
-                height: currentTab.height
+                visible: text.length
+                text: root.model ? root.model.summary : ""
+                font.family: UI.FONT_FAMILY
+                font.pixelSize: UI.MEDIUM_FONT
+            }
 
-                Label {
-                    id: summary
-                    text: root.model ? root.model.summary : ""
-                    font.family: UI.FONT_FAMILY
-                    font.pixelSize: UI.MEDIUM_FONT
-                    width: parent.width
+            ListSectionItem {
+                title: qsTr("Episodes")
+                visible: repeater.count
+            }
+
+            Column {
+                width: parent.width
+                Repeater {
+                    id: repeater
+                    model: root.model ? root.model.seasons : 0
+                    ListItem {
+                        title: qsTr("Season %1").arg(index + 1)
+                        subtitle: "How many episodes...?"
+                        onClicked: {
+                            var page = episodeListPage.createObject(root, {showId: root.model.showId, season: index + 1, showName: root.model.name});
+                            pageStack.push(page);
+                        }
+                    }
                 }
             }
 

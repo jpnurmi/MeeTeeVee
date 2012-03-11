@@ -6,6 +6,7 @@ Page {
     id: root
 
     property alias showId: episodeListModel.showId
+    property alias season: episodeListModel.season
     property string showName
 
     BusyIndicator {
@@ -21,13 +22,23 @@ Page {
 
         anchors.fill: parent
 
-        header: Label {
-            text: root.showName
+        property real headerHeight: 0
+
+        header: Column {
             width: parent.width
-            font.family: UI.FONT_FAMILY
-            font.pixelSize: UI.LARGE_FONT
-            font.weight: Font.Bold
-            textFormat: Text.PlainText
+            spacing: UI.MEDIUM_SPACING
+            onHeightChanged: listView.headerHeight = height
+            Label {
+                text: root.showName
+                width: parent.width
+                font.family: UI.FONT_FAMILY
+                font.pixelSize: UI.LARGE_FONT
+                font.weight: Font.Bold
+                textFormat: Text.PlainText
+            }
+            ListSectionItem {
+                title: qsTr("Season %1").arg(root.season)
+            }
         }
 
         model: EpisodeListModel {
@@ -39,21 +50,10 @@ Page {
             subtitle: summary
             onClicked: Qt.openUrlExternally(link)
         }
-
-        section.property: "season"
-        section.delegate: Rectangle {
-            color: UI.INFO_COLOR
-            width: parent.width
-            height: label.height
-            Label {
-                id: label
-                text: section
-            }
-        }
     }
 
     ScrollDecorator {
         flickableItem: listView
-        anchors.topMargin: 52 + Math.abs(Math.min(0, listView.contentY))
+        anchors.topMargin: listView.headerHeight + Math.abs(Math.min(0, listView.contentY))
     }
 }

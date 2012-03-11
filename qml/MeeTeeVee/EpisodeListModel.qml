@@ -4,14 +4,14 @@ XmlListModel {
     id: root
 
     property string showId
+    property string season
 
     source: "http://services.tvrage.com/myfeeds/episode_list.php?key=4KvLxFFjc84XCWRggUUr&sid=" + showId
-    query: "/Show/Episodelist/Season/episode"
+    query: "/Show/Episodelist/Season[@no='"+season+"']/episode"
 
     XmlRole { name: "name"; query: "title/string()" }
     XmlRole { name: "summary"; query: "summary/string()" }
     XmlRole { name: "episode"; query: "epnum/number()" }
-    XmlRole { name: "season"; query: "../@no/number()" }
     XmlRole { name: "airdate"; query: "airdate/string()" }
     XmlRole { name: "link"; query: "link/string()" }
 }
