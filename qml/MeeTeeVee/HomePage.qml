@@ -52,14 +52,14 @@ Page {
                 height: label.height
                 Label {
                     id: label
-                    text: qsTr("Latest updates")
+                    text: qsTr("Latest updates (6h)")
                 }
             }
         }
 
         model: XmlListModel {
             id: updatesModel
-            source: "http://services.tvrage.com/feeds/last_updates.php?hours=2&sort=episodes"
+            source: "http://services.tvrage.com/feeds/last_updates.php?hours=6&sort=episodes"
             query: "/updates/show"
             XmlRole { name: "showid"; query: "id/string()" }
             XmlRole { name: "last"; query: "last/number()" }
@@ -68,7 +68,7 @@ Page {
 
         delegate: ListItem {
             title: showModel.name
-            subtitle: showModel.link
+            subtitle: showModel.summary
             thumbnailVisible: true
             thumbnail: showModel.image
             onClicked: {

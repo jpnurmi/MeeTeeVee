@@ -41,7 +41,7 @@ Page {
 
         delegate: ListItem {
             title: name
-            subtitle: link
+            subtitle: showModel.summary
             thumbnailVisible: true
             thumbnail: showModel.image
             onClicked: {

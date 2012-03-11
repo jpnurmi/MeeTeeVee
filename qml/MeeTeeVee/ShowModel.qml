@@ -8,12 +8,14 @@ XmlListModel {
     property string name
     property string link
     property int seasons
-    property string started
-    property string ended
     property url image
+    property string started
+    property date startDate
+    property string ended
     property string country
     property string showStatus
     property string classification
+    property string summary
     property string genres
     property int runtime
     property string network
@@ -21,18 +23,20 @@ XmlListModel {
     property string airday
     property string timezone
 
-    source: "http://services.tvrage.com/feeds/full_show_info.php?sid=" + showId
-    query: "/Show"
+    source: "http://services.tvrage.com/myfeeds/showinfo.php?key=4KvLxFFjc84XCWRggUUr&sid=" + showId
+    query: "/Showinfo"
 
-    XmlRole { name: "showname"; query: "name/string()" }
+    XmlRole { name: "showname"; query: "showname/string()" }
     XmlRole { name: "showlink"; query: "showlink/string()" }
-    XmlRole { name: "seasons"; query: "totalseasons/number()" }
-    XmlRole { name: "started"; query: "started/string()" }
-    XmlRole { name: "ended"; query: "ended/string()" }
+    XmlRole { name: "seasons"; query: "seasons/number()" }
     XmlRole { name: "image"; query: "image/string()" }
+    XmlRole { name: "started"; query: "started/string()" }
+    XmlRole { name: "startdate"; query: "startdate/string()" }
+    XmlRole { name: "ended"; query: "ended/string()" }
     XmlRole { name: "country"; query: "origin_country/string()" }
-    XmlRole { name: "showstatus"; query: "status/string()" }
+    XmlRole { name: "status"; query: "status/string()" }
     XmlRole { name: "classification"; query: "classification/string()" }
+    XmlRole { name: "summary"; query: "summary/string()" }
     XmlRole { name: "genres"; query: "string-join(genres/genre,', ')" }
     XmlRole { name: "runtime"; query: "runtime/number()" }
     XmlRole { name: "network"; query: "network/string()" }
@@ -46,12 +50,14 @@ XmlListModel {
             root.name = item.showname;
             root.link = item.showlink;
             root.seasons = item.seasons;
-            root.started = item.started;
-            root.ended = item.ended;
             root.image = item.image;
+            root.started = item.started;
+            root.startDate.setTime(item.startdate);
+            root.ended = item.ended;
             root.country = item.country;
-            root.showStatus = item.showstatus;
+            root.showStatus = item.status;
             root.classification = item.classification;
+            root.summary = item.summary;
             root.genres = item.genres;
             root.runtime = item.runtime;
             root.network = item.network;

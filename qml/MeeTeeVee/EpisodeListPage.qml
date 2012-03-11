@@ -18,7 +18,7 @@ Page {
 
         delegate: ListItem {
             title: name
-            subtitle: link
+            subtitle: summary
             onClicked: Qt.openUrlExternally(link)
         }
 
