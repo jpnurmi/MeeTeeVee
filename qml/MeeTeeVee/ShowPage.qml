@@ -3,22 +3,17 @@ import com.nokia.meego 1.0
 import com.nokia.extras 1.0
 import "UIConstants.js" as UI
 
-Page {
+CommonPage {
     id: root
 
     property ShowModel model
 
-    BusyIndicator {
-        parent: flickable.contentItem
-        anchors.centerIn: parent
-        visible: root.model.status === XmlListModel.Loading
-        running: root.model.status === XmlListModel.Loading
-        style: BusyIndicatorStyle { size: "large" }
-    }
+    busy: !!model && model.status === XmlListModel.Loading
+    placeholder: busy ? qsTr("Loading...") : ""
 
-    Flickable {
+    flickable: Flickable {
         id: flickable
-        anchors.fill: parent
+
         contentHeight: Math.max(column.height, root.height)
 
         Column {
@@ -26,18 +21,9 @@ Page {
             width: parent.width
             spacing: UI.MEDIUM_SPACING
 
-            Label {
-                text: root.model ? root.model.name : ""
-                width: parent.width
-                font.family: UI.FONT_FAMILY
-                font.pixelSize: UI.LARGE_FONT
-                font.weight: Font.Bold
-                textFormat: Text.PlainText
-            }
-
-            ListSectionItem {
-                title: qsTr("Info")
-                visible: root.model.status === XmlListModel.Ready
+            Header {
+                title: root.model ? root.model.name : ""
+                subtitle: root.model.status === XmlListModel.Ready ? qsTr("Info") : ""
             }
 
             Row {
@@ -125,10 +111,17 @@ Page {
                     anchors.verticalCenter: parent.verticalCenter
                     source: root.model ? root.model.image : ""
                     fillMode: Image.PreserveAspectFit
+                    opacity: mouseArea.pressed ? UI.DISABLED_OPACITY : 1.0
+
+                    MouseArea {
+                        id: mouseArea
+                        anchors.fill: parent
+                        onClicked: Qt.openUrlExternally(root.model.link)
+                    }
                 }
             }
 
-            ListSectionItem {
+            Separator {
                 title: qsTr("Summary")
                 visible: summary.text.length
             }
@@ -146,7 +139,7 @@ Page {
                 }
             }
 
-            ListSectionItem {
+            Separator {
                 title: qsTr("Episodes")
                 visible: repeater.count
             }
@@ -158,7 +151,7 @@ Page {
                     model: root.model ? root.model.seasons : 0
                     ListItem {
                         title: qsTr("Season %1").arg(index + 1)
-                        subtitle: episodeListModel.count > 0 ? qsTr("%1 episodes").arg(episodeListModel.count) : qsTr("Loading...")
+                        subtitle: episodeListModel.status === XmlListModel.Loading ? qsTr("Loading...") : qsTr("%1 episodes").arg(episodeListModel.count)
                         onClicked: {
                             var page = episodeListPage.createObject(root, {title: root.model.name, model: episodeListModel});
                             pageStack.push(page);
@@ -171,26 +164,11 @@ Page {
                     }
                 }
             }
-
-//            ListItem {
-//                title: qsTr("Seasons and episodes")
-//                subtitle: root.model ? qsTr("%1 seasons").arg(root.model.seasons) : ""
-//            }
-
-//            ListItem {
-//                title: qsTr("Open TVRage.com")
-//                subtitle: root.model ? root.model.link : ""
-//                onClicked: Qt.openUrlExternally(root.model.link)
-//            }
         }
     }
 
     Component {
         id: episodeListPage
         EpisodeListPage { }
-    }
-
-    ScrollDecorator {
-        flickableItem: flickable
     }
 }
