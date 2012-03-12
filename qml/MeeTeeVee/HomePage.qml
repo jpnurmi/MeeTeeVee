@@ -2,60 +2,28 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 import "UIConstants.js" as UI
 
-Page {
+CommonPage {
     id: root
 
     signal showed(string showId)
 
-    BusyIndicator {
-        parent: listView.contentItem
-        anchors.centerIn: parent
-        visible: updatesModel.status === XmlListModel.Loading
-        running: updatesModel.status === XmlListModel.Loading
-        style: BusyIndicatorStyle { size: "large" }
-    }
+    busy: updatesModel.status === XmlListModel.Loading
+    placeholder: busy ? qsTr("Loading...") : listView.count <= 0 ? qsTr("No updates") : ""
 
-    ListView {
+    flickable: ListView {
         id: listView
 
-        anchors.fill: parent
         cacheBuffer: 4000
 
-        property real headerHeight: 0
-
-        header: Column {
-            width: parent.width
-            spacing: UI.MEDIUM_SPACING
-
-            onHeightChanged: listView.headerHeight = height
-
-            Row {
-                width: parent.width
-
-                Label {
-                    text: "MeeTeeVee"
-                    font.family: UI.FONT_FAMILY
-                    font.pixelSize: UI.LARGE_FONT
-                    font.weight: Font.Bold
-                    textFormat: Text.PlainText
-                    width: parent.width - logo.width
-                    anchors.verticalCenter: logo.verticalCenter
-                }
-
-                Image {
-                    id: logo
-                    source: "images/tvr_logo.png"
-                }
-            }
-
-            ListSectionItem {
-                title: qsTr("Latest updates (6h)")
-            }
+        header: Header {
+            title: "MeeTeeVee"
+            subtitle: qsTr("Latest updates (2h)")
+            logo: "images/tvr_logo.png"
         }
 
         model: XmlListModel {
             id: updatesModel
-            source: "http://services.tvrage.com/feeds/last_updates.php?hours=6&sort=episodes"
+            source: "http://services.tvrage.com/feeds/last_updates.php?hours=2&sort=episodes"
             query: "/updates/show"
             XmlRole { name: "showid"; query: "id/string()" }
             XmlRole { name: "last"; query: "last/number()" }
@@ -82,10 +50,5 @@ Page {
     Component {
         id: showPage
         ShowPage { }
-    }
-
-    ScrollDecorator {
-        flickableItem: listView
-        anchors.topMargin: listView.headerHeight + Math.abs(Math.min(0, listView.contentY))
     }
 }
