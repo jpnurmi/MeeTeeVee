@@ -14,7 +14,7 @@ Item {
         height: 1
         anchors.left: parent.left
         anchors.right: label.left
-        anchors.rightMargin: UI.LARGE_SPACING
+        anchors.rightMargin: label.text.length ? UI.LARGE_SPACING : 0
         anchors.verticalCenter: label.verticalCenter
     }
 
