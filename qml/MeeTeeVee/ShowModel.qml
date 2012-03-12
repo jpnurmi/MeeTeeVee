@@ -35,7 +35,7 @@ XmlListModel {
     XmlRole { name: "status"; query: "status/string()" }
     XmlRole { name: "classification"; query: "classification/string()" }
     XmlRole { name: "summary"; query: "summary/string()" }
-    XmlRole { name: "genres"; query: "string-join(genres/genre,', ')" }
+    XmlRole { name: "genres"; query: "string-join(genres/genre,'|')" }
     XmlRole { name: "runtime"; query: "runtime/string()" }
     XmlRole { name: "network"; query: "network/string()" }
     XmlRole { name: "airtime"; query: "airtime/string()" }
@@ -55,7 +55,7 @@ XmlListModel {
             root.showStatus = item.status;
             root.classification = item.classification;
             root.summary = item.summary;
-            root.genres = item.genres;
+            root.genres = item.genres.split("|").filter(String).join(", ");
             root.runtime = item.runtime;
             root.network = item.network;
             root.airtime = item.airtime;
