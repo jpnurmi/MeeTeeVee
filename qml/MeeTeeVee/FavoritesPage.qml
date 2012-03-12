@@ -14,6 +14,7 @@ CommonPage {
 
         header: Header {
             title: qsTr("Favorites")
+            logo: "images/tvr_logo.png"
         }
 
         model: ListModel {

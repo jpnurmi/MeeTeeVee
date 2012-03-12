@@ -15,6 +15,7 @@ CommonPage {
 
         header: Header {
             title: qsTr("Search")
+            logo: "images/tvr_logo.png"
 
             SearchBox {
                 id: searchBox
