@@ -133,13 +133,17 @@ Page {
                 visible: summary.text.length
             }
 
-            Label {
-                id: summary
+            Expander {
                 width: parent.width
-                visible: text.length
-                text: root.model ? root.model.summary : ""
-                font.family: UI.FONT_FAMILY
-                font.pixelSize: UI.MEDIUM_FONT
+                preferredHeight: summary.height > general.height + 120 ? general.height : summary.height
+                Label {
+                    id: summary
+                    width: parent.width
+                    visible: text.length
+                    text: root.model ? root.model.summary : ""
+                    font.family: UI.FONT_FAMILY
+                    font.pixelSize: UI.MEDIUM_FONT
+                }
             }
 
             ListSectionItem {
