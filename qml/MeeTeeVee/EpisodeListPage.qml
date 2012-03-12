@@ -1,44 +1,23 @@
 import QtQuick 1.1
-import com.nokia.meego 1.0
-import "UIConstants.js" as UI
 
-Page {
+CommonPage {
     id: root
 
     property string title
     property string subtitle
     property alias model: listView.model
 
-    BusyIndicator {
-        parent: listView.contentItem
-        anchors.centerIn: parent
-        visible: root.model.status === XmlListModel.Loading
-        running: root.model.status === XmlListModel.Loading
-        style: BusyIndicatorStyle { size: "large" }
-    }
+    busy: model.status === XmlListModel.Loading
+    placeholder: busy ? qsTr("Loading...") : listView.count <= 0 ? qsTr("No episodes") : ""
 
-    ListView {
+    flickable: ListView {
         id: listView
 
-        anchors.fill: parent
+        cacheBuffer: 4000
 
-        property real headerHeight: 0
-
-        header: Column {
-            width: parent.width
-            spacing: UI.MEDIUM_SPACING
-            onHeightChanged: listView.headerHeight = height
-            Label {
-                text: root.title
-                width: parent.width
-                font.family: UI.FONT_FAMILY
-                font.pixelSize: UI.LARGE_FONT
-                font.weight: Font.Bold
-                textFormat: Text.PlainText
-            }
-            ListSectionItem {
-                title: qsTr("Season %1").arg(root.model.season)
-            }
+        header: Header {
+            title: root.title
+            subtitle: qsTr("Season %1").arg(root.model.season)
         }
 
         delegate: ListItem {
@@ -46,10 +25,5 @@ Page {
             subtitle: summary
             onClicked: Qt.openUrlExternally(link)
         }
-    }
-
-    ScrollDecorator {
-        flickableItem: listView
-        anchors.topMargin: listView.headerHeight + Math.abs(Math.min(0, listView.contentY))
     }
 }
