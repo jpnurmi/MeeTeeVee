@@ -19,15 +19,10 @@ Item {
 
     Row {
         id: row
-        spacing: placeholder.visible ? UI.MEDIUM_SPACING : 0
 
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: indicator.left
-            bottom: parent.bottom
-            leftMargin: UI.SMALL_SPACING
-        }
+        width: parent.width
+        height: parent.height
+        spacing: placeholder.visible ? UI.MEDIUM_SPACING : 0
 
         Rectangle {
             id: placeholder
@@ -81,14 +76,6 @@ Item {
         id: shadow
         anchors.right: row.right
         source: "images/right-shadow.png"
-    }
-
-    MoreIndicator {
-        id: indicator
-        anchors.right: parent.right
-        anchors.rightMargin: UI.MEDIUM_SPACING
-        anchors.verticalCenter: parent.verticalCenter
-        opacity: mouseArea.pressed ? UI.DISABLED_OPACITY : 1.0
     }
 
     MouseArea {
