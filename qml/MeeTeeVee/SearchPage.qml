@@ -5,6 +5,8 @@ import "UIConstants.js" as UI
 Page {
     id: root
 
+    signal showed(string showId)
+
     Text {
         parent: listView.contentItem
         anchors.centerIn: parent
@@ -47,6 +49,7 @@ Page {
             onClicked: {
                 var page = showPage.createObject(root, {model: showModel});
                 pageStack.push(page);
+                root.showed(showid);
             }
             ShowModel {
                 id: showModel

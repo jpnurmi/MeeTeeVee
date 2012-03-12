@@ -15,6 +15,7 @@ PageStackWindow {
                 HomePage {
                     id: homePage
                     tools: tabBar
+                    onShowed: historyPage.add(showId)
                 }
                 Component.onCompleted: homeTab.push(homePage)
             }
@@ -23,6 +24,7 @@ PageStackWindow {
                 SearchPage {
                     id: searchPage
                     tools: tabBar
+                    onShowed: historyPage.add(showId)
                 }
                 Component.onCompleted: searchTab.push(searchPage)
             }
