@@ -40,5 +40,6 @@ Column {
     Separator {
         id: separator
         width: parent.width
+        visible: label.text.length
     }
 }

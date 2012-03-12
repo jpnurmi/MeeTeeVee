@@ -31,7 +31,7 @@ CommonPage {
         }
 
         delegate: ListItem {
-            title: showModel.name
+            title: showModel.status === XmlListModel.Loading ? qsTr("...") : showModel.name
             subtitle: showModel.summary
             thumbnailVisible: true
             thumbnail: showModel.image
