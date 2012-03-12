@@ -1,20 +1,20 @@
 import QtQuick 1.1
 import "UIConstants.js" as UI
 
-Item {
+Row {
     id: root
 
     property alias title: label.text
 
     height: label.height
     width: parent.width
+    spacing: label.text.length ? UI.LARGE_SPACING : 0
 
     Rectangle {
+        id: leftie
         color: UI.SUBTITLE_COLOR
         height: 1
-        anchors.left: parent.left
-        anchors.right: label.left
-        anchors.rightMargin: label.text.length ? UI.LARGE_SPACING : 0
+        width: 0 // 2 * UI.LARGE_SPACING
         anchors.verticalCenter: label.verticalCenter
     }
 
@@ -25,6 +25,13 @@ Item {
         font.weight: Font.Light
         textFormat: Text.PlainText
         color: UI.SUBTITLE_COLOR
-        anchors.right: parent.right
+    }
+
+    Rectangle {
+        id: rightie
+        color: UI.SUBTITLE_COLOR
+        height: 1
+        width: parent.width - leftie.width - label.width - parent.spacing // * 2
+        anchors.verticalCenter: label.verticalCenter
     }
 }
