@@ -3,7 +3,7 @@ import com.nokia.meego 1.0
 import "UIConstants.js" as UI
 import "History.js" as History
 
-Page {
+CommonPage {
     id: root
 
     function add(showId) {
@@ -19,26 +19,16 @@ Page {
             historyModel.remove(10, historyModel.count - 10);
     }
 
-    ListView {
+    //busy: historyModel.status === XmlListModel.Loading
+    placeholder: /*busy ? qsTr("Loading...") :*/ listView.count <= 0 ? qsTr("No history") : ""
+
+    flickable: ListView {
         id: listView
 
-        anchors.fill: parent
         cacheBuffer: 4000
 
-        header: Column {
-            width: parent.width
-            spacing: UI.SMALL_SPACING
-
-            Label {
-                text: qsTr("History")
-                font.family: UI.FONT_FAMILY
-                font.pixelSize: UI.LARGE_FONT
-                font.weight: Font.Bold
-                textFormat: Text.PlainText
-                width: parent.width
-            }
-
-            Separator { }
+        header: Header {
+            title: qsTr("History")
         }
 
         model: ListModel {
@@ -60,6 +50,11 @@ Page {
                 showId: showid
             }
         }
+    }
+
+    Component {
+        id: showPage
+        ShowPage { }
     }
 
     Component.onCompleted: {
