@@ -11,6 +11,7 @@ Page {
 
     anchors.leftMargin: UI.PAGE_MARGIN
     anchors.rightMargin: UI.PAGE_MARGIN
+    orientationLock: PageOrientation.LockPortrait
 
     onFlickableChanged: {
         if (flickable) {

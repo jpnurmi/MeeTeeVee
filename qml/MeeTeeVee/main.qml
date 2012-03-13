@@ -6,6 +6,7 @@ PageStackWindow {
     id: window
 
     initialPage: Page {
+        orientationLock: PageOrientation.LockPortrait
         tools: tabBar
         TabGroup {
             id: tabGroup
