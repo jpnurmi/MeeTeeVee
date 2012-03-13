@@ -9,7 +9,6 @@ Page {
     property alias busy: indicator.running
     property alias placeholder: label.text
 
-    anchors.leftMargin: UI.PAGE_MARGIN
     anchors.rightMargin: UI.PAGE_MARGIN
     orientationLock: PageOrientation.LockPortrait
 
@@ -38,7 +37,7 @@ Page {
         font.pixelSize: UI.HUGE_FONT
         color: UI.INFO_COLOR
         anchors.baseline: parent.top
-        anchors.baselineOffset: screen.width / 2
+        anchors.baselineOffset: screen.displayWidth / 2
         anchors.horizontalCenter: parent.horizontalCenter
         transform: Translate {
             y: root.flickable ? -root.flickable.contentY : 0
