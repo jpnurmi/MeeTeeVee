@@ -4,12 +4,13 @@ Item {
     id: root
 
     property bool expanded: false
+    property bool obscured: preferredHeight < container.height
     property int duration: 250
     property real preferredHeight: 0
     default property alias data: container.data
 
     clip: true
-    height: (expanded ? container.height : container.minimumHeight) + arrow.height
+    height: (expanded ? container.height : container.minimumHeight) + (obscured ? arrow.implicitHeight : 0)
 
     Behavior on height { NumberAnimation { duration: root.duration; easing.type: Easing.InCubic } }
 
@@ -30,7 +31,7 @@ Item {
         anchors.right: parent.right
         anchors.bottom: rectangle.top
 
-        Behavior on opacity { NumberAnimation { duration: root.duration / 4; easing.type: Easing.OutCubic } }
+        Behavior on opacity { NumberAnimation { duration: root.duration / 4; easing.type: Easing.InOutSine } }
     }
 
     Rectangle {
@@ -45,8 +46,8 @@ Item {
     Image {
         id: arrow
         source: "images/arrow.png"
-        height: visible ? implicitHeight : 0
-        visible: container.height > preferredHeight
+        height: obscured ? implicitHeight : 0
+        visible: obscured
         rotation: expanded ? -180 : 0
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
