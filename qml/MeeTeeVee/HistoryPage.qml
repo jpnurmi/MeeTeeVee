@@ -1,5 +1,6 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
+import "Cache.js" as Cache
 import "UIConstants.js" as UI
 import "History.js" as History
 
@@ -37,7 +38,7 @@ CommonPage {
         }
 
         delegate: ListItem {
-            title: showModel.status === XmlListModel.Loading ? qsTr("...") : showModel.name
+            title: Cache.showName(showid, showModel.name)
             subtitle: showModel.summary
             thumbnailVisible: true
             thumbnail: showModel.image

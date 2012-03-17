@@ -1,5 +1,6 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
+import "Cache.js" as Cache
 import "UIConstants.js" as UI
 
 CommonPage {
@@ -31,7 +32,7 @@ CommonPage {
         }
 
         delegate: ShowDelegate {
-            title: showModel.name
+            title: Cache.showName(showid, showModel.name)
             subtitles: [
                 qsTr("%1 - %2").arg(showModel.classification).arg(showModel.genres),
                 qsTr("%1 at %2 on %4").arg(showModel.airday).arg(showModel.airtime).arg(showModel.network),

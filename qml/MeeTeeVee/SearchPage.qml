@@ -1,4 +1,5 @@
 import QtQuick 1.1
+import "Cache.js" as Cache
 
 CommonPage {
     id: root
@@ -32,7 +33,7 @@ CommonPage {
         }
 
         delegate: ListItem {
-            title: name
+            title: Cache.showName(showid, name)
             subtitle: showModel.summary
             thumbnailVisible: true
             thumbnail: showModel.image
