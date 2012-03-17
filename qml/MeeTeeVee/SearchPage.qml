@@ -32,10 +32,9 @@ CommonPage {
             id: searchModel
         }
 
-        delegate: ListItem {
-            title: Cache.showName(showid, name)
-            subtitle: showModel.summary
-            thumbnailVisible: true
+        delegate: ShowDelegate {
+            title: Cache.showName(showid, showModel.name)
+            subtitles: showModel.subtitles()
             thumbnail: showModel.image
             onClicked: {
                 var page = showPage.createObject(root, {model: showModel});

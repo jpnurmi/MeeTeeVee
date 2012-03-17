@@ -37,10 +37,9 @@ CommonPage {
             id: historyModel
         }
 
-        delegate: ListItem {
+        delegate: ShowDelegate {
             title: Cache.showName(showid, showModel.name)
-            subtitle: showModel.summary
-            thumbnailVisible: true
+            subtitles: showModel.subtitles()
             thumbnail: showModel.image
             onClicked: {
                 var page = showPage.createObject(root, {model: showModel});
