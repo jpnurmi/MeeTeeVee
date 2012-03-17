@@ -13,7 +13,7 @@ TextField {
         anchors.right: parent.right
         anchors.rightMargin: sourceComponent !== clearIcon ? 12 : 0
         anchors.verticalCenter: parent.verticalCenter
-        sourceComponent: root.busy ? busyIndicator : root.text.length ? clearIcon : searchIcon
+        sourceComponent: root.busy ? busyIndicator : root.text.length || root.platformPreedit.length ? clearIcon : searchIcon
 
         Component {
             id: searchIcon
