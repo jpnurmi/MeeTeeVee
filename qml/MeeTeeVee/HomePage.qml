@@ -18,15 +18,16 @@ CommonPage {
 
         header: Header {
             title: "MeeTeeVee"
-            subtitle: qsTr("Latest updates (2h)")
+            subtitle: qsTr("Latest updates (%1h)").arg(updatesModel.hours)
             logo: "images/tvr_logo.png"
         }
 
         model: XmlListModel {
             id: updatesModel
-            source: "http://services.tvrage.com/feeds/last_updates.php?hours=2&sort=episodes"
+            property int hours: 2
+            source: "http://services.tvrage.com/feeds/last_updates.php?&sort=episodes&hours=" + hours
             query: "/updates/show"
-            XmlRole { name: "showid"; query: "id/string()" }
+            XmlRole { name: "showid"; query: "id/string()"; isKey: true }
             XmlRole { name: "last"; query: "last/number()" }
             XmlRole { name: "lastepisode"; query: "lastepisode/string()" }
         }
@@ -50,6 +51,14 @@ CommonPage {
                 id: showModel
                 showId: showid
             }
+        }
+
+        footer: ToolButton{
+            text: qsTr("More...")
+            anchors.right: parent.right
+            enabled: updatesModel.status === XmlListModel.Ready
+            visible: updatesModel.status === XmlListModel.Ready || updatesModel.count > 0
+            onClicked: updatesModel.hours += 1
         }
     }
 
