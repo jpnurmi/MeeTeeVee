@@ -30,10 +30,19 @@ CommonPage {
             XmlRole { name: "lastepisode"; query: "lastepisode/string()" }
         }
 
-        delegate: ListItem {
-            title: showModel.status === XmlListModel.Loading ? qsTr("...") : showModel.name
-            subtitle: showModel.summary
-            thumbnailVisible: true
+        delegate: ShowDelegate {
+            title: showModel.name
+            subtitles: [
+                qsTr("%1 - %2").arg(showModel.classification).arg(showModel.genres),
+                qsTr("%1 at %2 on %4").arg(showModel.airday).arg(showModel.airtime).arg(showModel.network),
+                qsTr("%1 - %2 (%3)").arg(showModel.started).arg(showModel.ended).arg(showModel.showStatus)
+            ]
+            stamp: {
+                var mins = Math.max(0, Math.round(last / 60));
+                if (mins >= 60)
+                    return qsTr("%1h").arg(Math.round(mins / 60));
+                return qsTr("%1m").arg(mins);
+            }
             thumbnail: showModel.image
             onClicked: {
                 var page = showPage.createObject(root, {model: showModel});

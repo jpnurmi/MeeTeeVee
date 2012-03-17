@@ -12,6 +12,7 @@ var HUGE_FONT = 64;
 var LARGE_FONT = 32;
 var MEDIUM_FONT = 26;
 var SMALL_FONT = 18;
+var TINY_FONT = 14;
 
 var INFO_COLOR = "#282828";
 var TITLE_COLOR = "#ffffff";
