@@ -33,11 +33,7 @@ CommonPage {
 
         delegate: ShowDelegate {
             title: Cache.showName(showid, showModel.name)
-            subtitles: [
-                qsTr("%1 - %2").arg(showModel.classification).arg(showModel.genres),
-                qsTr("%1 at %2 on %4").arg(showModel.airday).arg(showModel.airtime).arg(showModel.network),
-                qsTr("%1 - %2 (%3)").arg(showModel.started).arg(showModel.ended).arg(showModel.showStatus)
-            ]
+            subtitles: showModel.subtitles()
             stamp: {
                 var mins = Math.max(0, Math.round(last / 60));
                 if (mins >= 60)

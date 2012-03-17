@@ -22,6 +22,25 @@ XmlListModel {
     property string airday
     property string timezone
 
+    function subtitles() {
+        var subs = [];
+        subs.push(classification);
+        subs.push(genres);
+        if (started.length && ended.length) {
+            subs.push(qsTr("%1 - %2").arg(started).arg(ended));
+        } else {
+            var infos = [];
+            if (airday.length)
+                infos.push(airday);
+            if (airtime.length)
+                infos.push(qsTr("at %1").arg(airtime));
+            if (network.length)
+                infos.push(qsTr("on %1").arg(network));
+            subs.push(infos.join(" "));
+        }
+        return subs;
+    }
+
     source: "http://services.tvrage.com/myfeeds/showinfo.php?key=4KvLxFFjc84XCWRggUUr&sid=" + showId
     query: "/Showinfo"
 
