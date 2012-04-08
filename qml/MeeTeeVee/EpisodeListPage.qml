@@ -23,7 +23,16 @@ CommonPage {
         delegate: ListItem {
             title: name
             subtitle: summary
-            onClicked: Qt.openUrlExternally(link)
+            onClicked: {
+                var page = episodeInfoPage.createObject(root, {showId: root.model.showId, season: root.model.season, episode: episode});
+                pageStack.push(page);
+                // TODO: root.showed(showid);
+            }
         }
+    }
+
+    Component {
+        id: episodeInfoPage
+        EpisodeInfoPage { }
     }
 }
