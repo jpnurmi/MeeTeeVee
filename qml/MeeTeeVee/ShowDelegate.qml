@@ -66,6 +66,7 @@ Item {
                     width: text.length ? undefined : 0
                     height: title.height
                     verticalAlignment: Text.AlignVCenter
+                    visible: text.length
                     Image {
                         height: parent.height
                         anchors.right: parent.left

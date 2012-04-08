@@ -34,13 +34,7 @@ CommonPage {
 
         delegate: ShowDelegate {
             title: Cache.showName(showid, showModel.name)
-            subtitles: showModel.subtitles()
-            stamp: {
-                var mins = Math.max(0, Math.round(last / 60));
-                if (mins >= 60)
-                    return qsTr("%1h").arg(Math.round(mins / 60));
-                return qsTr("%1m").arg(mins);
-            }
+            subtitles: episodeModel.count === 1 ? [qsTr("%1: %2").arg(episodeModel.get(0).number).arg(episodeModel.get(0).title), episodeModel.get(0).airdate] : ["", ""]
             thumbnail: showModel.image
             onClicked: {
                 var page = showPage.createObject(root, {model: showModel});
@@ -50,6 +44,14 @@ CommonPage {
             ShowModel {
                 id: showModel
                 showId: showid
+            }
+            XmlListModel {
+                id: episodeModel
+                source: "http://services.tvrage.com/feeds/episodeinfo.php?sid=" + showid
+                query: "/show/latestepisode"
+                XmlRole { name: "number"; query: "number/string()" }
+                XmlRole { name: "title"; query: "title/string()" }
+                XmlRole { name: "airdate"; query: "airdate/string()" }
             }
         }
 
