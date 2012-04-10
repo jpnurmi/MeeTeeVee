@@ -6,8 +6,7 @@ CommonPage {
     id: root
 
     property alias showId: episodeInfoModel.showId
-    property alias season: episodeInfoModel.season
-    property alias episode: episodeInfoModel.episode
+    property alias number: episodeInfoModel.number
 
     busy: episodeInfoModel.status === XmlListModel.Loading
     placeholder: busy ? qsTr("Loading...") : episodeInfoModel.count <= 0 ? qsTr("Not available") : ""
@@ -23,7 +22,7 @@ CommonPage {
             spacing: UI.MEDIUM_SPACING
 
             Header {
-                title: qsTr("%1x%2: %3").arg(root.season).arg(root.episode).arg(episodeInfoModel.title)
+                title: qsTr("%1: %2").arg(root.number).arg(episodeInfoModel.title)
                 subtitle: episodeInfoModel.status === XmlListModel.Ready ? qsTr("Summary") : ""
             }
 

@@ -24,7 +24,7 @@ CommonPage {
             title: name
             subtitle: summary
             onClicked: {
-                var page = episodeInfoPage.createObject(root, {showId: root.model.showId, season: root.model.season, episode: episode});
+                var page = episodeInfoPage.createObject(root, {showId: root.model.showId, number: root.model.season + "x" + episode});
                 pageStack.push(page);
                 // TODO: root.showed(showid);
             }

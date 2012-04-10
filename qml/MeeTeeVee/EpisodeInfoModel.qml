@@ -4,16 +4,14 @@ XmlListModel {
     id: root
 
     property string showId
-    property string season
-    property string episode
-
     property string number
+
     property string title
     property string airdate
     property string url
     property string summary
 
-    source: "http://services.tvrage.com/myfeeds/episodeinfo.php?key=4KvLxFFjc84XCWRggUUr&sid=" + showId + "&ep=" + season + "x" + episode
+    source: "http://services.tvrage.com/myfeeds/episodeinfo.php?key=4KvLxFFjc84XCWRggUUr&sid=" + showId + "&ep=" + number
     query: "/show/episode"
 
     XmlRole { name: "number"; query: "number/string()" }
