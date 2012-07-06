@@ -8,6 +8,7 @@ function initialize() {
         db.transaction(
             function(tx) {
                 tx.executeSql("CREATE TABLE IF NOT EXISTS ShowNames(showId TEXT UNIQUE, showName TEXT)");
+                tx.executeSql("CREATE TABLE IF NOT EXISTS ShowImages(showId TEXT UNIQUE, showImage TEXT)");
             }
         )
     }
@@ -34,4 +35,26 @@ function showName(id, name) {
         )
     }
     return name;
+}
+
+function showImage(id, image) {
+    db = initialize();
+    if (image.length) {
+        db.transaction(
+            function(tx) {
+                var rs = tx.executeSql("UPDATE ShowImages SET showImage=\"" + image + "\" WHERE showId='" + id + "'");
+                if (rs.rowsAffected <= 0)
+                    tx.executeSql("INSERT INTO ShowImages VALUES (?, ?)", [id, image]);
+            }
+        )
+    } else {
+        db.readTransaction(
+            function(tx) {
+                var rs = tx.executeSql("SELECT showImage FROM ShowImages WHERE showId='" + id + "'");
+                if (rs.rows.length)
+                    image = rs.rows.item(0).showImage;
+            }
+        )
+    }
+    return image;
 }

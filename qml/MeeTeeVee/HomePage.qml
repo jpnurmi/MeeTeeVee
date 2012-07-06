@@ -34,7 +34,7 @@ CommonPage {
         delegate: ShowDelegate {
             title: Cache.showName(showid, showModel.name)
             subtitles: episodeModel.count === 1 ? [qsTr("%1: %2").arg(episodeModel.get(0).number).arg(episodeModel.get(0).title), episodeModel.get(0).airdate] : ["", ""]
-            thumbnail: showModel.image
+            thumbnail: Cache.showImage(showid, showModel.image.toString())
             onClicked: {
                 var page = showPage.createObject(root, {model: showModel});
                 pageStack.push(page);
