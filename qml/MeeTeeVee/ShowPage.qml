@@ -151,7 +151,7 @@ CommonPage {
             }
 
             EpisodeDelegate {
-                title: latestEpisodeModel.count === 1 ? qsTr("%1: %2").arg(latestEpisodeModel.get(0).number).arg(latestEpisodeModel.get(0).title) : ""
+                title: latestEpisodeModel.count === 1 ? qsTr("%1: %2").arg(latestEpisodeModel.get(0).number).arg(latestEpisodeModel.get(0).title) : qsTr("Loading...")
                 subtitle: latestEpisodeModel.count === 1 ? latestEpisodeModel.get(0).airdate : ""
                 onClicked: {
                     var page = episodeInfoPage.createObject(root, {showId: root.model.showId, number: latestEpisodeModel.get(0).number});
