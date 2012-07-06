@@ -147,6 +147,28 @@ CommonPage {
             }
 
             Separator {
+                title: qsTr("Latest episode")
+            }
+
+            EpisodeDelegate {
+                title: latestEpisodeModel.count === 1 ? qsTr("%1: %2").arg(latestEpisodeModel.get(0).number).arg(latestEpisodeModel.get(0).title) : ""
+                subtitle: latestEpisodeModel.count === 1 ? latestEpisodeModel.get(0).airdate : ""
+                onClicked: {
+                    var page = episodeInfoPage.createObject(root, {showId: root.model.showId, number: latestEpisodeModel.get(0).number});
+                    pageStack.push(page);
+                    //root.showed(showid);
+                }
+                XmlListModel {
+                    id: latestEpisodeModel
+                    source: root.model ? "http://services.tvrage.com/feeds/episodeinfo.php?sid=" + root.model.showId : ""
+                    query: "/show/latestepisode"
+                    XmlRole { name: "number"; query: "number/string()" }
+                    XmlRole { name: "title"; query: "title/string()" }
+                    XmlRole { name: "airdate"; query: "airdate/string()" }
+                }
+            }
+
+            Separator {
                 title: qsTr("Seasons")
                 visible: repeater.count
             }
@@ -172,6 +194,11 @@ CommonPage {
                 }
             }
         }
+    }
+
+    Component {
+        id: episodeInfoPage
+        EpisodeInfoPage { }
     }
 
     Component {
