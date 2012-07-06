@@ -31,6 +31,7 @@ CommonPage {
         header: Header {
             title: qsTr("History")
             logo: "images/tvr_logo.png"
+            link: "http://www.tvrage.com"
         }
 
         model: ListModel {
@@ -40,7 +41,7 @@ CommonPage {
         delegate: ShowDelegate {
             title: Cache.showName(showid, showModel.name)
             subtitles: showModel.subtitles()
-            thumbnail: showModel.image
+            thumbnail: Cache.showImage(showid, showModel.image.toString())
             onClicked: {
                 var page = showPage.createObject(root, {model: showModel});
                 pageStack.push(page);

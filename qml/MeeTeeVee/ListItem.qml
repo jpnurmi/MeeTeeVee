@@ -29,7 +29,7 @@ Item {
             width: visible ? column.height : 0
             height: visible ? column.height : 0
             color: UI.INFO_COLOR
-            opacity: mouseArea.pressed ? UI.DISABLED_OPACITY : 1.0
+            opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
             anchors.verticalCenter: parent.verticalCenter
             Image {
                 id: thumbnail
@@ -51,7 +51,7 @@ Item {
                 font.family: UI.FONT_FAMILY
                 font.pixelSize: UI.MEDIUM_FONT
                 font.weight: Font.Bold
-                color: mouseArea.pressed ? UI.PRESSED_COLOR : UI.TITLE_COLOR
+                color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
                 textFormat: Text.PlainText
                 maximumLineCount: 1
                 clip: true
@@ -63,7 +63,7 @@ Item {
                 font.family: UI.FONT_FAMILY
                 font.pixelSize: UI.SMALL_FONT
                 font.weight: Font.Light
-                color: mouseArea.pressed ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
+                color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
                 textFormat: Text.PlainText
                 maximumLineCount: 1
                 clip: true

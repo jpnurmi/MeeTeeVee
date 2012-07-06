@@ -27,13 +27,14 @@ Item {
             id: placeholder
             width: visible ? 100 : 0
             height: visible ? 100 : 0
-            color: UI.INFO_COLOR
-            opacity: mouseArea.pressed ? UI.DISABLED_OPACITY : 1.0
+            color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.INFO_COLOR
+            opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
             anchors.verticalCenter: parent.verticalCenter
             Image {
                 id: thumbnail
-                anchors.fill: parent
+                anchors.fill: placeholder
                 sourceSize { width: parent.width; height: parent.height }
+                z: mouseArea.pressed && mouseArea.containsMouse ? -1 : 0
             }
         }
 
@@ -50,7 +51,7 @@ Item {
                     font.family: UI.FONT_FAMILY
                     font.pixelSize: UI.MEDIUM_FONT
                     font.weight: Font.Bold
-                    color: mouseArea.pressed ? UI.PRESSED_COLOR : UI.TITLE_COLOR
+                    color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
                     textFormat: Text.PlainText
                     maximumLineCount: 1
                     clip: true
@@ -60,7 +61,7 @@ Item {
                     font.family: UI.FONT_FAMILY
                     font.pixelSize: UI.TINY_FONT
                     font.weight: Font.Bold
-                    color: mouseArea.pressed ? UI.PRESSED_COLOR : UI.TITLE_COLOR
+                    color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
                     textFormat: Text.PlainText
                     maximumLineCount: 1
                     width: text.length ? undefined : 0
@@ -84,7 +85,7 @@ Item {
                     font.family: UI.FONT_FAMILY
                     font.pixelSize: UI.SMALL_FONT
                     font.weight: Font.Light
-                    color: mouseArea.pressed ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
+                    color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
                     textFormat: Text.PlainText
                     maximumLineCount: 1
                     clip: true

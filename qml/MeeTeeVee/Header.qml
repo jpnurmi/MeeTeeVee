@@ -8,7 +8,7 @@ Column {
     property alias title: label.text
     property alias subtitle: separator.title
     property alias logo: logo.source
-    property url link: "http://www.tvrage.com"
+    property url link
 
     spacing: UI.SMALL_SPACING
     width: parent ? parent.width : 0
@@ -20,12 +20,12 @@ Column {
         font.family: UI.FONT_FAMILY
         font.pixelSize: UI.LARGE_FONT
         textFormat: Text.PlainText
-        color: mouseArea.pressed ? UI.PRESSED_COLOR : UI.TITLE_COLOR
+        color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
 
         Image {
             id: logo
             anchors.left: label.right
-            opacity: mouseArea.pressed ? UI.DISABLED_OPACITY : 1.0
+            opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
             anchors.verticalCenter: parent.verticalCenter
         }
 
@@ -33,6 +33,7 @@ Column {
             id: mouseArea
             width: root.width
             height: label.height + UI.SMALL_SPACING
+            enabled: root.link != ""
             onClicked: Qt.openUrlExternally(root.link)
         }
     }
