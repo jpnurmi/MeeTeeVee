@@ -3,15 +3,19 @@
 var db = null;
 
 function initialize() {
-    db = openDatabaseSync("MeeTeeVee", "1.0", "Cache", 4096);
-    db.transaction(
-        function(tx) {
-            tx.executeSql("CREATE TABLE IF NOT EXISTS ShowNames(showId TEXT UNIQUE, showName TEXT)");
-        }
-    )
+    if (!db) {
+        db = openDatabaseSync("MeeTeeVee", "1.0", "Cache", 4096);
+        db.transaction(
+            function(tx) {
+                tx.executeSql("CREATE TABLE IF NOT EXISTS ShowNames(showId TEXT UNIQUE, showName TEXT)");
+            }
+        )
+    }
+    return db;
 }
 
 function showName(id, name) {
+    db = initialize();
     if (name.length) {
         db.transaction(
             function(tx) {
