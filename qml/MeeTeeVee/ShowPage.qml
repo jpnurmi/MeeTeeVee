@@ -2,6 +2,7 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 import com.nokia.extras 1.0
 import "UIConstants.js" as UI
+import "Cache.js" as Cache
 
 CommonPage {
     id: root
@@ -22,7 +23,7 @@ CommonPage {
             spacing: UI.MEDIUM_SPACING
 
             Header {
-                title: root.model ? root.model.name : ""
+                title: root.model ? Cache.showName(root.model.showId, root.model.name) : ""
                 subtitle: root.model.status === XmlListModel.Ready ? qsTr("Info") : ""
             }
 
@@ -114,7 +115,7 @@ CommonPage {
                     Image {
                         id: image
                         width: parent.width
-                        source: root.model ? root.model.image : ""
+                        source: root.model ? Cache.showImage(root.model.showId, root.model.image.toString()) : ""
                         fillMode: Image.PreserveAspectFit
                         z: mouseArea.pressed && mouseArea.containsMouse ? -1 : 0
                         MouseArea {
