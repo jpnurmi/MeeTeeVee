@@ -8,7 +8,6 @@ Item {
     property alias title: title.text
     property alias subtitles: repeater.model
     property alias thumbnail: thumbnail.source
-    property alias stamp: stamp.text
 
     signal clicked
     signal pressAndHold
@@ -43,37 +42,21 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             width: row.width - placeholder.width - row.spacing
 
-            Row {
-                spacing: root.stamp.length ? UI.MEDIUM_SPACING : 0
-                Text {
-                    id: title
-                    width: column.width - stamp.width - parent.spacing
-                    font.family: UI.FONT_FAMILY
-                    font.pixelSize: UI.MEDIUM_FONT
-                    font.weight: Font.Bold
-                    color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
-                    textFormat: Text.PlainText
-                    maximumLineCount: 1
-                    clip: true
-                }
-                Text {
-                    id: stamp
-                    font.family: UI.FONT_FAMILY
-                    font.pixelSize: UI.TINY_FONT
-                    font.weight: Font.Bold
-                    color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
-                    textFormat: Text.PlainText
-                    maximumLineCount: 1
-                    width: text.length ? undefined : 0
-                    height: title.height
-                    verticalAlignment: Text.AlignVCenter
-                    visible: text.length
-                    Image {
-                        height: parent.height
-                        anchors.right: parent.left
-                        anchors.rightMargin: UI.MEDIUM_SPACING
-                        source: "images/right-shadow.png"
-                    }
+            Text {
+                id: title
+                width: column.width
+                font.family: UI.FONT_FAMILY
+                font.pixelSize: UI.MEDIUM_FONT
+                font.weight: Font.Bold
+                color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
+                textFormat: Text.PlainText
+                maximumLineCount: 1
+                clip: true
+                Image {
+                    height: parent.height
+                    anchors.right: parent.left
+                    anchors.rightMargin: UI.MEDIUM_SPACING
+                    source: "images/right-shadow.png"
                 }
             }
 
