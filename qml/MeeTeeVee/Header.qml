@@ -8,7 +8,7 @@ Column {
     property alias title: label.text
     property alias subtitle: separator.title
     property alias logo: logo.source
-    property url link: "http://www.tvrage.com"
+    property url link
 
     spacing: UI.SMALL_SPACING
     width: parent ? parent.width : 0
@@ -33,6 +33,7 @@ Column {
             id: mouseArea
             width: root.width
             height: label.height + UI.SMALL_SPACING
+            enabled: root.link != ""
             onClicked: Qt.openUrlExternally(root.link)
         }
     }

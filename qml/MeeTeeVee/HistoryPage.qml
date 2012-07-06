@@ -31,6 +31,7 @@ CommonPage {
         header: Header {
             title: qsTr("History")
             logo: "images/tvr_logo.png"
+            link: "http://www.tvrage.com"
         }
 
         model: ListModel {

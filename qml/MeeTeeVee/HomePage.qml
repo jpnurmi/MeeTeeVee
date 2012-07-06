@@ -20,6 +20,7 @@ CommonPage {
             title: "MeeTeeVee"
             subtitle: qsTr("Latest updates")
             logo: "images/tvr_logo.png"
+            link: "http://www.tvrage.com"
         }
 
         model: XmlListModel {

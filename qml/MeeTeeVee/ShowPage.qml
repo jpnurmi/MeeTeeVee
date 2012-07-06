@@ -24,7 +24,8 @@ CommonPage {
 
             Header {
                 title: root.model ? Cache.showName(root.model.showId, root.model.name) : ""
-                subtitle: root.model.status === XmlListModel.Ready ? qsTr("Info") : ""
+                subtitle: !!root.model && root.model.status === XmlListModel.Ready ? qsTr("Info") : ""
+                link: root.model ? root.model.link : ""
             }
 
             Row {
