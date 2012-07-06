@@ -20,7 +20,7 @@ CommonPage {
             subtitle: qsTr("Season %1").arg(root.model.season)
         }
 
-        delegate: ListItem {
+        delegate: EpisodeDelegate {
             title: name
             subtitle: summary
             onClicked: {

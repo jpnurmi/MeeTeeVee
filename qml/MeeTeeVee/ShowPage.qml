@@ -156,7 +156,7 @@ CommonPage {
                 Repeater {
                     id: repeater
                     model: root.model ? root.model.seasons : 0
-                    ListItem {
+                    EpisodeDelegate {
                         title: qsTr("Season %1").arg(index + 1)
                         subtitle: episodeListModel.status === XmlListModel.Loading ? qsTr("Loading...") : qsTr("%1 episodes").arg(episodeListModel.count)
                         onClicked: {

@@ -22,10 +22,9 @@ CommonPage {
             id: favoritesModel
         }
 
-        delegate: ListItem {
+        delegate: ShowDelegate {
             title: showModel.name
-            subtitle: showModel.summary
-            thumbnailVisible: true
+            subtitles: [showModel.summary]
             thumbnail: showModel.image
             onClicked: {
                 var page = showPage.createObject(root, {model: showModel});
