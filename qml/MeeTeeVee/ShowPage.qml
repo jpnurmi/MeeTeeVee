@@ -111,7 +111,7 @@ CommonPage {
                     anchors.verticalCenter: parent.verticalCenter
                     source: root.model ? root.model.image : ""
                     fillMode: Image.PreserveAspectFit
-                    opacity: mouseArea.pressed ? UI.DISABLED_OPACITY : 1.0
+                    opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
 
                     MouseArea {
                         id: mouseArea

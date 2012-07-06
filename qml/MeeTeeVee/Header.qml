@@ -20,12 +20,12 @@ Column {
         font.family: UI.FONT_FAMILY
         font.pixelSize: UI.LARGE_FONT
         textFormat: Text.PlainText
-        color: mouseArea.pressed ? UI.PRESSED_COLOR : UI.TITLE_COLOR
+        color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
 
         Image {
             id: logo
             anchors.left: label.right
-            opacity: mouseArea.pressed ? UI.DISABLED_OPACITY : 1.0
+            opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
             anchors.verticalCenter: parent.verticalCenter
         }
 
