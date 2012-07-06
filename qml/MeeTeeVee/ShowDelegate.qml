@@ -27,13 +27,14 @@ Item {
             id: placeholder
             width: visible ? 100 : 0
             height: visible ? 100 : 0
-            color: UI.INFO_COLOR
+            color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.INFO_COLOR
             opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
             anchors.verticalCenter: parent.verticalCenter
             Image {
                 id: thumbnail
-                anchors.fill: parent
+                anchors.fill: placeholder
                 sourceSize { width: parent.width; height: parent.height }
+                z: mouseArea.pressed && mouseArea.containsMouse ? -1 : 0
             }
         }
 

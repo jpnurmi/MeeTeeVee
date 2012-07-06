@@ -105,18 +105,23 @@ CommonPage {
                     }
                 }
 
-                Image {
-                    id: image
+                Rectangle {
                     width: (parent.width - parent.spacing) / 2
-                    anchors.verticalCenter: parent.verticalCenter
-                    source: root.model ? root.model.image : ""
-                    fillMode: Image.PreserveAspectFit
+                    height: image.height
+                    color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.INFO_COLOR
                     opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
-
-                    MouseArea {
-                        id: mouseArea
-                        anchors.fill: parent
-                        onClicked: Qt.openUrlExternally(root.model.link)
+                    anchors.verticalCenter: parent.verticalCenter
+                    Image {
+                        id: image
+                        width: parent.width
+                        source: root.model ? root.model.image : ""
+                        fillMode: Image.PreserveAspectFit
+                        z: mouseArea.pressed && mouseArea.containsMouse ? -1 : 0
+                        MouseArea {
+                            id: mouseArea
+                            anchors.fill: parent
+                            onClicked: Qt.openUrlExternally(root.model.link)
+                        }
                     }
                 }
             }
