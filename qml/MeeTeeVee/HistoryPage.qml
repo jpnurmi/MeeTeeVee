@@ -40,7 +40,8 @@ CommonPage {
 
         delegate: ShowDelegate {
             title: Cache.showName(showid, showModel.name)
-            subtitles: showModel.subtitles()
+            subtitle: showModel.genres
+            description: showModel.description()
             thumbnail: Cache.showImage(showid, showModel.image.toString())
             onClicked: {
                 var page = showPage.createObject(root, {model: showModel});

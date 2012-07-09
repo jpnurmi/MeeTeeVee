@@ -6,26 +6,27 @@ Item {
     id: root
 
     property alias title: title.text
-    property alias subtitles: repeater.model
+    property alias subtitle: subtitle.text
+    property alias description: description.text
     property alias thumbnail: thumbnail.source
 
     signal clicked
     signal pressAndHold
 
     width: parent ? parent.width : 0
-    height: 100 + 2 * UI.MEDIUM_SPACING
+    height: UI.THUMBNAIL_SIZE + 2 * UI.MEDIUM_SPACING
 
     Row {
         id: row
 
         width: parent.width
         height: parent.height
-        spacing: placeholder.visible ? UI.MEDIUM_SPACING : 0
+        spacing: UI.MEDIUM_SPACING
 
         Rectangle {
             id: placeholder
-            width: visible ? 100 : 0
-            height: visible ? 100 : 0
+            width: UI.THUMBNAIL_SIZE
+            height: UI.THUMBNAIL_SIZE
             color: UI.INFO_COLOR
             opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
             anchors.verticalCenter: parent.verticalCenter
@@ -39,7 +40,7 @@ Item {
         Column {
             id: column
             anchors.verticalCenter: parent.verticalCenter
-            width: row.width - placeholder.width - row.spacing
+            width: row.width - placeholder.width - UI.MEDIUM_SPACING
 
             Text {
                 id: title
@@ -51,32 +52,30 @@ Item {
                 textFormat: Text.PlainText
                 maximumLineCount: 1
                 clip: true
-                Image {
-                    height: parent.height
-                    anchors.right: parent.left
-                    anchors.rightMargin: UI.MEDIUM_SPACING
-                    source: "images/right-shadow.png"
-                }
             }
 
-            Repeater {
-                id: repeater
-                Text {
-                    text: root.subtitles[index]
-                    width: column.width
-                    font.family: UI.FONT_FAMILY
-                    font.pixelSize: UI.SMALL_FONT
-                    font.weight: Font.Light
-                    color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
-                    textFormat: Text.PlainText
-                    maximumLineCount: 1
-                    clip: true
-                    Image {
-                        height: parent.height
-                        anchors.right: parent.right
-                        source: "images/right-shadow.png"
-                    }
-                }
+            Text {
+                id: subtitle
+                width: column.width
+                font.family: UI.FONT_FAMILY
+                font.pixelSize: UI.SMALL_FONT
+                font.weight: Font.Light
+                color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
+                textFormat: Text.PlainText
+                maximumLineCount: 1
+                clip: true
+            }
+
+            Text {
+                id: description
+                width: column.width
+                font.family: UI.FONT_FAMILY
+                font.pixelSize: UI.SMALL_FONT
+                font.weight: Font.Light
+                color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
+                textFormat: Text.PlainText
+                maximumLineCount: 1
+                clip: true
             }
         }
     }
@@ -86,5 +85,11 @@ Item {
         anchors.fill: parent
         onClicked: root.clicked()
         onPressAndHold: root.pressAndHold()
+    }
+
+    Image {
+        height: parent.height
+        anchors.right: parent.right
+        source: "images/right-shadow.png"
     }
 }

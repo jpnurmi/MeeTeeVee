@@ -5,6 +5,8 @@ var LARGE_SPACING = 16;
 var MEDIUM_SPACING = 8;
 var SMALL_SPACING = 2;
 
+var THUMBNAIL_SIZE = 100;
+
 var FONT_FAMILY = "Nokia Pure Text";
 var FONT_FAMILY_LIGHT = "Nokia Pure Text Light";
 

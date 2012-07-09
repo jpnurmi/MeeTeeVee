@@ -24,9 +24,10 @@ CommonPage {
         }
 
         delegate: ShowDelegate {
-            title: showModel.name
-            subtitles: [showModel.summary]
-            thumbnail: showModel.image
+            title: Cache.showName(showid, showModel.name)
+            subtitle: showModel.genres
+            description: showModel.description()
+            thumbnail: Cache.showImage(showid, showModel.image.toString())
             onClicked: {
                 var page = showPage.createObject(root, {model: showModel});
                 pageStack.push(page);
