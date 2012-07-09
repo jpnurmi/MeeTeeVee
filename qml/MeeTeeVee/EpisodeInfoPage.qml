@@ -5,11 +5,11 @@ import "UIConstants.js" as UI
 CommonPage {
     id: root
 
-    property alias showId: episodeInfoModel.showId
-    property alias number: episodeInfoModel.number
+    property alias title: header.title
+    property alias summary: summary.text
 
-    busy: episodeInfoModel.status === XmlListModel.Loading
-    placeholder: busy ? qsTr("Loading...") : episodeInfoModel.count <= 0 ? qsTr("Not available") : ""
+//    busy: episodeInfoModel.status === XmlListModel.Loading
+//    placeholder: busy ? qsTr("Loading...") : episodeInfoModel.count <= 0 ? qsTr("Not available") : ""
 
     flickable: Flickable {
         id: flickable
@@ -22,8 +22,8 @@ CommonPage {
             spacing: UI.MEDIUM_SPACING
 
             Header {
-                title: qsTr("%1: %2").arg(root.number).arg(episodeInfoModel.title)
-                subtitle: episodeInfoModel.status === XmlListModel.Ready ? qsTr("Summary") : ""
+                id: header
+                subtitle: qsTr("Summary")
             }
 
             Expander {
@@ -33,15 +33,10 @@ CommonPage {
                     id: summary
                     width: parent.width
                     visible: text.length
-                    text: episodeInfoModel.summary
                     font.family: UI.FONT_FAMILY
                     font.pixelSize: UI.MEDIUM_FONT
                 }
             }
         }
-    }
-
-    EpisodeInfoModel {
-        id: episodeInfoModel
     }
 }
