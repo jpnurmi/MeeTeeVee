@@ -38,7 +38,10 @@ Page {
         color: UI.INFO_COLOR
         anchors.baseline: parent.top
         anchors.baselineOffset: screen.displayWidth / 2
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.left: parent.left
+        anchors.right: parent.right
+        horizontalAlignment: Text.AlignHCenter
+        wrapMode: Text.Wrap
         transform: Translate {
             y: root.flickable ? -root.flickable.contentY : 0
         }
