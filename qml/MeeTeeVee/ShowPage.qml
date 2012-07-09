@@ -101,10 +101,6 @@ CommonPage {
                         font.pixelSize: UI.SMALL_FONT
                         textFormat: Text.PlainText
                     }
-                    RatingIndicator {
-                        maximumValue: 5
-                        visible: root.model.status === XmlListModel.Ready
-                    }
                 }
 
                 Image {
