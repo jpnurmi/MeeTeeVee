@@ -26,16 +26,12 @@ CommonPage {
                 subtitle: qsTr("Summary")
             }
 
-            Expander {
+            Label {
+                id: summary
                 width: parent.width
-                preferredHeight: 300 // summary.height > general.height + 120 ? general.height : summary.height
-                Label {
-                    id: summary
-                    width: parent.width
-                    visible: text.length
-                    font.family: UI.FONT_FAMILY
-                    font.pixelSize: UI.MEDIUM_FONT
-                }
+                visible: text.length
+                font.family: UI.FONT_FAMILY
+                font.pixelSize: UI.MEDIUM_FONT
             }
         }
     }
