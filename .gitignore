@@ -16,7 +16,7 @@ qmakepluginstubs
 *.rej
 *.exe
 *.orig
-*.pro.user
+*.pro.user*
 *.qmlproject.user
 *.xcodeproj
 *.plist
