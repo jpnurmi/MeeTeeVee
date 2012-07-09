@@ -2,7 +2,6 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 import "Cache.js" as Cache
 import "UIConstants.js" as UI
-import "History.js" as History
 
 CommonPage {
     id: root
@@ -34,8 +33,9 @@ CommonPage {
             link: "http://www.tvrage.com"
         }
 
-        model: ListModel {
+        model: StorageModel {
             id: historyModel
+            name: "History"
         }
 
         delegate: ShowDelegate {
@@ -56,18 +56,5 @@ CommonPage {
     Component {
         id: showPage
         ShowPage { }
-    }
-
-    Component.onCompleted: {
-        var history = History.restore();
-        for (var i = 0; i < history.length; ++i)
-            historyModel.append({"showid": history[i]});
-    }
-
-    Component.onDestruction: {
-        var history = [];
-        for (var i = 0; i < historyModel.count; ++i)
-            history.push(historyModel.get(i).showid);
-        History.save(history);
     }
 }

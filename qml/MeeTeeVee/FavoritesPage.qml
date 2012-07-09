@@ -18,8 +18,9 @@ CommonPage {
             link: "http://www.tvrage.com"
         }
 
-        model: ListModel {
+        model: StorageModel {
             id: favoritesModel
+            name: "Favorites"
         }
 
         delegate: ShowDelegate {
