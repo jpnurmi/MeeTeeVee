@@ -1,5 +1,6 @@
 import QtQuick 1.1
 import "Cache.js" as Cache
+import "UIConstants.js" as UI
 
 CommonPage {
     id: root
@@ -16,8 +17,15 @@ CommonPage {
 
         header: Header {
             title: qsTr("Search")
-            logo: "images/tvr_logo.png"
-            link: "http://www.tvrage.com"
+            content: Image {
+                source: "images/tvr_logo.png"
+                opacity: logoArea.pressed && logoArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
+                MouseArea {
+                    id: logoArea
+                    anchors.fill: parent
+                    onClicked: Qt.openUrlExternally("http://www.tvrage.com")
+                }
+            }
 
             SearchBox {
                 id: searchBox

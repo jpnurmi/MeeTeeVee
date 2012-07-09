@@ -25,7 +25,18 @@ CommonPage {
             Header {
                 title: root.model ? Cache.showName(root.model.showId, root.model.name) : ""
                 subtitle: !!root.model && root.model.status === XmlListModel.Ready ? qsTr("Info") : ""
-                link: root.model ? root.model.link : ""
+                content: Image {
+                    property bool favorited: false
+                    source: favoriteArea.pressed && favoriteArea.containsMouse ?
+                                "image://theme/icon-m-common-favorite-mark-inverse" :
+                                favorited ? "image://theme/icon-m-common-favorite-mark-selected" :
+                                            "image://theme/icon-m-common-favorite-unmark-inverse"
+                    MouseArea {
+                        id: favoriteArea
+                        anchors.fill: parent
+                        onClicked: parent.favorited = !parent.favorited
+                    }
+                }
             }
 
             Row {

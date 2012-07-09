@@ -29,8 +29,15 @@ CommonPage {
 
         header: Header {
             title: qsTr("History")
-            logo: "images/tvr_logo.png"
-            link: "http://www.tvrage.com"
+            content: Image {
+                source: "images/tvr_logo.png"
+                opacity: logoArea.pressed && logoArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
+                MouseArea {
+                    id: logoArea
+                    anchors.fill: parent
+                    onClicked: Qt.openUrlExternally("http://www.tvrage.com")
+                }
+            }
         }
 
         model: StorageModel {

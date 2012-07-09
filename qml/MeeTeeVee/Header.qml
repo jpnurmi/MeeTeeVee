@@ -7,34 +7,26 @@ Column {
 
     property alias title: label.text
     property alias subtitle: separator.title
-    property alias logo: logo.source
-    property url link
+    property alias content: content.data
 
     spacing: UI.SMALL_SPACING
     width: parent ? parent.width : 0
 
     Label {
         id: label
-        width: parent.width - logo.width
+        width: parent.width - content.width
         font.weight: Font.Light
         font.family: UI.FONT_FAMILY
         font.pixelSize: UI.LARGE_FONT
         textFormat: Text.PlainText
-        color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
+        color: UI.TITLE_COLOR
 
-        Image {
-            id: logo
+        Item {
+            id: content
+            width: childrenRect.width
+            height: childrenRect.height
             anchors.left: label.right
-            opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
             anchors.verticalCenter: parent.verticalCenter
-        }
-
-        MouseArea {
-            id: mouseArea
-            width: root.width
-            height: label.height + UI.SMALL_SPACING
-            enabled: root.link != ""
-            onClicked: Qt.openUrlExternally(root.link)
         }
     }
 
