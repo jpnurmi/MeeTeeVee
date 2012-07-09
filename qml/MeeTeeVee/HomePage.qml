@@ -9,7 +9,7 @@ CommonPage {
     signal showed(string showId)
 
     busy: updatesModel.status === XmlListModel.Loading
-    placeholder: busy ? qsTr("Loading...") : listView.count <= 0 ? qsTr("No updates") : ""
+    placeholder: busy ? qsTr("Loading...") : listView.count <= 0 ? qsTr("No recent updates") : ""
 
     flickable: ListView {
         id: listView
@@ -18,14 +18,14 @@ CommonPage {
 
         header: Header {
             title: "MeeTeeVee"
-            subtitle: qsTr("Latest updates")
+            subtitle: qsTr("Recent updates")
             logo: "images/tvr_logo.png"
             link: "http://www.tvrage.com"
         }
 
         model: XmlListModel {
             id: updatesModel
-            source: "http://services.tvrage.com/feeds/last_updates.php?&sort=episodes&hours=2"
+            source: "http://services.tvrage.com/feeds/last_updates.php?&sort=episodes&hours=1"
             query: "/updates/show"
             XmlRole { name: "showid"; query: "id/string()"; isKey: true }
             XmlRole { name: "last"; query: "last/number()" }
