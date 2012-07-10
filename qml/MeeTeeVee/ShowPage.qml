@@ -26,7 +26,7 @@ CommonPage {
                 title: root.model ? Cache.showName(root.model.showId, root.model.name) : ""
                 subtitle: !!root.model && root.model.status === XmlListModel.Ready ? qsTr("Info") : ""
                 content: Image {
-                    visible: !!root.model
+                    visible: !!root.model && favoritesModel.loaded
                     source: favoriteArea.pressed && favoriteArea.containsMouse ?
                                 "image://theme/icon-m-common-favorite-mark-inverse" :
                                 root.model.favorited ? "image://theme/icon-m-common-favorite-mark-selected" :
@@ -36,9 +36,9 @@ CommonPage {
                         anchors.fill: parent
                         onClicked: {
                             if (!root.model.favorited)
-                                favoritesPage.add(root.model.showId);
+                                favoritesModel.add(root.model.showId);
                             else
-                                favoritesPage.remove(root.model.showId);
+                                favoritesModel.remove(root.model.showId);
                         }
                     }
                 }

@@ -37,6 +37,9 @@ PageStackWindow {
                 FavoritesPage {
                     id: favoritesPage
                     tools: tabBar
+                    model: FavoritesModel {
+                        id: favoritesModel
+                    }
                     onShowed: historyPage.add(showId)
                 }
                 Component.onCompleted: favoritesTab.push(favoritesPage)
@@ -57,7 +60,7 @@ PageStackWindow {
         id: showPage
         ShowPage {
             Component.onCompleted: {
-                model.favorited = favoritesPage.indexOf(model.showId) != -1;
+                model.favorited = favoritesModel.indexOf(model.showId) != -1;
             }
         }
     }
@@ -93,6 +96,7 @@ PageStackWindow {
 
     Component.onCompleted: {
         theme.inverted = true;
+        favoritesModel.load();
         var tab = Settings.read("currentTab");
         tabGroup.currentTab = tab == "search" ? searchTab :
                               tab == "favorites" ? favoritesTab :

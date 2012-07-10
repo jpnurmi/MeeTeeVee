@@ -2,37 +2,15 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 import "Cache.js" as Cache
 import "UIConstants.js" as UI
-import "Favorites.js" as Favorites
 
 CommonPage {
     id: root
 
+    property alias model: listView.model
+
     signal showed(string showId)
 
-    function indexOf(showId) {
-        for (var i = 0; i < favoritesModel.count; ++i) {
-            if (favoritesModel.get(i).showid === showId)
-                return i;
-        }
-        return -1;
-    }
-
-    function add(showId) {
-        if (indexOf(showId) == -1) {
-            favoritesModel.insert(0, {"showid": showId});
-            Favorites.setFavorited(showId, true);
-        }
-    }
-
-    function remove(showId) {
-        var i = indexOf(showId);
-        if (i != -1) {
-            favoritesModel.remove(i);
-            Favorites.setFavorited(showId, false);
-        }
-    }
-
-    busy: favoritesModel.loading
+    busy: model.loading
     placeholder: busy ? qsTr("Loading...") : listView.count <= 0 ? qsTr("No favorites") : ""
 
     flickable: ListView {
@@ -51,11 +29,6 @@ CommonPage {
                     onClicked: Qt.openUrlExternally("http://www.tvrage.com")
                 }
             }
-        }
-
-        model: StorageModel {
-            id: favoritesModel
-            name: "Favorites"
         }
 
         delegate: ShowDelegate {
@@ -78,10 +51,5 @@ CommonPage {
                 }
             }
         }
-    }
-
-    onStatusChanged: {
-        if (status === PageStatus.Activating && !favoritesModel.loaded && !favoritesModel.loading)
-            favoritesModel.load();
     }
 }
