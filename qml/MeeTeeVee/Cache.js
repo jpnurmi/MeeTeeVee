@@ -1,7 +1,10 @@
 .pragma library
 
 var __db = null;
-var __tables = ["ShowNames", "ShowImages", "ShowSummaries", "ShowGenres", "ShowDescriptions", "LatestEpisodes", "LatestAirdates"];
+var __tables = ["ShowNames", "ShowImages", "ShowSummaries", "ShowGenres", "ShowStatuses",
+                "ShowNetworks", "ShowClassifications", "ShowStarts", "ShowEnds",
+                "ShowAirdays", "ShowAirtimes", "ShowRuntimes", "ShowDescriptions",
+                "LatestEpisodes", "LatestAirdates"];
 
 function showName(id, name) {
     return __getValue("ShowNames", id, name);
@@ -17,6 +20,38 @@ function showSummary(id, summary) {
 
 function showGenres(id, genres) {
     return __getValue("ShowGenres", id, genres);
+}
+
+function showStatus(id, status) {
+    return __getValue("ShowStatuses", id, status);
+}
+
+function showNetwork(id, network) {
+    return __getValue("ShowNetworks", id, network);
+}
+
+function showClassification(id, classification) {
+    return __getValue("ShowClassifications", id, classification);
+}
+
+function showStarted(id, started) {
+    return __getValue("ShowStarts", id, started);
+}
+
+function showEnded(id, ended) {
+    return __getValue("ShowEnds", id, ended);
+}
+
+function showAirday(id, airday) {
+    return __getValue("ShowAirdays", id, airday);
+}
+
+function showAirtime(id, airtime) {
+    return __getValue("ShowAirtimes", id, airtime);
+}
+
+function showRuntime(id, runtime) {
+    return __getValue("ShowRuntimes", id, runtime);
 }
 
 function showDescription(id, description) {
