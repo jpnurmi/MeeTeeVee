@@ -17,8 +17,8 @@ CommonPage {
 
     function add(showId) {
         if (indexOf(showId) == -1) {
-            favoritesModel.append({"showid": showId});
-            updateFavorites();
+            favoritesModel.insert(0, {"showid": showId});
+            Favorites.setFavorited(showId, true);
         }
     }
 
@@ -26,14 +26,7 @@ CommonPage {
         var i = indexOf(showId);
         if (i != -1) {
             favoritesModel.remove(i);
-            updateFavorites();
-        }
-    }
-
-    function updateFavorites() {
-        for (var i = 0; i < Favorites.showModels.length; ++i) {
-            var model = Favorites.showModels[i];
-            model.favorited = indexOf(model.showId) != -1;
+            Favorites.setFavorited(showId, false);
         }
     }
 

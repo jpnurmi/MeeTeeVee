@@ -81,6 +81,6 @@ XmlListModel {
         }
     }
 
-    Component.onCompleted: Favorites.addShowModel(root)
-    Component.onDestruction: Favorites.removeShowModel(root)
+    Component.onCompleted: Favorites.registerObserver(root)
+    Component.onDestruction: Favorites.unregisterObserver(root)
 }

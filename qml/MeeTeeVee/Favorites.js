@@ -1,13 +1,21 @@
 .pragma library
 
-var showModels = [];
+var observers = [];
 
-function addShowModel(model) {
-    showModels.push(model);
+function registerObserver(observer) {
+    observers.push(observer);
 }
 
-function removeShowModel(model) {
-    var idx = showModels.indexOf(model);
+function unregisterObserver(observer) {
+    var idx = observers.indexOf(observer);
     if (idx != -1)
-        showModels.splice(idx, 1);
+        observers.splice(idx, 1);
+}
+
+function setFavorited(showId, favorited) {
+    for (var i = 0; i < observers.length; ++i) {
+        var observer = observers[i];
+        if (observer.showId == showId)
+            observer.favorited = favorited;
+    }
 }
