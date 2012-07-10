@@ -1,6 +1,7 @@
 .pragma library
 
 var __db = null;
+var __tables = ["ShowNames", "ShowImages", "ShowGenres", "ShowDescriptions", "LatestEpisodes", "LatestAirdates"];
 
 function showName(id, name) {
     return __getValue("ShowNames", id, name);
@@ -10,13 +11,29 @@ function showImage(id, image) {
     return __getValue("ShowImages", id, image);
 }
 
+function showGenres(id, genres) {
+    return __getValue("ShowGenres", id, genres);
+}
+
+function showDescription(id, description) {
+    return __getValue("ShowDescriptions", id, description);
+}
+
+function latestEpisode(id, episode) {
+    return __getValue("LatestEpisodes", id, episode);
+}
+
+function latestAirdate(id, airdate) {
+    return __getValue("LatestAirdates", id, airdate);
+}
+
 function __open() {
     if (!__db) {
         __db = openDatabaseSync("MeeTeeVee", "1.0", "Cache", 4096);
         __db.transaction(
             function(tx) {
-                tx.executeSql("CREATE TABLE IF NOT EXISTS ShowNames(id TEXT UNIQUE, value TEXT)");
-                tx.executeSql("CREATE TABLE IF NOT EXISTS ShowImages(id TEXT UNIQUE, value TEXT)");
+                for (var i = 0; i < __tables.length; ++i)
+                    tx.executeSql("CREATE TABLE IF NOT EXISTS " + __tables[i] + "(id TEXT UNIQUE, value TEXT)");
             }
         )
     }
