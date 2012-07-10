@@ -142,7 +142,7 @@ CommonPage {
                     id: summary
                     width: parent.width
                     visible: text.length
-                    text: root.model ? root.model.summary : ""
+                    text: root.model ? Cache.showSummary(root.model.showId, root.model.summary) : ""
                     font.family: UI.FONT_FAMILY
                     font.pixelSize: UI.MEDIUM_FONT
                 }

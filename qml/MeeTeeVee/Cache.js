@@ -1,7 +1,7 @@
 .pragma library
 
 var __db = null;
-var __tables = ["ShowNames", "ShowImages", "ShowGenres", "ShowDescriptions", "LatestEpisodes", "LatestAirdates"];
+var __tables = ["ShowNames", "ShowImages", "ShowSummaries", "ShowGenres", "ShowDescriptions", "LatestEpisodes", "LatestAirdates"];
 
 function showName(id, name) {
     return __getValue("ShowNames", id, name);
@@ -9,6 +9,10 @@ function showName(id, name) {
 
 function showImage(id, image) {
     return __getValue("ShowImages", id, image);
+}
+
+function showSummary(id, summary) {
+    return __getValue("ShowSummaries", id, summary);
 }
 
 function showGenres(id, genres) {
