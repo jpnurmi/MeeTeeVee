@@ -49,7 +49,7 @@ function __getValue(scope, id, value) {
     if (value.length) {
         __db.transaction(
             function(tx) {
-                var rs = tx.executeSql("UPDATE " + scope + " SET value=\"" + value + "\" WHERE id='" + id + "'");
+                var rs = tx.executeSql("UPDATE " + scope + " SET value=? WHERE id=?", [value, id]);
                 if (rs.rowsAffected <= 0)
                     tx.executeSql("INSERT INTO " + scope + " VALUES (?, ?)", [id, value]);
             }
@@ -57,7 +57,7 @@ function __getValue(scope, id, value) {
     } else {
         __db.readTransaction(
             function(tx) {
-                var rs = tx.executeSql("SELECT value FROM " + scope + " WHERE id='" + id + "'");
+                var rs = tx.executeSql("SELECT value FROM " + scope + " WHERE id=?", [id]);
                 if (rs.rows.length)
                     value = rs.rows.item(0).value;
             }
