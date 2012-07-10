@@ -30,13 +30,19 @@ CommonPage {
                 id: searchBox
                 width: parent.width
                 placeholderText: qsTr("Search")
-                Keys.onEnterPressed: { searchModel.showName = text; searchModel.reload(); closeSoftwareInputPanel(); parent.forceActiveFocus(); }
-                Keys.onReturnPressed: { searchModel.showName = text; searchModel.reload(); closeSoftwareInputPanel(); parent.forceActiveFocus(); }
+                onTextChanged: if (searchModel.showName) searchModel.showName = "";
+                Keys.onEnterPressed: { searchModel.search(text); closeSoftwareInputPanel(); parent.forceActiveFocus(); }
+                Keys.onReturnPressed: { searchModel.search(text); closeSoftwareInputPanel(); parent.forceActiveFocus(); }
             }
         }
 
         model: SearchModel {
             id: searchModel
+            function search(text) {
+                showName = "";
+                showName = text;
+                reload();
+            }
         }
 
         delegate: ShowDelegate {
