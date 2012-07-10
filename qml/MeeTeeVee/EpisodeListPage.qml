@@ -28,7 +28,7 @@ CommonPage {
             subtitle: model.airdate
             rating: model.rating
             onClicked: {
-                var page = episodeInfoPage.createObject(root, {title: delegate.title, summary: model.summary});
+                var page = episodeInfoPage.createObject(root, {title: delegate.title, summary: model.summary, screencap: model.screencap});
                 pageStack.push(page);
                 // TODO: root.showed(showid);
             }

@@ -15,4 +15,5 @@ XmlListModel {
     XmlRole { name: "airdate"; query: "airdate/string()" }
     XmlRole { name: "link"; query: "link/string()" }
     XmlRole { name: "rating"; query: "rating/string()" }
+    XmlRole { name: "screencap"; query: "screencap/string()" }
 }

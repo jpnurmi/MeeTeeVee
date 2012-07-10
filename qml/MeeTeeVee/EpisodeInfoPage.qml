@@ -7,9 +7,9 @@ CommonPage {
 
     property alias title: header.title
     property alias summary: summary.text
+    property alias screencap: screencap.source
 
-//    busy: episodeInfoModel.status === XmlListModel.Loading
-//    placeholder: busy ? qsTr("Loading...") : episodeInfoModel.count <= 0 ? qsTr("Not available") : ""
+    placeholder: title == "" && summary == "" && screencap == ""  ? qsTr("No info available") : ""
 
     flickable: Flickable {
         id: flickable
@@ -23,7 +23,7 @@ CommonPage {
 
             Header {
                 id: header
-                subtitle: qsTr("Summary")
+                subtitle: summary.text != "" ? qsTr("Summary") : screencap.source != "" ? qsTr("Screencap") : ""
             }
 
             Label {
@@ -32,6 +32,16 @@ CommonPage {
                 visible: text.length
                 font.family: UI.FONT_FAMILY
                 font.pixelSize: UI.MEDIUM_FONT
+            }
+
+            Separator {
+                title: qsTr("Screencap")
+                visible: summary.text != "" && screencap.source != ""
+            }
+
+            Image {
+                id: screencap
+                width: Math.min(implicitWidth, parent.width)
             }
         }
     }
