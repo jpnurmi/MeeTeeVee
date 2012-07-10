@@ -60,9 +60,4 @@ CommonPage {
             }
         }
     }
-
-    Component {
-        id: showPage
-        ShowPage { }
-    }
 }

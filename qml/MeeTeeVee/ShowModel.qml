@@ -5,7 +5,7 @@ XmlListModel {
     id: root
 
     property string showId
-    property bool favorited: favoritesPage.indexOf(showId) != -1
+    property bool favorited
 
     property string name
     property string link

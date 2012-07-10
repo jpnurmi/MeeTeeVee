@@ -48,6 +48,15 @@ PageStackWindow {
         }
     }
 
+    Component {
+        id: showPage
+        ShowPage {
+            Component.onCompleted: {
+                model.favorited = favoritesPage.indexOf(model.showId) != -1;
+            }
+        }
+    }
+
     ToolBarLayout {
         id: tabBar
         ToolIcon {
