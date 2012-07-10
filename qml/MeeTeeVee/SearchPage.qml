@@ -31,8 +31,8 @@ CommonPage {
                 id: searchBox
                 width: parent.width
                 placeholderText: qsTr("Search")
-                Keys.onEnterPressed: { searchModel.showName = text; closeSoftwareInputPanel(); parent.forceActiveFocus(); }
-                Keys.onReturnPressed: { searchModel.showName = text; closeSoftwareInputPanel(); parent.forceActiveFocus(); }
+                Keys.onEnterPressed: { searchModel.showName = text; searchModel.reload(); closeSoftwareInputPanel(); parent.forceActiveFocus(); }
+                Keys.onReturnPressed: { searchModel.showName = text; searchModel.reload(); closeSoftwareInputPanel(); parent.forceActiveFocus(); }
             }
         }
 
