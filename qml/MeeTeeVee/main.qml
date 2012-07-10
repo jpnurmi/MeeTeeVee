@@ -37,6 +37,7 @@ PageStackWindow {
                 FavoritesPage {
                     id: favoritesPage
                     tools: tabBar
+                    onShowed: historyPage.add(showId)
                 }
                 Component.onCompleted: favoritesTab.push(favoritesPage)
             }

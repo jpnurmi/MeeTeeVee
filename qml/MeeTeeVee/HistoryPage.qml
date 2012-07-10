@@ -19,8 +19,8 @@ CommonPage {
             historyModel.remove(10, historyModel.count - 10);
     }
 
-    //busy: historyModel.status === XmlListModel.Loading
-    placeholder: /*busy ? qsTr("Loading...") :*/ listView.count <= 0 ? qsTr("No history") : ""
+    busy: historyModel.loading
+    placeholder: busy ? qsTr("Loading...") : listView.count <= 0 ? qsTr("No history") : ""
 
     flickable: ListView {
         id: listView
@@ -59,5 +59,10 @@ CommonPage {
                 showId: showid
             }
         }
+    }
+
+    onStatusChanged: {
+        if (status === PageStatus.Activating && !historyModel.loaded)
+            historyModel.load();
     }
 }

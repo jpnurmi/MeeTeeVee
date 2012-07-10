@@ -7,6 +7,8 @@ import "Favorites.js" as Favorites
 CommonPage {
     id: root
 
+    signal showed(string showId)
+
     function indexOf(showId) {
         for (var i = 0; i < favoritesModel.count; ++i) {
             if (favoritesModel.get(i).showid === showId)
@@ -30,8 +32,8 @@ CommonPage {
         }
     }
 
-    //busy: favoritesModel.status === XmlListModel.Loading
-    placeholder: /*busy ? qsTr("Loading...") :*/ listView.count <= 0 ? qsTr("No favorites") : ""
+    busy: favoritesModel.loading
+    placeholder: busy ? qsTr("Loading...") : listView.count <= 0 ? qsTr("No favorites") : ""
 
     flickable: ListView {
         id: listView
@@ -64,7 +66,7 @@ CommonPage {
             onClicked: {
                 var page = showPage.createObject(root, {model: showModel});
                 pageStack.push(page);
-                root.add(showid);
+                root.showed(showid);
             }
             ShowModel {
                 id: showModel
@@ -76,5 +78,10 @@ CommonPage {
                 }
             }
         }
+    }
+
+    onStatusChanged: {
+        if (status === PageStatus.Activating && !favoritesModel.loaded)
+            favoritesModel.load();
     }
 }
