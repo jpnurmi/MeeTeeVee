@@ -18,24 +18,26 @@ function __open() {
     return __db;
 }
 
-function get(scope, id, value) {
+function read(scope, id) {
+    var value = "";
     __db = __open();
-    if (value.length) {
-        __db.transaction(
-            function(tx) {
-                var rs = tx.executeSql("UPDATE " + scope + " SET value=? WHERE id=?", [value, id]);
-                if (rs.rowsAffected <= 0)
-                    tx.executeSql("INSERT INTO " + scope + " VALUES (?, ?)", [id, value]);
-            }
-        )
-    } else {
-        __db.readTransaction(
-            function(tx) {
-                var rs = tx.executeSql("SELECT value FROM " + scope + " WHERE id=?", [id]);
-                if (rs.rows.length)
-                    value = rs.rows.item(0).value;
-            }
-        )
-    }
+    __db.readTransaction(
+        function(tx) {
+            var rs = tx.executeSql("SELECT value FROM " + scope + " WHERE id=?", [id]);
+            if (rs.rows.length)
+                value = rs.rows.item(0).value;
+        }
+    )
     return value;
+}
+
+function write(scope, id, value) {
+    __db = __open();
+    __db.transaction(
+        function(tx) {
+            var rs = tx.executeSql("UPDATE " + scope + " SET value=? WHERE id=?", [value, id]);
+            if (rs.rowsAffected <= 0)
+                tx.executeSql("INSERT INTO " + scope + " VALUES (?, ?)", [id, value]);
+        }
+    )
 }

@@ -8,22 +8,22 @@ XmlListModel {
     property string showId
     property bool favorited
 
-    property string name: showId ? Cache.get("name", showId, d.name) : ""
-    property string link: showId ? Cache.get("link", showId, d.link) : ""
-    property string seasons: showId ? Cache.get("seasons", showId, d.seasons) : ""
-    property string image: showId ? Cache.get("image", showId, d.image) : ""
-    property string started: showId ? Cache.get("started", showId, d.started) : ""
-    property string ended: showId ? Cache.get("ended", showId, d.ended) : ""
-    property string country: showId ? Cache.get("country", showId, d.country) : ""
-    property string showStatus: showId ? Cache.get("status", showId, d.status) : ""
-    property string classification: showId ? Cache.get("classification", showId, d.classification) : ""
-    property string summary: showId ? Cache.get("summary", showId, d.summary) : ""
-    property string genres: showId ? Cache.get("genres", showId, d.genres) : ""
-    property string runtime: showId ? Cache.get("runtime", showId, d.runtime) : ""
-    property string network: showId ? Cache.get("network", showId, d.network) : ""
-    property string airtime: showId ? Cache.get("airtime", showId, d.airtime) : ""
-    property string airday: showId ? Cache.get("airday", showId, d.airday) : ""
-    property string timezone: showId ? Cache.get("timezone", showId, d.timezone) : ""
+    property string name
+    property string link
+    property string seasons
+    property string image
+    property string started
+    property string ended
+    property string country
+    property string showStatus
+    property string classification
+    property string summary
+    property string genres
+    property string runtime
+    property string network
+    property string airtime
+    property string airday
+    property string timezone
 
     function description() {
         if (started.length && ended.length) {
@@ -60,46 +60,54 @@ XmlListModel {
     XmlRole { name: "airday"; query: "airday/string()" }
     XmlRole { name: "timezone"; query: "timezone/string()" }
 
-    property QtObject cache: QtObject{
-        id: d
-        property string name
-        property string link
-        property string seasons
-        property string image
-        property string started
-        property string ended
-        property string country
-        property string status
-        property string classification
-        property string summary
-        property string genres
-        property string runtime
-        property string network
-        property string airtime
-        property string airday
-        property string timezone
-    }
-
     onCountChanged: {
         if (count === 1) {
-            var item = get(0);
-            d.name = item.showname;
-            d.link = item.showlink;
-            d.seasons = item.seasons;
-            d.image = item.image;
-            d.started = item.started;
-            d.ended = item.ended;
-            d.country = item.country;
-            d.status = item.status;
-            d.classification = item.classification;
-            d.summary = item.summary;
-            d.genres = item.genres.split("|").filter(String).join(", ");
-            d.runtime = item.runtime;
-            d.network = item.network;
-            d.airtime = item.airtime;
-            d.airday = item.airday;
-            d.timezone = item.timezone;
+            writeCache(get(0));
+            readCache();
         }
+    }
+
+    onShowIdChanged: {
+        if (showId !== "")
+            readCache();
+    }
+
+    function readCache() {
+        name = Cache.read("name", showId);
+        link = Cache.read("link", showId);
+        seasons = Cache.read("seasons", showId);
+        image = Cache.read("image", showId);
+        started = Cache.read("started", showId);
+        ended = Cache.read("ended", showId);
+        country = Cache.read("country", showId);
+        showStatus = Cache.read("status", showId);
+        classification = Cache.read("classification", showId);
+        summary = Cache.read("summary", showId);
+        genres = Cache.read("genres", showId);
+        runtime = Cache.read("runtime", showId);
+        network = Cache.read("network", showId);
+        airtime = Cache.read("airtime", showId);
+        airday = Cache.read("airday", showId);
+        timezone = Cache.read("timezone", showId)
+    }
+
+    function writeCache(item) {
+        Cache.write("name", item.showname);
+        Cache.write("link", item.showlink);
+        Cache.write("seasons", item.seasons);
+        Cache.write("image", item.image);
+        Cache.write("started", item.started);
+        Cache.write("ended", item.ended);
+        Cache.write("country", item.country);
+        Cache.write("status", item.status);
+        Cache.write("classification", item.classification);
+        Cache.write("summary", item.summary);
+        Cache.write("genres", item.genres.split("|").filter(String).join(", "));
+        Cache.write("runtime", item.runtime);
+        Cache.write("network", item.network);
+        Cache.write("airtime", item.airtime);
+        Cache.write("airday", item.airday);
+        Cache.write("timezone", item.timezone);
     }
 
     Component.onCompleted: Favorites.registerObserver(root)
