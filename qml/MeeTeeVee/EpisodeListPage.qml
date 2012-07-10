@@ -27,6 +27,9 @@ CommonPage {
             title: qsTr("%1: %2").arg(seasonNumber + "x" + episodeNumber).arg(name)
             subtitle: model.airdate
             rating: model.rating
+            hasSummary: model.summary != ""
+            hasScreencap: model.screencap != ""
+            enabled: hasSummary || hasScreencap
             onClicked: {
                 var page = episodeInfoPage.createObject(root, {title: delegate.title, summary: model.summary, screencap: model.screencap});
                 pageStack.push(page);
