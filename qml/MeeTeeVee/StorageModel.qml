@@ -31,9 +31,9 @@ ListModel {
         var db = __open();
         db.transaction(
             function(tx) {
-                tx.executeSql("DELETE FROM History");
+                tx.executeSql("DELETE FROM " + name);
                 for (var i = 0; i < count; ++i)
-                    tx.executeSql("INSERT INTO History VALUES (?)", [get(i).showid]);
+                    tx.executeSql("INSERT INTO " + name + " VALUES (?)", [get(i).showid]);
             }
         )
     }
