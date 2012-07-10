@@ -12,7 +12,10 @@ Item {
     clip: true
     height: (expanded ? container.height : container.minimumHeight) + (obscured ? arrow.implicitHeight : 0)
 
-    Behavior on height { NumberAnimation { duration: root.duration; easing.type: Easing.InCubic } }
+    Behavior on height {
+        enabled: !!container.children
+        NumberAnimation { duration: root.duration; easing.type: Easing.InCubic }
+    }
 
     Item {
         id: container

@@ -142,6 +142,7 @@ CommonPage {
 
             Expander {
                 width: parent.width
+                visible: summary.text.length
                 preferredHeight: summary.height > general.height + 120 ? general.height : summary.height
                 Label {
                     id: summary
