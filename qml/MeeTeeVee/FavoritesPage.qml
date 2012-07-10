@@ -2,9 +2,40 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 import "Cache.js" as Cache
 import "UIConstants.js" as UI
+import "Favorites.js" as Favorites
 
 CommonPage {
     id: root
+
+    function indexOf(showId) {
+        for (var i = 0; i < favoritesModel.count; ++i) {
+            if (favoritesModel.get(i).showid === showId)
+                return i;
+        }
+        return -1;
+    }
+
+    function add(showId) {
+        if (indexOf(showId) == -1) {
+            favoritesModel.append({"showid": showId});
+            updateFavorites();
+        }
+    }
+
+    function remove(showId) {
+        var i = indexOf(showId);
+        if (i != -1) {
+            favoritesModel.remove(i);
+            updateFavorites();
+        }
+    }
+
+    function updateFavorites() {
+        for (var i = 0; i < Favorites.showModels.length; ++i) {
+            var model = Favorites.showModels[i];
+            model.favorited = indexOf(model.showId) != -1;
+        }
+    }
 
     //busy: favoritesModel.status === XmlListModel.Loading
     placeholder: /*busy ? qsTr("Loading...") :*/ listView.count <= 0 ? qsTr("No favorites") : ""
@@ -45,6 +76,11 @@ CommonPage {
             ShowModel {
                 id: showModel
                 showId: showid
+                Component.onDestruction: {
+                    var page = pageStack.currentPage;
+                    if (page && page.model === showModel)
+                        pageStack.pop();
+                }
             }
         }
     }

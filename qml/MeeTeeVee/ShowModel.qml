@@ -1,9 +1,11 @@
 import QtQuick 1.1
+import "Favorites.js" as Favorites
 
 XmlListModel {
     id: root
 
     property string showId
+    property bool favorited: favoritesPage.indexOf(showId) != -1
 
     property string name
     property string link
@@ -78,4 +80,7 @@ XmlListModel {
             root.timezone = item.timezone;
         }
     }
+
+    Component.onCompleted: Favorites.addShowModel(root)
+    Component.onDestruction: Favorites.removeShowModel(root)
 }
