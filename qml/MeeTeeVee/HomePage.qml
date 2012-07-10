@@ -1,6 +1,5 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
-import "Cache.js" as Cache
 import "UIConstants.js" as UI
 
 CommonPage {
@@ -39,10 +38,10 @@ CommonPage {
         }
 
         delegate: ShowDelegate {
-            title: Cache.showName(showid, showModel.name)
-            subtitle: Cache.latestEpisode(showid, episodeModel.episode)
-            description: Cache.latestAirdate(showid, episodeModel.airdate)
-            thumbnail: Cache.showImage(showid, showModel.image.toString())
+            title: showModel.name
+            subtitle: episodeModel.episode
+            description: episodeModel.airdate
+            thumbnail: showModel.image
             onClicked: {
                 var page = showPage.createObject(root, {model: showModel});
                 pageStack.push(page);

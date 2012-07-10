@@ -2,7 +2,6 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 import com.nokia.extras 1.0
 import "UIConstants.js" as UI
-import "Cache.js" as Cache
 
 CommonPage {
     id: root
@@ -23,7 +22,7 @@ CommonPage {
             spacing: UI.MEDIUM_SPACING
 
             Header {
-                title: root.model ? Cache.showName(root.model.showId, root.model.name) : ""
+                title: root.model ? root.model.name : ""
                 subtitle: !!root.model && root.model.status === XmlListModel.Ready ? qsTr("Info") : ""
                 content: Image {
                     visible: !!root.model && favoritesModel.loaded
@@ -60,14 +59,10 @@ CommonPage {
                         visible: text.length
                         text: {
                             var strings = [];
-                            if (root.model) {
-                                var classification = Cache.showClassification(root.model.showId, root.model.classification);
-                                if (classification.length)
-                                    strings.push(classification);
-                                var network = Cache.showNetwork(root.model.showId, root.model.network);
-                                if (network.length)
-                                    strings.push(network);
-                            }
+                            if (root.model && root.model.classification.length)
+                                strings.push(root.model.classification);
+                            if (root.model && root.model.network.length)
+                                strings.push(root.model.network);
                             return strings.join(" on ");
                         }
                         font.family: UI.FONT_FAMILY
@@ -77,7 +72,7 @@ CommonPage {
                     Label {
                         width: parent.width
                         visible: text.length
-                        text: root.model ? Cache.showGenres(root.model.showId, root.model.genres) : ""
+                        text: root.model ? root.model.genres : ""
                         font.family: UI.FONT_FAMILY
                         font.pixelSize: UI.SMALL_FONT
                         textFormat: Text.PlainText
@@ -85,7 +80,7 @@ CommonPage {
                     Label {
                         width: parent.width
                         visible: text.length
-                        text: root.model ? Cache.showStatus(root.model.showId, root.model.showStatus) : ""
+                        text: root.model ? root.model.showStatus : ""
                         font.family: UI.FONT_FAMILY
                         font.pixelSize: UI.SMALL_FONT
                         textFormat: Text.PlainText
@@ -95,14 +90,10 @@ CommonPage {
                         visible: text.length
                         text: {
                             var strings = [];
-                            if (root.model) {
-                                var started = Cache.showStarted(root.model.showId, root.model.started);
-                                if (started.length)
-                                    strings.push(started);
-                                var ended = Cache.showEnded(root.model.showId, root.model.ended);
-                                if (ended.length)
-                                    strings.push(ended);
-                            }
+                            if (root.model && root.model.started.length)
+                                strings.push(root.model.started);
+                            if (root.model && root.model.ended.length)
+                                strings.push(root.model.ended);
                             return strings.join(" - ");
                         }
                         font.family: UI.FONT_FAMILY
@@ -114,17 +105,12 @@ CommonPage {
                         visible: text.length
                         text: {
                             var strings = [];
-                            if (root.model) {
-                                var airday = Cache.showAirday(root.model.showId, root.model.airday);
-                                if (airday.length)
-                                    strings.push(airday);
-                                var airtime = Cache.showAirtime(root.model.showId, root.model.airtime);
-                                if (airtime.length)
-                                    strings.push(qsTr("at %1").arg(airtime));
-                                var runtime = Cache.showRuntime(root.model.showId, root.model.runtime);
-                                if (runtime.length)
-                                    strings.push(qsTr("(%1min)").arg(runtime));
-                            }
+                            if (root.model && root.model.airday.length)
+                                strings.push(root.model.airday);
+                            if (root.model && root.model.airtime.length)
+                                strings.push(qsTr("at %1").arg(root.model.airtime));
+                            if (root.model && root.model.runtime.length)
+                                strings.push(qsTr("(%1min)").arg(root.model.runtime));
                             return strings.join(" ");
                         }
                         font.family: UI.FONT_FAMILY
@@ -137,7 +123,7 @@ CommonPage {
                     id: image
                     width: (parent.width - parent.spacing) / 2
                     anchors.verticalCenter: parent.verticalCenter
-                    source: root.model ? Cache.showImage(root.model.showId, root.model.image.toString()) : ""
+                    source: root.model ? root.model.image : ""
                     fillMode: Image.PreserveAspectFit
                     opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
 
@@ -162,7 +148,7 @@ CommonPage {
                     id: summary
                     width: parent.width
                     visible: text.length
-                    text: root.model ? Cache.showSummary(root.model.showId, root.model.summary) : ""
+                    text: root.model ? root.model.summary : ""
                     font.family: UI.FONT_FAMILY
                     font.pixelSize: UI.MEDIUM_FONT
                 }
