@@ -51,6 +51,7 @@ CommonPage {
 
                 Column {
                     id: general
+                    height: Math.max(1, implicitHeight)
                     width: (parent.width - parent.spacing) / 2
                     anchors.verticalCenter: parent.verticalCenter
 
