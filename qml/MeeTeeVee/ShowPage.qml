@@ -188,6 +188,7 @@ CommonPage {
                     model: root.model ? root.model.seasons : 0
                     EpisodeDelegate {
                         title: qsTr("Season %1").arg(index + 1)
+                        enabled: episodeListModel.count > 0
                         subtitle: episodeListModel.status === XmlListModel.Loading ? qsTr("Loading...") : qsTr("%1 episodes").arg(episodeListModel.count)
                         onClicked: {
                             var page = episodeListPage.createObject(root, {title: root.model.name, model: episodeListModel});
