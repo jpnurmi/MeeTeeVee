@@ -1,6 +1,7 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
 import "UIConstants.js" as UI
+import "Settings.js" as Settings
 
 PageStackWindow {
     id: window
@@ -10,9 +11,9 @@ PageStackWindow {
         tools: tabBar
         TabGroup {
             id: tabGroup
-            currentTab: homeTab
             PageStack {
                 id: homeTab
+                objectName: "home"
                 HomePage {
                     id: homePage
                     tools: tabBar
@@ -22,6 +23,7 @@ PageStackWindow {
             }
             PageStack {
                 id: searchTab
+                objectName: "search"
                 SearchPage {
                     id: searchPage
                     tools: tabBar
@@ -31,6 +33,7 @@ PageStackWindow {
             }
             PageStack {
                 id: favoritesTab
+                objectName: "favorites"
                 FavoritesPage {
                     id: favoritesPage
                     tools: tabBar
@@ -39,6 +42,7 @@ PageStackWindow {
             }
             PageStack {
                 id: historyTab
+                objectName: "history"
                 HistoryPage {
                     id: historyPage
                     tools: tabBar
@@ -86,5 +90,13 @@ PageStackWindow {
         }
     }
 
-    Component.onCompleted: theme.inverted = true
+    Component.onCompleted: {
+        theme.inverted = true;
+        var tab = Settings.read("currentTab");
+        tabGroup.currentTab = tab == "search" ? searchTab :
+                              tab == "favorites" ? favoritesTab :
+                              tab == "history" ? historyTab : homeTab;
+    }
+
+    Component.onDestruction: Settings.write("currentTab", tabGroup.currentTab.objectName)
 }
