@@ -1,60 +1,46 @@
 .pragma library
 
-var db = null;
-
-function initialize() {
-    if (!db) {
-        db = openDatabaseSync("MeeTeeVee", "1.0", "Cache", 4096);
-        db.transaction(
-            function(tx) {
-                tx.executeSql("CREATE TABLE IF NOT EXISTS ShowNames(showId TEXT UNIQUE, showName TEXT)");
-                tx.executeSql("CREATE TABLE IF NOT EXISTS ShowImages(showId TEXT UNIQUE, showImage TEXT)");
-            }
-        )
-    }
-    return db;
-}
+var __db = null;
 
 function showName(id, name) {
-    db = initialize();
-    if (name.length) {
-        db.transaction(
-            function(tx) {
-                var rs = tx.executeSql("UPDATE ShowNames SET showName=\"" + name + "\" WHERE showId='" + id + "'");
-                if (rs.rowsAffected <= 0)
-                    tx.executeSql("INSERT INTO ShowNames VALUES (?, ?)", [id, name]);
-            }
-        )
-    } else {
-        db.readTransaction(
-            function(tx) {
-                var rs = tx.executeSql("SELECT showName FROM ShowNames WHERE showId='" + id + "'");
-                if (rs.rows.length)
-                    name = rs.rows.item(0).showName;
-            }
-        )
-    }
-    return name;
+    return __getValue("ShowNames", id, name);
 }
 
 function showImage(id, image) {
-    db = initialize();
-    if (image.length) {
-        db.transaction(
+    return __getValue("ShowImages", id, image);
+}
+
+function __open() {
+    if (!__db) {
+        __db = openDatabaseSync("MeeTeeVee", "1.0", "Cache", 4096);
+        __db.transaction(
             function(tx) {
-                var rs = tx.executeSql("UPDATE ShowImages SET showImage=\"" + image + "\" WHERE showId='" + id + "'");
-                if (rs.rowsAffected <= 0)
-                    tx.executeSql("INSERT INTO ShowImages VALUES (?, ?)", [id, image]);
-            }
-        )
-    } else {
-        db.readTransaction(
-            function(tx) {
-                var rs = tx.executeSql("SELECT showImage FROM ShowImages WHERE showId='" + id + "'");
-                if (rs.rows.length)
-                    image = rs.rows.item(0).showImage;
+                tx.executeSql("CREATE TABLE IF NOT EXISTS ShowNames(id TEXT UNIQUE, value TEXT)");
+                tx.executeSql("CREATE TABLE IF NOT EXISTS ShowImages(id TEXT UNIQUE, value TEXT)");
             }
         )
     }
-    return image;
+    return __db;
+}
+
+function __getValue(scope, id, value) {
+    __db = __open();
+    if (value.length) {
+        __db.transaction(
+            function(tx) {
+                var rs = tx.executeSql("UPDATE " + scope + " SET value=\"" + value + "\" WHERE id='" + id + "'");
+                if (rs.rowsAffected <= 0)
+                    tx.executeSql("INSERT INTO " + scope + " VALUES (?, ?)", [id, value]);
+            }
+        )
+    } else {
+        __db.readTransaction(
+            function(tx) {
+                var rs = tx.executeSql("SELECT value FROM " + scope + " WHERE id='" + id + "'");
+                if (rs.rows.length)
+                    value = rs.rows.item(0).value;
+            }
+        )
+    }
+    return value;
 }
