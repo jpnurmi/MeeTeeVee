@@ -163,7 +163,7 @@ CommonPage {
 //                title: latestEpisodeModel.count === 1 ? qsTr("%1: %2").arg(latestEpisodeModel.get(0).number).arg(latestEpisodeModel.get(0).title) : qsTr("Loading...")
 //                subtitle: latestEpisodeModel.count === 1 ? latestEpisodeModel.get(0).airdate : ""
 //                onClicked: {
-//                    var page = episodeInfoPage.createObject(root, {showId: root.model.showId, number: latestEpisodeModel.get(0).number});
+//                    var page = episodePage.createObject(root, {showId: root.model.showId, number: latestEpisodeModel.get(0).number});
 //                    pageStack.push(page);
 //                    //root.showed(showid);
 //                }
@@ -205,10 +205,10 @@ CommonPage {
         }
     }
 
-    Component {
-        id: episodeInfoPage
-        EpisodeInfoPage { }
-    }
+//    Component {
+//        id: episodePage
+//        EpisodePage { }
+//    }
 
     Component {
         id: episodeListPage

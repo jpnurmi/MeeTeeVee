@@ -31,7 +31,7 @@ CommonPage {
             hasScreencap: model.screencap != ""
             enabled: hasSummary || hasScreencap
             onClicked: {
-                var page = episodeInfoPage.createObject(root, {title: delegate.title, summary: model.summary, screencap: model.screencap});
+                var page = episodePage.createObject(root, {title: delegate.title, summary: model.summary, screencap: model.screencap});
                 pageStack.push(page);
                 // TODO: root.showed(showid);
             }
@@ -39,7 +39,7 @@ CommonPage {
     }
 
     Component {
-        id: episodeInfoPage
-        EpisodeInfoPage { }
+        id: episodePage
+        EpisodePage { }
     }
 }
