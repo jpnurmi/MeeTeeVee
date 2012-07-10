@@ -41,8 +41,8 @@ CommonPage {
 
         delegate: ShowDelegate {
             title: Cache.showName(showid, showModel.name)
-            subtitle: Cache.latestEpisode(showid, episodeModel.count === 1 ? qsTr("%1: %2").arg(episodeModel.get(0).number).arg(episodeModel.get(0).title) : "")
-            description: Cache.latestAirdate(showid, episodeModel.count === 1 ? episodeModel.get(0).airdate : "")
+            subtitle: Cache.latestEpisode(showid, episodeModel.episode)
+            description: Cache.latestAirdate(showid, episodeModel.airdate)
             thumbnail: Cache.showImage(showid, showModel.image.toString())
             onClicked: {
                 var page = showPage.createObject(root, {model: showModel});
@@ -55,11 +55,20 @@ CommonPage {
             }
             XmlListModel {
                 id: episodeModel
+                property string episode
+                property string airdate
                 source: "http://services.tvrage.com/feeds/episodeinfo.php?sid=" + showid
                 query: "/show/latestepisode"
                 XmlRole { name: "number"; query: "number/string()" }
                 XmlRole { name: "title"; query: "title/string()" }
                 XmlRole { name: "airdate"; query: "airdate/string()" }
+                onCountChanged: {
+                    if (count === 1) {
+                        var item = get(0);
+                        episode = qsTr("%1: %2").arg(item.number).arg(item.title);
+                        airdate = item.airdate;
+                    }
+                }
             }
         }
     }
