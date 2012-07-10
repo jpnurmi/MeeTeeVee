@@ -62,7 +62,7 @@ CommonPage {
     }
 
     onStatusChanged: {
-        if (status === PageStatus.Activating && !historyModel.loaded)
+        if (status === PageStatus.Activating && !historyModel.loaded && !historyModel.loading)
             historyModel.load();
     }
 }

@@ -81,7 +81,7 @@ CommonPage {
     }
 
     onStatusChanged: {
-        if (status === PageStatus.Activating && !favoritesModel.loaded)
+        if (status === PageStatus.Activating && !favoritesModel.loaded && !favoritesModel.loading)
             favoritesModel.load();
     }
 }
