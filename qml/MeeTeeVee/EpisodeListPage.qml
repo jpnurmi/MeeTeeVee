@@ -7,7 +7,7 @@ CommonPage {
     property string subtitle
     property alias model: listView.model
 
-    busy: model.status === XmlListModel.Loading
+    busy: model.busy
     placeholder: busy ? qsTr("Loading...") : listView.count <= 0 ? qsTr("No episodes") : ""
 
     flickable: ListView {

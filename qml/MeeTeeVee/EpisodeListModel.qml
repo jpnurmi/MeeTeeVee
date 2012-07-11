@@ -4,6 +4,7 @@ XmlListModel {
     id: root
 
     property string season
+    property bool busy: !xml || status == XmlListModel.Loading
 
     query: "/Show/Episodelist/Season[@no='"+season+"']/episode"
 

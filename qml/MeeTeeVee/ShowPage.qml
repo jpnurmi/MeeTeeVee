@@ -188,9 +188,9 @@ CommonPage {
                     model: show.seasons
                     EpisodeDelegate {
                         title: qsTr("Season %1").arg(index + 1)
-                        subtitle: episodeListModel.status === XmlListModel.Loading ? qsTr("Loading...") : qsTr("%1 episodes").arg(episodeListModel.count)
+                        subtitle: episodeListModel.busy ? qsTr("Loading...") : qsTr("%1 episodes").arg(episodeListModel.count)
                         onClicked: {
-                            var page = episodeListPage.createObject(root, {title: show.name, model: episodeListModel});
+                            var page = episodeListPage.createObject(root, {model: episodeListModel});
                             pageStack.push(page);
                         }
                         EpisodeListModel {
@@ -211,6 +211,8 @@ CommonPage {
 
     Component {
         id: episodeListPage
-        EpisodeListPage { }
+        EpisodeListPage {
+            title: show.name
+        }
     }
 }
