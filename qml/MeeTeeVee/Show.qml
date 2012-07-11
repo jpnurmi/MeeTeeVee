@@ -36,7 +36,8 @@ QtObject {
     }
 
     Component.onDestruction: {
-        Manager.removeShow(root);
+        if (Manager.instance)
+            Manager.instance.unfetchShow(root);
         Favorites.unregisterObserver(root);
     }
 }

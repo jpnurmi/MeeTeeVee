@@ -1,27 +1,29 @@
 import QtQuick 1.1
-import "Hash.js" as Model
+import "Hash.js" as Models
+import "MultiHash.js" as Shows
 import "ShowManager.js" as Manager
 
 QtObject {
     id: root
 
     function fetchShow(show) {
-        var model = getModel(show.showId);
+        var model = createModel(show.showId);
         if (model.count == 1)
             show.setData(model.get(0));
         else
-            Manager.addShow(show);
+            Shows.insert(show.showId, show);
     }
 
-    function getModel(showId) {
-        var model = null;
-        if (showId) {
-            model = Model.value(showId);
-            if (!model) {
-                worker.readCache(showId);
-                model = modelComponent.createObject(root, {source: "http://services.tvrage.com/myfeeds/showinfo.php?key=4KvLxFFjc84XCWRggUUr&sid=" + showId});
-                Model.insert(showId, model);
-            }
+    function unfetchShow(show) {
+        Shows.remove(show.showId, show);
+    }
+
+    function createModel(showId) {
+        var model = Models.value(showId);
+        if (!model) {
+            worker.readCache(showId);
+            model = modelComponent.createObject(root, {source: "http://services.tvrage.com/myfeeds/showinfo.php?key=4KvLxFFjc84XCWRggUUr&sid=" + showId});
+            Models.insert(showId, model);
         }
         return model;
     }
@@ -51,10 +53,10 @@ QtObject {
             onCountChanged: {
                 if (count == 1) {
                     var data = get(0);
-                    var shows = Manager.getShows(data.showId);
+                    var shows = Shows.values(data.showId);
                     for (var i = 0; i < shows.length; ++i)
                         shows[i].setData(data);
-                    Manager.resetShows(data.showId);
+                    Shows.remove(data.showId);
                     worker.writeCache(data);
                 }
             }
@@ -74,7 +76,7 @@ QtObject {
         }
 
         onMessage: {
-            var shows = Manager.getShows(messageObject.showId);
+            var shows = Shows.values(messageObject.showId);
             for (var i = 0; i < shows.length; ++i)
                 shows[i].setData(messageObject);
         }
