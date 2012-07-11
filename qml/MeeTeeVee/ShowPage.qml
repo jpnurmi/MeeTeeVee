@@ -74,14 +74,9 @@ CommonPage {
 
                     Label {
                         width: parent.width
-                        text: {
-                            var strings = [];
-                            if (show.classification.length)
-                                strings.push(show.classification);
-                            if (show.network.length)
-                                strings.push(show.network);
-                            return strings.join(" on ");
-                        }
+                        text: show.classification && show.network ?
+                              qsTr("%1 on %2").arg(show.classification).arg(show.network) :
+                              show.classification ? show.classification : show.network
                         font.family: UI.FONT_FAMILY
                         font.pixelSize: UI.SMALL_FONT
                         textFormat: Text.PlainText
@@ -102,14 +97,10 @@ CommonPage {
                     }
                     Label {
                         width: parent.width
-                        text: {
-                            var strings = [];
-                            if (show.started.length)
-                                strings.push(show.started);
-                            if (show.ended.length)
-                                strings.push(show.ended);
-                            return strings.join(" - ");
-                        }
+                        text: show.started && show.ended ?
+                              qsTr("%1 - %2").arg(show.started).arg(show.ended) :
+                              show.started ? qsTr("Started %1").arg(show.started) :
+                              show.ended ? qsTr("Ended %1").arg(show.ended) : ""
                         font.family: UI.FONT_FAMILY
                         font.pixelSize: UI.SMALL_FONT
                         textFormat: Text.PlainText
@@ -118,11 +109,11 @@ CommonPage {
                         width: parent.width
                         text: {
                             var strings = [];
-                            if (show.airday.length)
+                            if (show.airday)
                                 strings.push(show.airday);
-                            if (show.airtime.length)
+                            if (show.airtime)
                                 strings.push(qsTr("at %1").arg(show.airtime));
-                            if (show.runtime.length)
+                            if (show.runtime)
                                 strings.push(qsTr("(%1min)").arg(show.runtime));
                             return strings.join(" ");
                         }
@@ -150,12 +141,12 @@ CommonPage {
 
             Separator {
                 title: qsTr("Summary")
-                visible: summary.text.length
+                visible: summary.text
             }
 
             Expander {
                 width: parent.width
-                visible: summary.text.length
+                visible: summary.text
                 animated: root.status == PageStatus.Active
                 Label {
                     id: summary
