@@ -6,6 +6,10 @@ import "Settings.js" as Settings
 PageStackWindow {
     id: window
 
+    ShowManager {
+        id: showManager
+    }
+
     initialPage: Page {
         orientationLock: PageOrientation.LockPortrait
         tools: tabBar

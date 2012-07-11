@@ -1,6 +1,7 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
 import "UIConstants.js" as UI
+import "ShowManager.js" as Manager
 
 CommonPage {
     id: root
@@ -45,17 +46,14 @@ CommonPage {
         }
 
         delegate: ShowDelegate {
-            title: showModel.name
-            subtitle: showModel.genres
-            description: showModel.description()
-            thumbnail: showModel.image
+            property QtObject show: Manager.instance.getShow(showid)
+            title: show.name
+            subtitle: show.genres
+            //description: show.description()
+            thumbnail: show.image
             onClicked: {
-                var page = showPage.createObject(root, {model: showModel});
-                pageStack.push(page);
-            }
-            ShowModel {
-                id: showModel
-                showId: showid
+//                var page = showPage.createObject(root, {model: showModel});
+//                pageStack.push(page);
             }
         }
     }
