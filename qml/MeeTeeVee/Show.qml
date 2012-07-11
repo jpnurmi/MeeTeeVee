@@ -30,6 +30,22 @@ QtObject {
     property bool fetchShows: true
     property bool fetchEpisodes: false
 
+    property string airing
+    airing: {
+        if (started.length && ended.length) {
+            return qsTr("%1 - %2").arg(started).arg(ended);
+        } else {
+            var infos = [];
+            if (airday.length)
+                infos.push(airday);
+            if (airtime.length)
+                infos.push(qsTr("at %1").arg(airtime));
+            if (network.length)
+                infos.push(qsTr("on %1").arg(network));
+            return infos.join(" ");
+        }
+    }
+
     function setData(data) {
         for (var prop in data)
             root[prop] = data[prop];

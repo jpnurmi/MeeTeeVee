@@ -37,7 +37,7 @@ CommonPage {
             }
             title: show.name
             subtitle: show.genres
-            //description: show.description()
+            description: show.airing
             thumbnail: show.image
             onClicked: {
                 var page = showPage.createObject(root, {showId: showid});
