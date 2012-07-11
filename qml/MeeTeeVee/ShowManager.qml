@@ -75,7 +75,7 @@ QtObject {
         onMessage: {
             var shows = Manager.getShows(messageObject.showId);
             for (var i = 0; i < shows.length; ++i)
-                shows[i].setData(data);
+                shows[i].setData(messageObject);
         }
     }
 
