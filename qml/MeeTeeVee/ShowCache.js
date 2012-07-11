@@ -1,43 +1,47 @@
-.pragma library
-
-var __db = null;
-var __tables = ["name","link","seasons","image","started","ended",
-                "country","status","classification","summary","genres",
-                "runtime","network","airtime","airday","timezone"];
-
-function __open() {
-    if (!__db) {
-        __db = openDatabaseSync("MeeTeeVee", "1.0", "ShowCache", 4096);
-        __db.transaction(
-            function(tx) {
-                for (var i = 0; i < __tables.length; ++i)
-                    tx.executeSql("CREATE TABLE IF NOT EXISTS " + __tables[i] + "(id TEXT UNIQUE, value TEXT)");
-            }
-        )
-    }
-    return __db;
+function __openCache() {
+    var db = openDatabaseSync("MeeTeeVee", "1.0", "ShowCache", 4096);
+    db.transaction(
+        function(tx) {
+            tx.executeSql("CREATE TABLE IF NOT EXISTS Shows(showId TEXT PRIMARY KEY ON CONFLICT REPLACE, name TEXT,"
+                                                            + "link TEXT, seasons TEXT, image TEXT, started TEXT, ended TEXT,"
+                                                            + "country TEXT, status TEXT, classification TEXT, summary TEXT, genres TEXT,"
+                                                            + "runtime TEXT, network TEXT, airtime TEXT, airday TEXT, timezone TEXT)");
+        }
+    );
+    return db;
 }
 
-function read(scope, id) {
-    var value = "";
-    __db = __open();
-    __db.readTransaction(
+function readCache(showId) {
+    var data = {};
+    var db = __openCache();
+    db.readTransaction(
         function(tx) {
-            var rs = tx.executeSql("SELECT value FROM " + scope + " WHERE id=?", [id]);
+            var rs = tx.executeSql("SELECT * FROM Shows WHERE showId=?", [showId]);
             if (rs.rows.length)
-                value = rs.rows.item(0).value;
+                data = rs.rows.item(0);
         }
-    )
-    return value;
+    );
+    return data;
 }
 
-function write(scope, id, value) {
-    __db = __open();
-    __db.transaction(
+function writeCache(data) {
+    var db = __openCache();
+    db.transaction(
         function(tx) {
-            var rs = tx.executeSql("UPDATE " + scope + " SET value=? WHERE id=?", [value, id]);
-            if (rs.rowsAffected <= 0)
-                tx.executeSql("INSERT INTO " + scope + " VALUES (?, ?)", [id, value]);
+            tx.executeSql("INSERT INTO Shows VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                          [data.showId, data.name, data.link, data.seasons, data.image, data.started, data.ended,
+                           data.country, data.status, data.classification, data.summary, data.genres, data.runtime,
+                           data.network, data.airtime, data.airday, data.timezone]);
         }
-    )
+    );
+}
+
+WorkerScript.onMessage = function(msg) {
+    if (msg.operation == "read") {
+        var data = readCache(msg.showId);
+        if (data.showId)
+            WorkerScript.sendMessage(data);
+    } else  {
+        writeCache(msg);
+    }
 }
