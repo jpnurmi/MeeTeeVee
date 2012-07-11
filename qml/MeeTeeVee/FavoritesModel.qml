@@ -12,14 +12,14 @@ StorageModel {
         return -1;
     }
 
-    function add(showId) {
+    function addShow(showId) {
         if (indexOf(showId) == -1) {
             insert(0, {"showid": showId});
             Favorites.setFavorited(showId, true);
         }
     }
 
-    function remove(showId) {
+    function removeShow(showId) {
         var i = indexOf(showId);
         if (i != -1) {
             remove(i);

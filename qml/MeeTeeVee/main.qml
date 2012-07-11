@@ -64,7 +64,7 @@ PageStackWindow {
         id: showPage
         ShowPage {
             Component.onCompleted: {
-                model.favorited = favoritesModel.indexOf(model.showId) != -1;
+                favorited = favoritesModel.indexOf(showId) != -1;
             }
         }
     }

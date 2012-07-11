@@ -6,10 +6,15 @@ import "UIConstants.js" as UI
 CommonPage {
     id: root
 
-    property ShowModel model
+    property alias showId: show.showId
+    property alias favorited: show.favorited
 
-    busy: !!model && model.status === XmlListModel.Loading
+    //busy: !!model && model.status === XmlListModel.Loading
     placeholder: busy ? qsTr("Loading...") : ""
+
+    Show {
+        id: show
+    }
 
     flickable: Flickable {
         id: flickable
@@ -22,22 +27,22 @@ CommonPage {
             spacing: UI.MEDIUM_SPACING
 
             Header {
-                title: root.model ? root.model.name : ""
-                subtitle: !!root.model && root.model.status === XmlListModel.Ready ? qsTr("Info") : ""
+                title: show.name
+                subtitle: qsTr("Info")
                 content: Image {
-                    visible: !!root.model && favoritesModel.loaded
+                    visible: favoritesModel.loaded
                     source: favoriteArea.pressed && favoriteArea.containsMouse ?
                                 "image://theme/icon-m-common-favorite-mark-inverse" :
-                                root.model.favorited ? "image://theme/icon-m-common-favorite-mark-selected" :
-                                                       "image://theme/icon-m-common-favorite-unmark-inverse"
+                                show.favorited ? "image://theme/icon-m-common-favorite-mark-selected" :
+                                                 "image://theme/icon-m-common-favorite-unmark-inverse"
                     MouseArea {
                         id: favoriteArea
                         anchors.fill: parent
                         onClicked: {
-                            if (!root.model.favorited)
-                                favoritesModel.add(root.model.showId);
+                            if (!show.favorited)
+                                favoritesModel.addShow(show.showId);
                             else
-                                favoritesModel.remove(root.model.showId);
+                                favoritesModel.removeShow(show.showId);
                         }
                     }
                 }
@@ -59,10 +64,10 @@ CommonPage {
                         visible: text.length
                         text: {
                             var strings = [];
-                            if (root.model && root.model.classification.length)
-                                strings.push(root.model.classification);
-                            if (root.model && root.model.network.length)
-                                strings.push(root.model.network);
+                            if (show.classification.length)
+                                strings.push(show.classification);
+                            if (show.network.length)
+                                strings.push(show.network);
                             return strings.join(" on ");
                         }
                         font.family: UI.FONT_FAMILY
@@ -72,7 +77,7 @@ CommonPage {
                     Label {
                         width: parent.width
                         visible: text.length
-                        text: root.model ? root.model.genres : ""
+                        text: show.genres
                         font.family: UI.FONT_FAMILY
                         font.pixelSize: UI.SMALL_FONT
                         textFormat: Text.PlainText
@@ -80,7 +85,7 @@ CommonPage {
                     Label {
                         width: parent.width
                         visible: text.length
-                        text: root.model ? root.model.showStatus : ""
+                        text: show.status
                         font.family: UI.FONT_FAMILY
                         font.pixelSize: UI.SMALL_FONT
                         textFormat: Text.PlainText
@@ -90,10 +95,10 @@ CommonPage {
                         visible: text.length
                         text: {
                             var strings = [];
-                            if (root.model && root.model.started.length)
-                                strings.push(root.model.started);
-                            if (root.model && root.model.ended.length)
-                                strings.push(root.model.ended);
+                            if (show.started.length)
+                                strings.push(show.started);
+                            if (show.ended.length)
+                                strings.push(show.ended);
                             return strings.join(" - ");
                         }
                         font.family: UI.FONT_FAMILY
@@ -105,12 +110,12 @@ CommonPage {
                         visible: text.length
                         text: {
                             var strings = [];
-                            if (root.model && root.model.airday.length)
-                                strings.push(root.model.airday);
-                            if (root.model && root.model.airtime.length)
-                                strings.push(qsTr("at %1").arg(root.model.airtime));
-                            if (root.model && root.model.runtime.length)
-                                strings.push(qsTr("(%1min)").arg(root.model.runtime));
+                            if (show.airday.length)
+                                strings.push(show.airday);
+                            if (show.airtime.length)
+                                strings.push(qsTr("at %1").arg(show.airtime));
+                            if (show.runtime.length)
+                                strings.push(qsTr("(%1min)").arg(show.runtime));
                             return strings.join(" ");
                         }
                         font.family: UI.FONT_FAMILY
@@ -123,14 +128,14 @@ CommonPage {
                     id: image
                     width: (parent.width - parent.spacing) / 2
                     anchors.verticalCenter: parent.verticalCenter
-                    source: root.model ? root.model.image : ""
+                    source: show.image
                     fillMode: Image.PreserveAspectFit
                     opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
 
                     MouseArea {
                         id: mouseArea
                         anchors.fill: parent
-                        onClicked: Qt.openUrlExternally(root.model.link)
+                        onClicked: Qt.openUrlExternally(show.link)
                     }
                 }
             }
@@ -148,7 +153,7 @@ CommonPage {
                     id: summary
                     width: parent.width
                     visible: text.length
-                    text: root.model ? root.model.summary : ""
+                    text: show.summary
                     font.family: UI.FONT_FAMILY
                     font.pixelSize: UI.MEDIUM_FONT
                 }
@@ -162,13 +167,13 @@ CommonPage {
 //                title: latestEpisodeModel.count === 1 ? qsTr("%1: %2").arg(latestEpisodeModel.get(0).number).arg(latestEpisodeModel.get(0).title) : qsTr("Loading...")
 //                subtitle: latestEpisodeModel.count === 1 ? latestEpisodeModel.get(0).airdate : ""
 //                onClicked: {
-//                    var page = episodePage.createObject(root, {showId: root.model.showId, number: latestEpisodeModel.get(0).number});
+//                    var page = episodePage.createObject(root, {showId: show.showId, number: latestEpisodeModel.get(0).number});
 //                    pageStack.push(page);
 //                    //root.showed(showid);
 //                }
 //                XmlListModel {
 //                    id: latestEpisodeModel
-//                    source: root.model ? "http://services.tvrage.com/feeds/episodeinfo.php?sid=" + root.model.showId : ""
+//                    source: "http://services.tvrage.com/feeds/episodeinfo.php?sid=" + show.showId
 //                    query: "/show/latestepisode"
 //                    XmlRole { name: "number"; query: "number/string()" }
 //                    XmlRole { name: "title"; query: "title/string()" }
@@ -185,18 +190,18 @@ CommonPage {
                 width: parent.width
                 Repeater {
                     id: repeater
-                    model: root.model ? root.model.seasons : 0
+                    model: show.seasons
                     EpisodeDelegate {
                         title: qsTr("Season %1").arg(index + 1)
                         enabled: episodeListModel.count > 0
                         subtitle: episodeListModel.status === XmlListModel.Loading ? qsTr("Loading...") : qsTr("%1 episodes").arg(episodeListModel.count)
                         onClicked: {
-                            var page = episodeListPage.createObject(root, {title: root.model.name, model: episodeListModel});
+                            var page = episodeListPage.createObject(root, {title: show.name, model: episodeListModel});
                             pageStack.push(page);
                         }
                         EpisodeListModel {
                             id: episodeListModel
-                            showId: root.model.showId
+                            showId: show.showId
                             season: index + 1
                         }
                     }

@@ -46,18 +46,18 @@ CommonPage {
         }
 
         delegate: ShowDelegate {
-            title: showModel.name
-            subtitle: showModel.genres
-            description: showModel.description()
-            thumbnail: showModel.image
+            Show {
+                id: show
+                showId: showid
+            }
+            title: show.name
+            subtitle: show.genres
+            //description: show.description()
+            thumbnail: show.image
             onClicked: {
-                var page = showPage.createObject(root, {model: showModel});
+                var page = showPage.createObject(root, {showId: showid});
                 pageStack.push(page);
                 root.showed(showid);
-            }
-            ShowModel {
-                id: showModel
-                showId: showid
             }
         }
     }
