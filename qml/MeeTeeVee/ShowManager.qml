@@ -20,7 +20,7 @@ QtObject {
             if (!model) {
                 worker.readCache(showId);
                 model = modelComponent.createObject(root, {source: "http://services.tvrage.com/myfeeds/showinfo.php?key=4KvLxFFjc84XCWRggUUr&sid=" + showId});
-                Model.setValue(showId, model);
+                Model.insert(showId, model);
             }
         }
         return model;
