@@ -1,7 +1,6 @@
 import QtQuick 1.1
 import "Favorites.js" as Favorites
-import "ShowManager.js" as ShowManager
-import "EpisodeManager.js" as EpisodeManager
+import "Singleton.js" as Singleton
 
 QtObject {
     id: root
@@ -53,17 +52,17 @@ QtObject {
 
     Component.onCompleted: {
         if (fetchShows)
-            ShowManager.instance.fetchShow(root);
+            Singleton.showManager.fetchShow(root);
         if (fetchEpisodes)
-            EpisodeManager.instance.fetchEpisodes(root);
+            Singleton.episodeManager.fetchEpisodes(root);
         Favorites.registerObserver(root);
     }
 
     Component.onDestruction: {
-        if (ShowManager.instance)
-            ShowManager.instance.unfetchShow(root);
-        if (EpisodeManager.instance)
-            EpisodeManager.instance.unfetchEpisodes(root);
+        if (Singleton.showManager)
+            Singleton.showManager.unfetchShow(root);
+        if (Singleton.episodeManager)
+            Singleton.episodeManager.unfetchEpisodes(root);
         Favorites.unregisterObserver(root);
     }
 }

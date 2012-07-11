@@ -1,7 +1,7 @@
 import QtQuick 1.1
 import "Hash.js" as Models
 import "MultiHash.js" as Shows
-import "ShowManager.js" as Manager
+import "Singleton.js" as Singleton
 
 QtObject {
     id: root
@@ -82,6 +82,6 @@ QtObject {
         }
     }
 
-    Component.onCompleted: Manager.instance = root
-    Component.onDestruction: Manager.instance = null
+    Component.onCompleted: Singleton.showManager = root
+    Component.onDestruction: Singleton.showManager = null
 }

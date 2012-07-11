@@ -1,5 +1,6 @@
 import QtQuick 1.1
 import "Favorites.js" as Favorites
+import "Singleton.js" as Singleton
 
 StorageModel {
     id: root
@@ -28,4 +29,7 @@ StorageModel {
     }
 
     name: "Favorites"
+
+    Component.onCompleted: Singleton.favoritesModel = root
+    Component.onDestruction: Singleton.favoritesModel = null
 }

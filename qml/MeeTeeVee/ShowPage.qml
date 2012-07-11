@@ -2,6 +2,7 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 import com.nokia.extras 1.0
 import "UIConstants.js" as UI
+import "Singleton.js" as Singleton
 
 CommonPage {
     id: root
@@ -31,7 +32,7 @@ CommonPage {
                 title: show.name
                 subtitle: qsTr("Info")
                 content: Image {
-                    visible: favoritesModel.loaded
+                    visible: Singleton.favoritesModel && Singleton.favoritesModel.loaded
                     source: favoriteArea.pressed && favoriteArea.containsMouse ?
                                 "image://theme/icon-m-common-favorite-mark-inverse" :
                                 show.favorited ? "image://theme/icon-m-common-favorite-mark-selected" :
@@ -40,10 +41,12 @@ CommonPage {
                         id: favoriteArea
                         anchors.fill: parent
                         onClicked: {
-                            if (!show.favorited)
-                                favoritesModel.addShow(show.showId);
-                            else
-                                favoritesModel.removeShow(show.showId);
+                            if (Singleton.favoritesModel) {
+                                if (!show.favorited)
+                                    Singleton.favoritesModel.addShow(show.showId);
+                                else
+                                    Singleton.favoritesModel.removeShow(show.showId);
+                            }
                         }
                     }
                 }
