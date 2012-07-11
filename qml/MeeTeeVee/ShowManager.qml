@@ -12,6 +12,7 @@ QtObject {
             show.setData(model.get(0));
         else
             Shows.insert(show.showId, show);
+        worker.readCache(show.showId);
     }
 
     function unfetchShow(show) {
@@ -21,7 +22,6 @@ QtObject {
     function createModel(showId) {
         var model = Models.value(showId);
         if (!model) {
-            worker.readCache(showId);
             model = modelComponent.createObject(root, {source: "http://services.tvrage.com/myfeeds/showinfo.php?key=4KvLxFFjc84XCWRggUUr&sid=" + showId});
             Models.insert(showId, model);
         }
