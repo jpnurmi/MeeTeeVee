@@ -144,6 +144,7 @@ CommonPage {
             Expander {
                 width: parent.width
                 visible: summary.text.length
+                animated: root.status == PageStatus.Active
                 Label {
                     id: summary
                     width: parent.width

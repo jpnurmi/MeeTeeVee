@@ -8,12 +8,13 @@ Item {
     property int duration: 250
     property real preferredHeight: 200
     default property alias data: container.data
+    property bool animated: true
 
     clip: true
     height: (expanded ? container.height : container.minimumHeight) + (obscured ? arrow.implicitHeight : 0)
 
     Behavior on height {
-        enabled: !!container.children
+        enabled: animated
         NumberAnimation { duration: root.duration; easing.type: Easing.InCubic }
     }
 
