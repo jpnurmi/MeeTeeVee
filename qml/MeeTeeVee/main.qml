@@ -6,6 +6,10 @@ import "Settings.js" as Settings
 PageStackWindow {
     id: window
 
+    EpisodeManager {
+        id: episodeManager
+    }
+
     ShowManager {
         id: showManager
     }

@@ -14,6 +14,7 @@ CommonPage {
 
     Show {
         id: show
+        fetchEpisodes: true
     }
 
     flickable: Flickable {
@@ -193,7 +194,6 @@ CommonPage {
                     model: show.seasons
                     EpisodeDelegate {
                         title: qsTr("Season %1").arg(index + 1)
-                        enabled: episodeListModel.count > 0
                         subtitle: episodeListModel.status === XmlListModel.Loading ? qsTr("Loading...") : qsTr("%1 episodes").arg(episodeListModel.count)
                         onClicked: {
                             var page = episodeListPage.createObject(root, {title: show.name, model: episodeListModel});
@@ -201,8 +201,8 @@ CommonPage {
                         }
                         EpisodeListModel {
                             id: episodeListModel
-                            showId: show.showId
                             season: index + 1
+                            xml: show.episodes
                         }
                     }
                 }

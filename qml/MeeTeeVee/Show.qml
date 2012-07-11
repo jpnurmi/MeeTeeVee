@@ -1,13 +1,12 @@
 import QtQuick 1.1
 import "Favorites.js" as Favorites
-import "ShowManager.js" as Manager
+import "ShowManager.js" as ShowManager
+import "EpisodeManager.js" as EpisodeManager
 
 QtObject {
     id: root
 
     property string showId
-    property bool favorited
-
     property string name
     property string link
     property string seasons
@@ -25,19 +24,30 @@ QtObject {
     property string airday
     property string timezone
 
+    property string episodes
+
+    property bool favorited: false
+    property bool fetchShows: true
+    property bool fetchEpisodes: false
+
     function setData(data) {
         for (var prop in data)
             root[prop] = data[prop];
     }
 
     Component.onCompleted: {
-        Manager.instance.fetchShow(root);
+        if (fetchShows)
+            ShowManager.instance.fetchShow(root);
+        if (fetchEpisodes)
+            EpisodeManager.instance.fetchEpisodes(root);
         Favorites.registerObserver(root);
     }
 
     Component.onDestruction: {
-        if (Manager.instance)
-            Manager.instance.unfetchShow(root);
+        if (ShowManager.instance)
+            ShowManager.instance.unfetchShow(root);
+        if (EpisodeManager.instance)
+            EpisodeManager.instance.unfetchEpisodes(root);
         Favorites.unregisterObserver(root);
     }
 }
