@@ -1,7 +1,6 @@
-- Fix empty ShowPage (when still loading)
+- Do something about empty ShowPage (when still loading)
 - Improve error handling (allow reload)
 - Indicate loading ShowDelegate
 - Refresh home page
-- Do not refetch already fetches & caches shows
 - Logo as background image
-- Busy indicator in the top right corner
+- Busy indicator to the top right corner
