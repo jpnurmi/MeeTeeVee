@@ -1,4 +1,5 @@
 import QtQuick 1.1
+import "Hash.js" as Model
 import "ShowManager.js" as Manager
 
 QtObject {
@@ -15,11 +16,11 @@ QtObject {
     function getModel(showId) {
         var model = null;
         if (showId) {
-            model = Manager.getModel(showId);
+            model = Model.value(showId);
             if (!model) {
                 worker.readCache(showId);
                 model = modelComponent.createObject(root, {source: "http://services.tvrage.com/myfeeds/showinfo.php?key=4KvLxFFjc84XCWRggUUr&sid=" + showId});
-                Manager.setModel(showId, model);
+                Model.setValue(showId, model);
             }
         }
         return model;
