@@ -62,7 +62,6 @@ CommonPage {
 
                     Label {
                         width: parent.width
-                        visible: text.length
                         text: {
                             var strings = [];
                             if (show.classification.length)
@@ -77,7 +76,6 @@ CommonPage {
                     }
                     Label {
                         width: parent.width
-                        visible: text.length
                         text: show.genres
                         font.family: UI.FONT_FAMILY
                         font.pixelSize: UI.SMALL_FONT
@@ -85,7 +83,6 @@ CommonPage {
                     }
                     Label {
                         width: parent.width
-                        visible: text.length
                         text: show.status
                         font.family: UI.FONT_FAMILY
                         font.pixelSize: UI.SMALL_FONT
@@ -93,7 +90,6 @@ CommonPage {
                     }
                     Label {
                         width: parent.width
-                        visible: text.length
                         text: {
                             var strings = [];
                             if (show.started.length)
@@ -108,7 +104,6 @@ CommonPage {
                     }
                     Label {
                         width: parent.width
-                        visible: text.length
                         text: {
                             var strings = [];
                             if (show.airday.length)
@@ -149,11 +144,9 @@ CommonPage {
             Expander {
                 width: parent.width
                 visible: summary.text.length
-                preferredHeight: summary.height > general.height + 120 ? general.height : summary.height
                 Label {
                     id: summary
                     width: parent.width
-                    visible: text.length
                     text: show.summary
                     font.family: UI.FONT_FAMILY
                     font.pixelSize: UI.MEDIUM_FONT

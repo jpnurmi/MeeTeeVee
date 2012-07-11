@@ -6,7 +6,7 @@ Item {
     property bool expanded: false
     property bool obscured: preferredHeight < container.height
     property int duration: 250
-    property real preferredHeight: 0
+    property real preferredHeight: 200
     default property alias data: container.data
 
     clip: true
