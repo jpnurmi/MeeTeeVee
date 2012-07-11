@@ -27,11 +27,11 @@ CommonPage {
         }
 
         historyModel.insert(0, {"showid": showId});
-        if (historyModel.count > 10)
+        while (historyModel.count > 10)
             historyModel.remove(10, historyModel.count - 10);
     }
 
-    busy: historyModel.loading
+    busy: historyModel.loading && listView.count <= 0
     placeholder: busy ? qsTr("Loading...") : listView.count <= 0 ? qsTr("No history") : ""
 
     flickable: ListView {

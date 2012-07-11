@@ -22,7 +22,7 @@ CommonPage {
 
     signal showed(string showId)
 
-    busy: model.loading
+    busy: model.loading && listView.count <= 0
     placeholder: busy ? qsTr("Loading...") : listView.count <= 0 ? qsTr("No favorites") : ""
 
     flickable: ListView {

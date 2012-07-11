@@ -19,7 +19,7 @@ CommonPage {
 
     signal showed(string showId)
 
-    busy: searchModel.status === XmlListModel.Loading
+    busy: searchModel.status === XmlListModel.Loading && listView.count <= 0
     placeholder: busy ? qsTr("Searching...") : listView.count <= 0 ? qsTr("No results") : ""
 
     flickable: ListView {
