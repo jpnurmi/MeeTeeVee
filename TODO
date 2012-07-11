@@ -2,3 +2,7 @@
 - Improve error handling (allow reload)
 - Started/ended in show info box
 - Indicate loading ShowDelegate
+- Refresh home page
+- Do not refetch already fetches & caches shows
+- Logo as background image
+- Busy indicator in the top right corner
