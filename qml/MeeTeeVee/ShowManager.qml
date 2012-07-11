@@ -21,11 +21,12 @@ QtObject {
 
     function fetchShow(show) {
         var model = createModel(show.showId);
-        if (model.count == 1)
+        if (model.count == 1) {
             show.setData(model.get(0));
-        else
+        } else {
             Shows.insert(show.showId, show);
-        worker.readCache(show.showId);
+            worker.readCache(show.showId);
+        }
     }
 
     function unfetchShow(show) {
@@ -35,7 +36,7 @@ QtObject {
     function createModel(showId) {
         var model = Models.value(showId);
         if (!model) {
-            model = modelComponent.createObject(root, {source: "http://services.tvrage.com/myfeeds/showinfo.php?key=4KvLxFFjc84XCWRggUUr&sid=" + showId});
+            model = modelComponent.createObject(root, {showId: showId});
             Models.insert(showId, model);
         }
         return model;
@@ -44,6 +45,8 @@ QtObject {
     property Component component: Component {
         id: modelComponent
         XmlListModel {
+            property string showId
+            source: "http://services.tvrage.com/myfeeds/showinfo.php?key=4KvLxFFjc84XCWRggUUr&sid=" + showId
             query: "/Showinfo"
             XmlRole { name: "showId"; query: "showid/string()" }
             XmlRole { name: "name"; query: "showname/string()" }
