@@ -12,7 +12,6 @@
 * GNU General Public License for more details.
 */
 import QtQuick 1.1
-import "Favorites.js" as Favorites
 import "Singleton.js" as Singleton
 
 QtObject {
@@ -64,11 +63,12 @@ QtObject {
     }
 
     Component.onCompleted: {
-        if (fetchShows)
+        if (fetchShows && Singleton.showManager)
             Singleton.showManager.fetchShow(root);
-        if (fetchEpisodes)
+        if (fetchEpisodes && Singleton.episodeManager)
             Singleton.episodeManager.fetchEpisodes(root);
-        Favorites.registerObserver(root);
+        if (Singleton.favoritesModel)
+            Singleton.favoritesModel.addShow(root);
     }
 
     Component.onDestruction: {
@@ -76,6 +76,7 @@ QtObject {
             Singleton.showManager.unfetchShow(root);
         if (Singleton.episodeManager)
             Singleton.episodeManager.unfetchEpisodes(root);
-        Favorites.unregisterObserver(root);
+        if (Singleton.favoritesModel)
+            Singleton.favoritesModel.removeShow(root);
     }
 }

@@ -12,11 +12,19 @@
 * GNU General Public License for more details.
 */
 import QtQuick 1.1
-import "Favorites.js" as Favorites
+import "MultiHash.js" as Shows
 import "Singleton.js" as Singleton
 
 StorageModel {
     id: root
+
+    function addShow(show) {
+        Shows.insert(show.showId, show);
+    }
+
+    function removeShow(show) {
+        Shows.remove(show.showId, show);
+    }
 
     function indexOf(showId) {
         for (var i = 0; i < count; ++i) {
@@ -26,19 +34,16 @@ StorageModel {
         return -1;
     }
 
-    function addShow(showId) {
-        if (indexOf(showId) == -1) {
-            insert(0, {"showid": showId});
-            Favorites.setFavorited(showId, true);
-        }
-    }
+    function setFavorited(showId, favorited) {
+        var shows = Shows.values(showId);
+        for (var i = 0; i < shows.length; ++i)
+            shows[i].favorited = favorited;
 
-    function removeShow(showId) {
-        var i = indexOf(showId);
-        if (i != -1) {
-            remove(i);
-            Favorites.setFavorited(showId, false);
-        }
+        var idx = indexOf(showId);
+        if (favorited && idx == -1)
+            insert(0, {"showid": showId});
+        else if (!favorited && idx != -1)
+            remove(idx);
     }
 
     name: "Favorites"

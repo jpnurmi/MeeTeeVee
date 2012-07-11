@@ -54,12 +54,8 @@ CommonPage {
                         id: favoriteArea
                         anchors.fill: parent
                         onClicked: {
-                            if (Singleton.favoritesModel) {
-                                if (!show.favorited)
-                                    Singleton.favoritesModel.addShow(show.showId);
-                                else
-                                    Singleton.favoritesModel.removeShow(show.showId);
-                            }
+                            if (Singleton.favoritesModel)
+                                Singleton.favoritesModel.setFavorited(show.showId, !show.favorited);
                         }
                     }
                 }
