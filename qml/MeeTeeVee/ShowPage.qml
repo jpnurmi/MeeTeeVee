@@ -112,7 +112,7 @@ CommonPage {
 //            }
 
             Separator {
-                title: qsTr("Seasons")
+                title: qsTr("Seasons (%1)").arg(repeater.count)
                 visible: repeater.count
             }
 
