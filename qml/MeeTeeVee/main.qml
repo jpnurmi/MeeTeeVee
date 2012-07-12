@@ -38,7 +38,7 @@ PageStackWindow {
                 HomePage {
                     id: homePage
                     tools: tabBar
-                    onShowed: historyPage.add(showId)
+                    onShowed: historyModel.addShow(showId)
                 }
                 Component.onCompleted: homeTab.push(homePage)
             }
@@ -48,26 +48,32 @@ PageStackWindow {
                 SearchPage {
                     id: searchPage
                     tools: tabBar
-                    onShowed: historyPage.add(showId)
+                    onShowed: historyModel.addShow(showId)
                 }
                 Component.onCompleted: searchTab.push(searchPage)
             }
             PageStack {
                 id: favoritesTab
                 objectName: "favorites"
-                FavoritesPage {
+                ShowListPage {
                     id: favoritesPage
                     tools: tabBar
-                    onShowed: historyPage.add(showId)
+                    model: FavoritesModel {
+                        id: favoritesModel
+                    }
+                    onShowed: historyModel.addShow(showId)
                 }
                 Component.onCompleted: favoritesTab.push(favoritesPage)
             }
             PageStack {
                 id: historyTab
                 objectName: "history"
-                HistoryPage {
+                ShowListPage {
                     id: historyPage
                     tools: tabBar
+                    model: HistoryModel {
+                        id: historyModel
+                    }
                 }
                 Component.onCompleted: historyTab.push(historyPage)
             }

@@ -17,13 +17,15 @@ import "StorageModel.js" as Model
 ListModel {
     id: root
 
-    property string name: "Default"
+    property string name
     property bool loaded: false
     property bool loading: false
 
     function load() {
-        loading = true;
-        worker.sendMessage({model: root, name: name});
+        if (!loading && !loaded && name) {
+            loading = true;
+            worker.sendMessage({model: root, name: name});
+        }
     }
 
     property WorkerScript worker: WorkerScript {
@@ -35,5 +37,6 @@ ListModel {
         }
     }
 
+    Component.onCompleted: load()
     Component.onDestruction: if (loaded) Model.save(name, root)
 }
