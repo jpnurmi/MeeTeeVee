@@ -23,7 +23,7 @@ CommonPage {
     property alias showId: show.showId
     property alias favorited: show.favorited
 
-    //busy: !!model && model.status === XmlListModel.Loading
+    busy: show.empty && show.loading
     placeholder: busy ? qsTr("Loading...") : ""
 
     Show {
@@ -45,7 +45,7 @@ CommonPage {
                 title: show.name
                 subtitle: qsTr("Info")
                 content: Image {
-                    visible: Singleton.favoritesModel && Singleton.favoritesModel.loaded
+                    visible: !show.empty && Singleton.favoritesModel && Singleton.favoritesModel.loaded
                     source: favoriteArea.pressed && favoriteArea.containsMouse ?
                                 "image://theme/icon-m-common-favorite-mark-inverse" :
                                 show.favorited ? "image://theme/icon-m-common-favorite-mark-selected" :
