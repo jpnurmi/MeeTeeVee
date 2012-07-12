@@ -56,31 +56,13 @@ CommonPage {
                 showId: showid
             }
             title: show.name
-            subtitle: episodeModel.busy ? qsTr("Loading...") : episodeModel.episode
-            description: episodeModel.busy ? qsTr("Loading...") : episodeModel.airdate
+            subtitle: show.info
+            description: show.ended ? show.period : show.airing
             thumbnail: show.image
             onClicked: {
                 var page = showPage.createObject(root, {showId: showid});
                 pageStack.push(page);
                 root.showed(showid);
-            }
-            XmlListModel {
-                id: episodeModel
-                property string episode
-                property string airdate
-                property string busy: status == XmlListModel.Loading
-                source: "http://services.tvrage.com/feeds/episodeinfo.php?sid=" + showid
-                query: "/show/latestepisode"
-                XmlRole { name: "number"; query: "number/string()" }
-                XmlRole { name: "title"; query: "title/string()" }
-                XmlRole { name: "airdate"; query: "airdate/string()" }
-                onCountChanged: {
-                    if (count === 1) {
-                        var item = get(0);
-                        episode = qsTr("%1: %2").arg(item.number).arg(item.title);
-                        airdate = item.airdate;
-                    }
-                }
             }
         }
     }
