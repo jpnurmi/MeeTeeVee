@@ -18,11 +18,9 @@ import "UIConstants.js" as UI
 CommonPage {
     id: root
 
-    property alias model: listView.model
-
     signal showed(string showId)
 
-    busy: model.loading && listView.count <= 0
+    busy: favoritesModel.loading && listView.count <= 0
     placeholder: busy ? qsTr("Loading...") : listView.count <= 0 ? qsTr("No favorites") : ""
 
     flickable: ListView {
@@ -41,6 +39,11 @@ CommonPage {
                     onClicked: Qt.openUrlExternally("http://www.tvrage.com")
                 }
             }
+        }
+
+        model: FavoritesModel {
+            id: favoritesModel
+            Component.onCompleted: load()
         }
 
         delegate: ShowDelegate {

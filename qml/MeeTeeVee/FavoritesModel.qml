@@ -20,6 +20,7 @@ StorageModel {
 
     function addShow(show) {
         Shows.insert(show.showId, show);
+        show.favorited = indexOf(show.showId) != -1;
     }
 
     function removeShow(show) {
