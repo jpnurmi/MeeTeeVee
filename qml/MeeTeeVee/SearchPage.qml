@@ -21,7 +21,8 @@ CommonPage {
 
     empty: listView.count <= 0
     busy: searchModel.status === XmlListModel.Loading && empty
-    placeholder: busy ? qsTr("Searching...") : empty ? qsTr("No results") : ""
+    placeholder: busy ? qsTr("Searching...") : error ? qsTr("Error") : empty ? qsTr("No results") : ""
+    error: empty && searchModel.status === XmlListModel.Error ? searchModel.errorString() : ""
 
     flickable: ListView {
         id: listView

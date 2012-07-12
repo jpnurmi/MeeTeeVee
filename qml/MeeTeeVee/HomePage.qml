@@ -22,7 +22,8 @@ CommonPage {
 
     empty: listView.count <= 0
     busy: updatesModel.status === XmlListModel.Loading && empty
-    placeholder: busy ? qsTr("Loading...") : empty ? qsTr("No recent updates") : ""
+    placeholder: busy ? qsTr("Loading...") : error ? qsTr("Error") : empty ? qsTr("No recent updates") : ""
+    error: empty && updatesModel.status === XmlListModel.Error ? updatesModel.errorString() : ""
 
     flickable: ListView {
         id: listView

@@ -21,7 +21,8 @@ Page {
     property bool empty
     property Flickable flickable
     property alias busy: indicator.running
-    property alias placeholder: label.text
+    property alias placeholder: placeholder.text
+    property alias error: error.text
 
     anchors.rightMargin: UI.PAGE_MARGIN
     orientationLock: PageOrientation.LockPortrait
@@ -36,7 +37,7 @@ Page {
     BusyIndicator {
         id: indicator
         visible: root.busy
-        anchors.bottom: label.top
+        anchors.bottom: placeholder.top
         anchors.bottomMargin: UI.LARGE_SPACING
         anchors.horizontalCenter: parent.horizontalCenter
         style: BusyIndicatorStyle { size: "large" }
@@ -46,12 +47,28 @@ Page {
     }
 
     Text {
-        id: label
+        id: placeholder
         font.family: UI.FONT_FAMILY_LIGHT
         font.pixelSize: UI.HUGE_FONT
-        color: UI.INFO_COLOR
+        color: error.text ? UI.ERROR_COLOR : UI.INFO_COLOR
         anchors.baseline: parent.top
         anchors.baselineOffset: screen.displayWidth / 2
+        anchors.left: parent.left
+        anchors.right: parent.right
+        horizontalAlignment: Text.AlignHCenter
+        wrapMode: Text.Wrap
+        transform: Translate {
+            y: root.flickable ? -root.flickable.contentY : 0
+        }
+    }
+
+    Text {
+        id: error
+        font.family: UI.FONT_FAMILY_LIGHT
+        font.pixelSize: UI.MEDIUM_FONT
+        color: UI.ERROR_COLOR
+        anchors.top: placeholder.bottom
+        anchors.topMargin: UI.MEDIUM_SPACING
         anchors.left: parent.left
         anchors.right: parent.right
         horizontalAlignment: Text.AlignHCenter
