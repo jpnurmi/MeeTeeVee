@@ -33,7 +33,10 @@ CommonPage {
             title: qsTr("Favorites")
             iconId: "toolbar-delete"
             iconEnabled: !root.empty
-            onIconClicked: favoritesModel.clear()
+            onIconClicked: {
+                var dialog = confirmation.createObject(root);
+                dialog.open();
+            }
         }
 
         model: FavoritesModel {
@@ -55,6 +58,19 @@ CommonPage {
                 pageStack.push(page);
                 root.showed(showid);
             }
+        }
+    }
+
+    Component {
+        id: confirmation
+        QueryDialog {
+            id: dialog
+            titleText: qsTr("Clear favorites")
+            message: qsTr("Are you sure you want to clear the favorites?")
+            acceptButtonText: qsTr("Yes")
+            rejectButtonText: qsTr("No")
+            onRejected: dialog.destroy(1000)
+            onAccepted: { dialog.destroy(1000); favoritesModel.clear(); }
         }
     }
 

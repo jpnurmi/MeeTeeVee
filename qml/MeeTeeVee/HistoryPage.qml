@@ -44,7 +44,10 @@ CommonPage {
             title: qsTr("History")
             iconId: "toolbar-delete"
             iconEnabled: !root.empty
-            onIconClicked: historyModel.clear()
+            onIconClicked: {
+                var dialog = confirmation.createObject(root);
+                dialog.open();
+            }
         }
 
         model: StorageModel {
@@ -65,6 +68,19 @@ CommonPage {
                 var page = showPage.createObject(root, {showId: showid});
                 pageStack.push(page);
             }
+        }
+    }
+
+    Component {
+        id: confirmation
+        QueryDialog {
+            id: dialog
+            titleText: qsTr("Clear history")
+            message: qsTr("Are you sure you want to clear the history?")
+            acceptButtonText: qsTr("Yes")
+            rejectButtonText: qsTr("No")
+            onRejected: dialog.destroy(1000)
+            onAccepted: { dialog.destroy(1000); historyModel.clear(); }
         }
     }
 
