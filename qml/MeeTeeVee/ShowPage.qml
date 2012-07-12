@@ -68,6 +68,7 @@ CommonPage {
                 period: show.period
                 airing: show.airing
                 image: show.image
+                link: show.link
             }
 
             Separator {

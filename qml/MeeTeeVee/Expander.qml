@@ -12,6 +12,7 @@
 * GNU General Public License for more details.
 */
 import QtQuick 1.1
+import "UIConstants.js" as UI
 
 Item {
     id: root
@@ -68,11 +69,13 @@ Item {
         rotation: expanded ? -180 : 0
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
+        opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
 
         Behavior on rotation { NumberAnimation { duration: root.duration; easing.type: Easing.InCubic } }
     }
 
     MouseArea {
+        id: mouseArea
         anchors.fill: parent
         onClicked: root.expanded = !root.expanded
     }

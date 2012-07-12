@@ -15,7 +15,7 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 import "UIConstants.js" as UI
 
-Row {
+Item {
     id: root
 
     property alias info: info.text
@@ -24,15 +24,15 @@ Row {
     property alias period: period.text
     property alias airing: airing.text
     property alias image: image.source
+    property string link
 
     width: parent.width
-    height: Math.max(image.height, column.height)
-    spacing: UI.MEDIUM_SPACING
+    height: Math.max(image.implicitHeight, column.implicitHeight)
 
     Column {
         id: column
-        height: Math.max(1, implicitHeight)
-        width: (parent.width - parent.spacing) / 2
+        width: (parent.width - UI.MEDIUM_SPACING) / 2
+        anchors.left: parent.left
         anchors.verticalCenter: parent.verticalCenter
 
         Label {
@@ -41,6 +41,7 @@ Row {
             font.family: UI.FONT_FAMILY
             font.pixelSize: UI.SMALL_FONT
             textFormat: Text.PlainText
+            color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
         }
         Label {
             id: genres
@@ -48,6 +49,7 @@ Row {
             font.family: UI.FONT_FAMILY
             font.pixelSize: UI.SMALL_FONT
             textFormat: Text.PlainText
+            color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
         }
         Label {
             id: status
@@ -55,6 +57,7 @@ Row {
             font.family: UI.FONT_FAMILY
             font.pixelSize: UI.SMALL_FONT
             textFormat: Text.PlainText
+            color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
         }
         Label {
             id: period
@@ -62,6 +65,7 @@ Row {
             font.family: UI.FONT_FAMILY
             font.pixelSize: UI.SMALL_FONT
             textFormat: Text.PlainText
+            color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
         }
         Label {
             id: airing
@@ -69,20 +73,44 @@ Row {
             font.family: UI.FONT_FAMILY
             font.pixelSize: UI.SMALL_FONT
             textFormat: Text.PlainText
+            color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
+        }
+    }
+
+    Rectangle {
+        id: placeholder
+        width: (parent.width - UI.MEDIUM_SPACING) / 2
+        height: parent.height
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
+        color: UI.INFO_COLOR
+        opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
+
+        Image {
+            id: image
+            width: parent.width
+            anchors.verticalCenter: parent.verticalCenter
+            fillMode: Image.PreserveAspectFit
+        }
+
+        BusyIndicator {
+            anchors.centerIn: parent
+            running: image.status == Image.Loading
+            visible: image.status == Image.Loading
         }
     }
 
     Image {
-        id: image
-        width: (parent.width - parent.spacing) / 2
-        anchors.verticalCenter: parent.verticalCenter
-        fillMode: Image.PreserveAspectFit
-        opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
+        source: "image://theme/icon-s-status-notifier-software-update"
+        anchors.top: parent.top
+        anchors.right: parent.right
+        visible: mouseArea.pressed && mouseArea.containsMouse
+        rotation: 180
+    }
 
-        MouseArea {
-            id: mouseArea
-            anchors.fill: parent
-            onClicked: Qt.openUrlExternally(show.link)
-        }
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+        onClicked: Qt.openUrlExternally(link)
     }
 }
