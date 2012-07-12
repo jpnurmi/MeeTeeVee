@@ -31,8 +31,9 @@ CommonPage {
             historyModel.remove(10, historyModel.count - 10);
     }
 
-    busy: historyModel.loading && listView.count <= 0
-    placeholder: busy ? qsTr("Loading...") : listView.count <= 0 ? qsTr("No history") : ""
+    empty: listView.count <= 0
+    busy: historyModel.loading && empty
+    placeholder: busy ? qsTr("Loading...") : empty ? qsTr("No history") : ""
 
     flickable: ListView {
         id: listView

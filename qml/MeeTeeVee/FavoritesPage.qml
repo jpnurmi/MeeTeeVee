@@ -20,8 +20,9 @@ CommonPage {
 
     signal showed(string showId)
 
-    busy: favoritesModel.loading && listView.count <= 0
-    placeholder: busy ? qsTr("Loading...") : listView.count <= 0 ? qsTr("No favorites") : ""
+    empty: listView.count <= 0
+    busy: favoritesModel.loading && empty
+    placeholder: busy ? qsTr("Loading...") : empty ? qsTr("No favorites") : ""
 
     flickable: ListView {
         id: listView

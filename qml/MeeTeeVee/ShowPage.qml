@@ -23,6 +23,7 @@ CommonPage {
     property alias showId: show.showId
     property alias favorited: show.favorited
 
+    empty: show.empty
     busy: show.empty && show.loading
     placeholder: busy ? qsTr("Loading...") : ""
 

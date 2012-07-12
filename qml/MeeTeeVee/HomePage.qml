@@ -20,8 +20,9 @@ CommonPage {
 
     signal showed(string showId)
 
-    busy: updatesModel.status === XmlListModel.Loading && listView.count <= 0
-    placeholder: busy ? qsTr("Loading...") : listView.count <= 0 ? qsTr("No recent updates") : ""
+    empty: listView.count <= 0
+    busy: updatesModel.status === XmlListModel.Loading && empty
+    placeholder: busy ? qsTr("Loading...") : empty ? qsTr("No recent updates") : ""
 
     flickable: ListView {
         id: listView

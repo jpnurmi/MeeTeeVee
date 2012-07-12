@@ -20,8 +20,9 @@ CommonPage {
     property string subtitle
     property alias model: listView.model
 
-    busy: model.busy
-    placeholder: busy ? qsTr("Loading...") : listView.count <= 0 ? qsTr("No episodes") : ""
+    empty: listView.count <= 0
+    busy: model.busy && empty
+    placeholder: busy ? qsTr("Loading...") : empty ? qsTr("No episodes") : ""
 
     flickable: ListView {
         id: listView

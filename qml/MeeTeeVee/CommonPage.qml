@@ -18,6 +18,7 @@ import "UIConstants.js" as UI
 Page {
     id: root
 
+    property bool empty
     property Flickable flickable
     property alias busy: indicator.running
     property alias placeholder: label.text
