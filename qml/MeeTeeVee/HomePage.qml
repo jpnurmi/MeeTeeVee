@@ -56,8 +56,8 @@ CommonPage {
                 showId: showid
             }
             title: show.name
-            subtitle: episodeModel.episode
-            description: episodeModel.airdate
+            subtitle: episodeModel.busy ? qsTr("Loading...") : episodeModel.episode
+            description: episodeModel.busy ? qsTr("Loading...") : episodeModel.airdate
             thumbnail: show.image
             onClicked: {
                 var page = showPage.createObject(root, {showId: showid});
@@ -68,6 +68,7 @@ CommonPage {
                 id: episodeModel
                 property string episode
                 property string airdate
+                property string busy: status == XmlListModel.Loading
                 source: "http://services.tvrage.com/feeds/episodeinfo.php?sid=" + showid
                 query: "/show/latestepisode"
                 XmlRole { name: "number"; query: "number/string()" }

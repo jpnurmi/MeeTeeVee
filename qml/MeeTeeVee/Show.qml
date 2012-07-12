@@ -43,20 +43,22 @@ QtObject {
     property bool fetchShows: true
     property bool fetchEpisodes: false
 
+    property string info: classification && network ?
+                          qsTr("%1 on %2").arg(show.classification).arg(network) :
+                          classification ? classification : network
+    property string period: started && ended ? qsTr("%1 - %2").arg(started).arg(ended) :
+                            started ? qsTr("Started %1").arg(started) :
+                            ended ? qsTr("Ended %1").arg(ended) : ""
     property string airing
     airing: {
-        if (started.length && ended.length) {
-            return qsTr("%1 - %2").arg(started).arg(ended);
-        } else {
-            var infos = [];
-            if (airday.length)
-                infos.push(airday);
-            if (airtime.length)
-                infos.push(qsTr("at %1").arg(airtime));
-            if (network.length)
-                infos.push(qsTr("on %1").arg(network));
-            return infos.join(" ");
-        }
+        var strings = [];
+        if (airday)
+            strings.push(airday);
+        if (airtime)
+            strings.push(qsTr("at %1").arg(airtime));
+        if (runtime)
+            strings.push(qsTr("(%1min)").arg(runtime));
+        return strings.join(" ");
     }
 
     function setData(data, ready) {
