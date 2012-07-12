@@ -45,7 +45,7 @@ CommonPage {
             Header {
                 title: show.name
                 subtitle: qsTr("Info")
-                iconId: show.favorited ? "toolbar-favorite-unmark" : "toolbar-favorite-mark"
+                iconId: show.favorited ? "toolbar-favorite-mark" : "toolbar-favorite-unmark"
                 iconEnabled: !show.empty && Singleton.favoritesModel && Singleton.favoritesModel.loaded
                 onIconClicked: {
                     if (Singleton.favoritesModel)
