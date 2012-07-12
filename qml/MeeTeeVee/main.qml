@@ -27,6 +27,10 @@ PageStackWindow {
         id: showManager
     }
 
+    style: PageStackWindowStyle {
+        background: "images/background.png"
+    }
+
     initialPage: Page {
         orientationLock: PageOrientation.LockPortrait
         tools: tabBar
