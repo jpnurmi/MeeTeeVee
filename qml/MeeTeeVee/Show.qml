@@ -69,6 +69,13 @@ QtObject {
             Singleton.episodeManager.fetchEpisodes(root);
         if (Singleton.favoritesModel)
             Singleton.favoritesModel.addShow(root);
+
+        if (!Singleton.showManager)
+            console.debug("WARNING Show.onCompleted: no ShowManager instance")
+        if (!Singleton.episodeManager)
+            console.debug("WARNING Show.onCompleted: no EpisodeManager instance")
+        if (!Singleton.favoritesModel)
+            console.debug("WARNING Show.onCompleted: no FavoritesModel instance")
     }
 
     Component.onDestruction: {
