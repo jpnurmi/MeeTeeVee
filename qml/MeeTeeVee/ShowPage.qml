@@ -61,82 +61,13 @@ CommonPage {
                 }
             }
 
-            Row {
-                width: parent.width
-                height: Math.max(image.height, general.height)
-                spacing: UI.MEDIUM_SPACING
-
-                Column {
-                    id: general
-                    height: Math.max(1, implicitHeight)
-                    width: (parent.width - parent.spacing) / 2
-                    anchors.verticalCenter: parent.verticalCenter
-
-                    Label {
-                        width: parent.width
-                        text: show.classification && show.network ?
-                              qsTr("%1 on %2").arg(show.classification).arg(show.network) :
-                              show.classification ? show.classification : show.network
-                        font.family: UI.FONT_FAMILY
-                        font.pixelSize: UI.SMALL_FONT
-                        textFormat: Text.PlainText
-                    }
-                    Label {
-                        width: parent.width
-                        text: show.genres
-                        font.family: UI.FONT_FAMILY
-                        font.pixelSize: UI.SMALL_FONT
-                        textFormat: Text.PlainText
-                    }
-                    Label {
-                        width: parent.width
-                        text: show.status
-                        font.family: UI.FONT_FAMILY
-                        font.pixelSize: UI.SMALL_FONT
-                        textFormat: Text.PlainText
-                    }
-                    Label {
-                        width: parent.width
-                        text: show.started && show.ended ?
-                              qsTr("%1 - %2").arg(show.started).arg(show.ended) :
-                              show.started ? qsTr("Started %1").arg(show.started) :
-                              show.ended ? qsTr("Ended %1").arg(show.ended) : ""
-                        font.family: UI.FONT_FAMILY
-                        font.pixelSize: UI.SMALL_FONT
-                        textFormat: Text.PlainText
-                    }
-                    Label {
-                        width: parent.width
-                        text: {
-                            var strings = [];
-                            if (show.airday)
-                                strings.push(show.airday);
-                            if (show.airtime)
-                                strings.push(qsTr("at %1").arg(show.airtime));
-                            if (show.runtime)
-                                strings.push(qsTr("(%1min)").arg(show.runtime));
-                            return strings.join(" ");
-                        }
-                        font.family: UI.FONT_FAMILY
-                        font.pixelSize: UI.SMALL_FONT
-                        textFormat: Text.PlainText
-                    }
-                }
-
-                Image {
-                    id: image
-                    width: (parent.width - parent.spacing) / 2
-                    anchors.verticalCenter: parent.verticalCenter
-                    source: show.image
-                    fillMode: Image.PreserveAspectFit
-                    opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
-
-                    MouseArea {
-                        id: mouseArea
-                        anchors.fill: parent
-                        onClicked: Qt.openUrlExternally(show.link)
-                    }
-                }
+            ShowInfoBox {
+                info: show.info
+                genres: show.genres
+                status: show.status
+                period: show.period
+                airing: show.airing
+                image: show.image
             }
 
             Separator {
