@@ -62,6 +62,7 @@ CommonPage {
             subtitle: show.info
             description: show.ended ? show.period : show.airing
             thumbnail: show.image
+            busy: show.empty && show.loading
             onClicked: {
                 var page = showPage.createObject(root, {showId: showid});
                 pageStack.push(page);

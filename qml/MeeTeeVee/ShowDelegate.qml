@@ -18,6 +18,7 @@ import "UIConstants.js" as UI
 Item {
     id: root
 
+    property bool busy: false
     property alias title: title.text
     property alias subtitle: subtitle.text
     property alias description: description.text
@@ -47,6 +48,11 @@ Item {
                 id: thumbnail
                 anchors.fill: parent
                 sourceSize { width: parent.width; height: parent.height }
+                BusyIndicator {
+                    anchors.centerIn: parent
+                    running: root.busy || thumbnail.status == Image.Loading
+                    visible: running
+                }
             }
         }
 
