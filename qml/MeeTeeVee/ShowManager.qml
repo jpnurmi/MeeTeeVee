@@ -22,7 +22,7 @@ QtObject {
     function fetchShow(show) {
         var model = createModel(show.showId);
         if (model.count == 1) {
-            show.setData(model.get(0));
+            show.setData(model.get(0), true);
         } else {
             Shows.insert(show.showId, show);
             worker.readCache(show.showId);
@@ -71,7 +71,7 @@ QtObject {
                     var data = get(0);
                     var shows = Shows.values(data.showId);
                     for (var i = 0; i < shows.length; ++i)
-                        shows[i].setData(data);
+                        shows[i].setData(data, true);
                     Shows.remove(data.showId);
                     worker.writeCache(data);
                 }
@@ -94,7 +94,7 @@ QtObject {
         onMessage: {
             var shows = Shows.values(messageObject.showId);
             for (var i = 0; i < shows.length; ++i)
-                shows[i].setData(messageObject);
+                shows[i].setData(messageObject, false);
         }
     }
 

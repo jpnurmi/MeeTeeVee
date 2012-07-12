@@ -37,6 +37,8 @@ QtObject {
 
     property string episodes
 
+    property bool empty: true
+    property bool loading: true
     property bool favorited: false
     property bool fetchShows: true
     property bool fetchEpisodes: false
@@ -57,7 +59,9 @@ QtObject {
         }
     }
 
-    function setData(data) {
+    function setData(data, ready) {
+        empty = false;
+        loading = ready;
         for (var prop in data)
             root[prop] = data[prop];
     }
