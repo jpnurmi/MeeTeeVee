@@ -20,26 +20,28 @@ Column {
 
     property alias title: label.text
     property alias subtitle: separator.title
-    property alias content: content.data
+    property alias iconId: icon.iconId
+    property alias iconEnabled: icon.enabled
+    signal iconClicked()
 
     spacing: UI.SMALL_SPACING
     width: parent ? parent.width : 0
 
     Label {
         id: label
-        width: parent.width - content.width
+        width: parent.width - icon.width + UI.PAGE_MARGIN
         font.weight: Font.Light
         font.family: UI.FONT_FAMILY
         font.pixelSize: UI.LARGE_FONT
         textFormat: Text.PlainText
         color: UI.TITLE_COLOR
 
-        Item {
-            id: content
-            width: childrenRect.width
-            height: childrenRect.height
+        ToolIcon {
+            id: icon
             anchors.left: label.right
             anchors.verticalCenter: parent.verticalCenter
+            opacity: enabled ? 1.0 : UI.DISABLED_OPACITY
+            onClicked: root.iconClicked()
         }
     }
 

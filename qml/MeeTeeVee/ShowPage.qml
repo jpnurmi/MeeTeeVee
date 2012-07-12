@@ -45,20 +45,11 @@ CommonPage {
             Header {
                 title: show.name
                 subtitle: qsTr("Info")
-                content: Image {
-                    visible: !show.empty && Singleton.favoritesModel && Singleton.favoritesModel.loaded
-                    source: favoriteArea.pressed && favoriteArea.containsMouse ?
-                                "image://theme/icon-m-common-favorite-mark-inverse" :
-                                show.favorited ? "image://theme/icon-m-common-favorite-mark-selected" :
-                                                 "image://theme/icon-m-common-favorite-unmark-inverse"
-                    MouseArea {
-                        id: favoriteArea
-                        anchors.fill: parent
-                        onClicked: {
-                            if (Singleton.favoritesModel)
-                                Singleton.favoritesModel.setFavorited(show.showId, !show.favorited);
-                        }
-                    }
+                iconId: show.favorited ? "toolbar-favorite-unmark" : "toolbar-favorite-mark"
+                iconEnabled: !show.empty && Singleton.favoritesModel && Singleton.favoritesModel.loaded
+                onIconClicked: {
+                    if (Singleton.favoritesModel)
+                        Singleton.favoritesModel.setFavorited(show.showId, !show.favorited);
                 }
             }
 

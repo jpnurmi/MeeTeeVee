@@ -31,15 +31,9 @@ CommonPage {
 
         header: Header {
             title: qsTr("Favorites")
-            content: Image {
-                source: "images/tvr_logo.png"
-                opacity: logoArea.pressed && logoArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
-                MouseArea {
-                    id: logoArea
-                    anchors.fill: parent
-                    onClicked: Qt.openUrlExternally("http://www.tvrage.com")
-                }
-            }
+            iconId: "toolbar-delete"
+            iconEnabled: !root.empty
+            onIconClicked: favoritesModel.clear()
         }
 
         model: FavoritesModel {

@@ -32,14 +32,12 @@ CommonPage {
         header: Header {
             title: "MeeTeeVee"
             subtitle: qsTr("Recent updates")
-            content: Image {
-                source: "images/tvr_logo.png"
-                opacity: logoArea.pressed && logoArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
-                MouseArea {
-                    id: logoArea
-                    anchors.fill: parent
-                    onClicked: Qt.openUrlExternally("http://www.tvrage.com")
-                }
+            iconId: "toolbar-refresh"
+            iconEnabled: updatesModel.status !== XmlListModel.Loading
+            onIconClicked: {
+                updatesModel.source = "";
+                updatesModel.source = "http://services.tvrage.com/feeds/last_updates.php?&sort=episodes&hours=1";
+                updatesModel.reload()
             }
         }
 
