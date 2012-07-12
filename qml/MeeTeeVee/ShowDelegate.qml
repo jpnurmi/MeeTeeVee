@@ -30,73 +30,68 @@ Item {
         id: show
     }
 
-    Row {
-        id: row
+    Image {
+        id: thumbnail
+        property bool loading: (show.empty && show.loading) || status == Image.Loading
+        property bool error: status == Image.Error
+        source: show.image
+        anchors.verticalCenter: parent.verticalCenter
+        width: UI.THUMBNAIL_SIZE; height: UI.THUMBNAIL_SIZE
+        sourceSize { width: UI.THUMBNAIL_SIZE; height: UI.THUMBNAIL_SIZE }
+        opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
+    }
 
-        width: parent.width
-        height: parent.height
-        spacing: UI.MEDIUM_SPACING
+    Image {
+        id: placeholder
+        property bool masked: source == "image://theme/meegotouch-avatar-mask-large"
+        anchors.fill: thumbnail
+        source: show.error || thumbnail.error ? "image://theme/icon-l-error" :
+                thumbnail.loading ? "image://theme/icon-l-downloading" :
+                show.image ? "image://theme/meegotouch-avatar-mask-large" : "images/placeholder.png"
+        opacity: !masked && mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
+    }
 
-        Rectangle {
-            id: placeholder
-            width: UI.THUMBNAIL_SIZE
-            height: UI.THUMBNAIL_SIZE
-            color: UI.INFO_COLOR
-            opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
-            anchors.verticalCenter: parent.verticalCenter
-            Image {
-                id: thumbnail
-                anchors.fill: parent
-                source: show.image
-                sourceSize { width: parent.width; height: parent.height }
-                BusyIndicator {
-                    anchors.centerIn: parent
-                    running: (show.empty && show.loading) || thumbnail.status == Image.Loading
-                    visible: running
-                }
-            }
+    Column {
+        id: column
+        anchors.left: thumbnail.right
+        anchors.leftMargin: UI.MEDIUM_SPACING
+        anchors.verticalCenter: parent.verticalCenter
+        width: root.width - thumbnail.width - UI.MEDIUM_SPACING
+
+        Text {
+            text: show.name
+            width: column.width
+            font.family: UI.FONT_FAMILY
+            font.pixelSize: UI.MEDIUM_FONT
+            font.weight: Font.Bold
+            color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
+            textFormat: Text.PlainText
+            maximumLineCount: 1
+            clip: true
         }
 
-        Column {
-            id: column
-            anchors.verticalCenter: parent.verticalCenter
-            width: row.width - placeholder.width - UI.MEDIUM_SPACING
+        Text {
+            text: show.info
+            width: column.width
+            font.family: UI.FONT_FAMILY
+            font.pixelSize: UI.SMALL_FONT
+            font.weight: Font.Light
+            color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
+            textFormat: Text.PlainText
+            maximumLineCount: 1
+            clip: true
+        }
 
-            Text {
-                text: show.name
-                width: column.width
-                font.family: UI.FONT_FAMILY
-                font.pixelSize: UI.MEDIUM_FONT
-                font.weight: Font.Bold
-                color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
-                textFormat: Text.PlainText
-                maximumLineCount: 1
-                clip: true
-            }
-
-            Text {
-                text: show.info
-                width: column.width
-                font.family: UI.FONT_FAMILY
-                font.pixelSize: UI.SMALL_FONT
-                font.weight: Font.Light
-                color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
-                textFormat: Text.PlainText
-                maximumLineCount: 1
-                clip: true
-            }
-
-            Text {
-                text: show.ended ? show.period : show.airing
-                width: column.width
-                font.family: UI.FONT_FAMILY
-                font.pixelSize: UI.SMALL_FONT
-                font.weight: Font.Light
-                color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
-                textFormat: Text.PlainText
-                maximumLineCount: 1
-                clip: true
-            }
+        Text {
+            text: show.ended ? show.period : show.airing
+            width: column.width
+            font.family: UI.FONT_FAMILY
+            font.pixelSize: UI.SMALL_FONT
+            font.weight: Font.Light
+            color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
+            textFormat: Text.PlainText
+            maximumLineCount: 1
+            clip: true
         }
     }
 
