@@ -73,6 +73,11 @@ CommonPage {
         }
     }
 
+    Component {
+        id: showPage
+        ShowPage { }
+    }
+
     onStatusChanged: {
         if (status === PageStatus.Activating && !historyModel.loaded && !historyModel.loading)
             historyModel.load();

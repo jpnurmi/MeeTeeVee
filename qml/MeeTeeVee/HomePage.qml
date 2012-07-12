@@ -84,6 +84,11 @@ CommonPage {
         }
     }
 
+    Component {
+        id: showPage
+        ShowPage { }
+    }
+
     onStatusChanged: {
         if (status === PageStatus.Activating && updatesModel.source == "")
             updatesModel.source = "http://services.tvrage.com/feeds/last_updates.php?&sort=episodes&hours=1";

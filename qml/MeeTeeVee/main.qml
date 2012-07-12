@@ -74,11 +74,6 @@ PageStackWindow {
         }
     }
 
-    Component {
-        id: showPage
-        ShowPage { }
-    }
-
     ToolBarLayout {
         id: tabBar
         ToolIcon {
