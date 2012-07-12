@@ -18,17 +18,17 @@ import "UIConstants.js" as UI
 Item {
     id: root
 
-    property bool busy: false
-    property alias title: title.text
-    property alias subtitle: subtitle.text
-    property alias description: description.text
-    property alias thumbnail: thumbnail.source
+    property alias showId: show.showId
 
     signal clicked
     signal pressAndHold
 
     width: parent ? parent.width : 0
     height: UI.THUMBNAIL_SIZE + 2 * UI.MEDIUM_SPACING
+
+    Show {
+        id: show
+    }
 
     Row {
         id: row
@@ -47,10 +47,11 @@ Item {
             Image {
                 id: thumbnail
                 anchors.fill: parent
+                source: show.image
                 sourceSize { width: parent.width; height: parent.height }
                 BusyIndicator {
                     anchors.centerIn: parent
-                    running: root.busy || thumbnail.status == Image.Loading
+                    running: (show.empty && show.loading) || thumbnail.status == Image.Loading
                     visible: running
                 }
             }
@@ -62,7 +63,7 @@ Item {
             width: row.width - placeholder.width - UI.MEDIUM_SPACING
 
             Text {
-                id: title
+                text: show.name
                 width: column.width
                 font.family: UI.FONT_FAMILY
                 font.pixelSize: UI.MEDIUM_FONT
@@ -74,7 +75,7 @@ Item {
             }
 
             Text {
-                id: subtitle
+                text: show.info
                 width: column.width
                 font.family: UI.FONT_FAMILY
                 font.pixelSize: UI.SMALL_FONT
@@ -86,7 +87,7 @@ Item {
             }
 
             Text {
-                id: description
+                text: show.ended ? show.period : show.airing
                 width: column.width
                 font.family: UI.FONT_FAMILY
                 font.pixelSize: UI.SMALL_FONT

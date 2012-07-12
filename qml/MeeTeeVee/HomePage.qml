@@ -50,15 +50,7 @@ CommonPage {
         }
 
         delegate: ShowDelegate {
-            Show {
-                id: show
-                showId: showid
-            }
-            title: show.name
-            subtitle: show.info
-            description: show.ended ? show.period : show.airing
-            thumbnail: show.image
-            busy: show.empty && show.loading
+            showId: showid
             onClicked: {
                 var page = showPage.createObject(root, {showId: showid});
                 pageStack.push(page);
