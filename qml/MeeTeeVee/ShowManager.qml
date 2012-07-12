@@ -66,14 +66,17 @@ QtObject {
             XmlRole { name: "airday"; query: "airday/string()" }
             XmlRole { name: "timezone"; query: "timezone/string()" }
 
-            onCountChanged: {
-                if (count == 1) {
+            onStatusChanged: {
+                var shows = Shows.values(showId);
+                if (status == XmlListModel.Ready && count == 1) {
                     var data = get(0);
-                    var shows = Shows.values(data.showId);
                     for (var i = 0; i < shows.length; ++i)
                         shows[i].setData(data, true);
                     Shows.remove(data.showId);
                     worker.writeCache(data);
+                } else if (status == XmlListModel.Error) {
+                    for (var j = 0; j < shows.length; ++j)
+                        shows[j].error = errorString();
                 }
             }
         }

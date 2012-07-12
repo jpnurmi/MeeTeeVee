@@ -37,6 +37,7 @@ QtObject {
 
     property string episodes
 
+    property string error
     property bool empty: true
     property bool loading: true
     property bool favorited: false
@@ -62,6 +63,8 @@ QtObject {
     }
 
     function setData(data, ready) {
+        if (error && ready)
+            error = "";
         empty = false;
         loading = ready;
         for (var prop in data)
