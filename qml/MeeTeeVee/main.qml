@@ -89,7 +89,7 @@ PageStackWindow {
         ToolIcon {
             iconId: "toolbar-back"
             opacity: enabled ? 1.0 : UI.DISABLED_OPACITY
-            enabled: tabGroup.currentTab.depth > 1
+            enabled: !!tabGroup.currentTab && tabGroup.currentTab.depth > 1
             onClicked: tabGroup.currentTab.pop()
         }
         ButtonRow {
