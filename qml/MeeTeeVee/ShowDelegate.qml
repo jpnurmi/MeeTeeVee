@@ -46,7 +46,7 @@ Item {
         property bool masked: source == "image://theme/meegotouch-avatar-mask-large"
         anchors.fill: thumbnail
         source: show.error || thumbnail.error ? "image://theme/icon-l-error" :
-                thumbnail.loading ? "image://theme/icon-l-downloading" :
+                thumbnail.loading ? "images/downloading.png" :
                 show.image ? "image://theme/meegotouch-avatar-mask-large" : "images/placeholder.png"
         opacity: !masked && mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
     }
