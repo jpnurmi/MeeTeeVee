@@ -11,26 +11,20 @@
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
 */
-.pragma library
-
-var __db = null;
-
 function __open() {
-    if (!__db) {
-        __db = openDatabaseSync("MeeTeeVee", "1.0", "Settings", 1024);
-        __db.transaction(
-            function(tx) {
-                tx.executeSql("CREATE TABLE IF NOT EXISTS Settings(key TEXT UNIQUE, value TEXT)");
-            }
-        )
-    }
-    return __db;
+    var db = openDatabaseSync("MeeTeeVee", "1.0", "Settings", 1024);
+    db.transaction(
+        function(tx) {
+            tx.executeSql("CREATE TABLE IF NOT EXISTS Settings(key TEXT UNIQUE, value TEXT)");
+        }
+    )
+    return db;
 }
 
 function read(key) {
     var value = undefined;
-    __db = __open();
-    __db.readTransaction(
+    var db = __open();
+    db.readTransaction(
         function(tx) {
             var rs = tx.executeSql("SELECT value FROM Settings WHERE key=?", [key]);
             if (rs.rows.length)
@@ -41,7 +35,8 @@ function read(key) {
 }
 
 function write(key, value) {
-    __db.transaction(
+    var db = __open();
+    db.transaction(
         function(tx) {
             var rs = tx.executeSql("UPDATE Settings SET value=? WHERE key=?", [value, key]);
             if (rs.rowsAffected <= 0)
