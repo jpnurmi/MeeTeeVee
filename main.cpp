@@ -44,15 +44,20 @@ public:
     }
 };
 
-class BackgroundProvider : public QDeclarativeImageProvider
+class MeeGoGraphicsSystemImageProvider : public QDeclarativeImageProvider
 {
 public:
-    BackgroundProvider() : QDeclarativeImageProvider(Pixmap) { }
+    MeeGoGraphicsSystemImageProvider() : QDeclarativeImageProvider(Pixmap) { }
+
+    QString path() const { return dir.path(); }
+    void setPath(const QString& path) { dir = QDir(path); }
 
     QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
     {
         QPixmap pixmap;
-        QImage image("/opt/MeeTeeVee/qml/MeeTeeVee/images/background.png");
+        QImage image(dir.filePath(id));
+        if (size)
+            *size = image.size();
         image = image.convertToFormat(QImage::Format_ARGB32_Premultiplied);
         if (QMeeGoGraphicsSystemHelper::isRunningMeeGo()) {
             Qt::HANDLE handle = QMeeGoGraphicsSystemHelper::imageToEGLSharedImage(image);
@@ -61,8 +66,13 @@ public:
         } else {
             pixmap = QPixmap::fromImage(image);
         }
+        if (requestedSize.isValid())
+            pixmap = pixmap.scaled(requestedSize);
         return pixmap;
     }
+
+private:
+    QDir dir;
 };
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
@@ -71,10 +81,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QScopedPointer<QApplication> app(createApplication(argc, argv));
 
     QPixmapCache::setCacheLimit(20 * 1024);
+    MeeGoGraphicsSystemImageProvider* provider = new MeeGoGraphicsSystemImageProvider;
+    provider->setPath("/opt/MeeTeeVee/qml/MeeTeeVee/images");
 
     QmlApplicationViewer viewer;
     viewer.engine()->setNetworkAccessManagerFactory(new NetworkAccessManagerFactory);
-    viewer.engine()->addImageProvider("background", new BackgroundProvider);
+    viewer.engine()->addImageProvider("MeeTeeVee", provider);
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
     viewer.setMainQmlFile(QLatin1String("qml/MeeTeeVee/main.qml"));
     viewer.showExpanded();
