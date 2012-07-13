@@ -11,15 +11,10 @@
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
 */
-#include <QtGui/QApplication>
-#include <QtGui/QPixmapCache>
-#include <QtGui/QDesktopServices>
-#include <QtNetwork/QNetworkReply>
-#include <QtNetwork/QNetworkRequest>
-#include <QtNetwork/QNetworkDiskCache>
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtDeclarative/QDeclarativeEngine>
-#include <QtDeclarative/QDeclarativeNetworkAccessManagerFactory>
+#include <QtGui>
+#include <QtNetwork>
+#include <QtDeclarative>
+#include <QtMeeGoGraphicsSystemHelper>
 #include "qmlapplicationviewer.h"
 
 class NetworkAccessManager : public QNetworkAccessManager
@@ -49,6 +44,27 @@ public:
     }
 };
 
+class BackgroundProvider : public QDeclarativeImageProvider
+{
+public:
+    BackgroundProvider() : QDeclarativeImageProvider(Pixmap) { }
+
+    QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
+    {
+        QPixmap pixmap;
+        QImage image("/opt/MeeTeeVee/qml/MeeTeeVee/images/background.png");
+        image = image.convertToFormat(QImage::Format_ARGB32_Premultiplied);
+        if (QMeeGoGraphicsSystemHelper::isRunningMeeGo()) {
+            Qt::HANDLE handle = QMeeGoGraphicsSystemHelper::imageToEGLSharedImage(image);
+            pixmap = QMeeGoGraphicsSystemHelper::pixmapFromEGLSharedImage(handle, image);
+            QMeeGoGraphicsSystemHelper::destroyEGLSharedImage(handle);
+        } else {
+            pixmap = QPixmap::fromImage(image);
+        }
+        return pixmap;
+    }
+};
+
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     QApplication::setApplicationName("MeeTeeVee");
@@ -57,9 +73,10 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QPixmapCache::setCacheLimit(20 * 1024);
 
     QmlApplicationViewer viewer;
+    viewer.engine()->setNetworkAccessManagerFactory(new NetworkAccessManagerFactory);
+    viewer.engine()->addImageProvider("background", new BackgroundProvider);
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
     viewer.setMainQmlFile(QLatin1String("qml/MeeTeeVee/main.qml"));
-    viewer.engine()->setNetworkAccessManagerFactory(new NetworkAccessManagerFactory);
     viewer.showExpanded();
 
     return app->exec();
