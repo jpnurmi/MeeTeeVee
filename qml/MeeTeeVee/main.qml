@@ -28,7 +28,7 @@ PageStackWindow {
     }
 
     style: PageStackWindowStyle {
-        background: "images/background.png"
+        background: "image://background/MeeTeeVee"
     }
 
     initialPage: Page {
