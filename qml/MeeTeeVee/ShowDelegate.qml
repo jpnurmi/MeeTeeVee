@@ -67,7 +67,6 @@ Item {
             color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
             textFormat: Text.PlainText
             maximumLineCount: 1
-            clip: true
         }
 
         Text {
@@ -79,7 +78,6 @@ Item {
             color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
             textFormat: Text.PlainText
             maximumLineCount: 1
-            clip: true
         }
 
         Text {
@@ -91,7 +89,6 @@ Item {
             color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
             textFormat: Text.PlainText
             maximumLineCount: 1
-            clip: true
         }
     }
 
@@ -100,11 +97,5 @@ Item {
         anchors.fill: parent
         onClicked: root.clicked()
         onPressAndHold: root.pressAndHold()
-    }
-
-    Image {
-        height: parent.height
-        anchors.right: parent.right
-        source: "images/right-shadow.png"
     }
 }
