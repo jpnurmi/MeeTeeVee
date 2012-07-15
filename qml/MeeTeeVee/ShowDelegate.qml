@@ -30,33 +30,42 @@ Item {
         id: show
     }
 
-    Image {
-        id: thumbnail
-        property bool loading: (show.empty && show.loading) || status == Image.Loading
-        property bool error: status == Image.Error
-        source: show.image
+    MaskedItem {
+        id: squircle
+
+        width: UI.THUMBNAIL_SIZE
+        height: UI.THUMBNAIL_SIZE
         anchors.verticalCenter: parent.verticalCenter
-        width: UI.THUMBNAIL_SIZE; height: UI.THUMBNAIL_SIZE
-        sourceSize { width: UI.THUMBNAIL_SIZE; height: UI.THUMBNAIL_SIZE }
-        opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
+
+        mask: Image {
+            source: "images/squircle.png"
+        }
+
+        Image {
+            id: thumbnail
+            property bool loading: (show.empty && show.loading) || status == Image.Loading
+            property bool error: status == Image.Error
+            source: show.image
+            sourceSize { width: UI.THUMBNAIL_SIZE; height: UI.THUMBNAIL_SIZE }
+            opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
+        }
     }
 
     Image {
         id: placeholder
-        property bool masked: source == "image://theme/meegotouch-avatar-mask-large"
-        anchors.fill: thumbnail
-        source: show.error || thumbnail.error ? "image://theme/icon-l-error" :
+        anchors.fill: squircle
+        source: (show.error && !show.empty) || thumbnail.error ? "image://theme/icon-l-error" :
                 thumbnail.loading ? "images/downloading.png" :
-                show.image ? "image://theme/meegotouch-avatar-mask-large" : "images/placeholder.png"
-        opacity: !masked && mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
+                !show.image ? "images/squircle.png" : ""
+        opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
     }
 
     Column {
         id: column
-        anchors.left: thumbnail.right
+        anchors.left: squircle.right
         anchors.leftMargin: UI.MEDIUM_SPACING
         anchors.verticalCenter: parent.verticalCenter
-        width: root.width - thumbnail.width - UI.MEDIUM_SPACING
+        width: root.width - squircle.width - UI.MEDIUM_SPACING
 
         Text {
             text: show.name
