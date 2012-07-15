@@ -60,44 +60,59 @@ Item {
         opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
     }
 
-    Column {
-        id: column
+    MaskedItem {
         anchors.left: squircle.right
         anchors.leftMargin: UI.MEDIUM_SPACING
-        anchors.verticalCenter: parent.verticalCenter
         width: root.width - squircle.width - UI.MEDIUM_SPACING
+        height: root.height
 
-        Text {
-            text: show.name
+        mask: BorderImage {
+            source: "images/shadow-horizontal.png"
+            border.right: 15
             width: column.width
-            font.family: UI.FONT_FAMILY
-            font.pixelSize: UI.MEDIUM_FONT
-            font.weight: Font.Bold
-            color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
-            textFormat: Text.PlainText
-            maximumLineCount: 1
+            height: column.height
         }
 
-        Text {
-            text: show.info
-            width: column.width
-            font.family: UI.FONT_FAMILY
-            font.pixelSize: UI.SMALL_FONT
-            font.weight: Font.Light
-            color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
-            textFormat: Text.PlainText
-            maximumLineCount: 1
-        }
+        Column {
+            id: column
+            width: parent.width
+            anchors.verticalCenter: parent.verticalCenter
 
-        Text {
-            text: show.ended ? show.period : show.airing
-            width: column.width
-            font.family: UI.FONT_FAMILY
-            font.pixelSize: UI.SMALL_FONT
-            font.weight: Font.Light
-            color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
-            textFormat: Text.PlainText
-            maximumLineCount: 1
+            Text {
+                text: show.name
+                width: column.width
+                font.family: UI.FONT_FAMILY
+                font.pixelSize: UI.MEDIUM_FONT
+                font.weight: Font.Bold
+                color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
+                textFormat: Text.PlainText
+                maximumLineCount: 1
+                clip: true
+            }
+
+            Text {
+                text: show.info
+                width: column.width
+                font.family: UI.FONT_FAMILY
+                font.pixelSize: UI.SMALL_FONT
+                font.weight: Font.Light
+                color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
+                textFormat: Text.PlainText
+                maximumLineCount: 1
+                clip: true
+            }
+
+            Text {
+                text: show.ended ? show.period : show.airing
+                width: column.width
+                font.family: UI.FONT_FAMILY
+                font.pixelSize: UI.SMALL_FONT
+                font.weight: Font.Light
+                color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
+                textFormat: Text.PlainText
+                maximumLineCount: 1
+                clip: true
+            }
         }
     }
 
