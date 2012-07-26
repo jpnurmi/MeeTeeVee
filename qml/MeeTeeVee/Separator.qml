@@ -23,14 +23,6 @@ Row {
     width: parent.width
     spacing: label.text.length ? UI.LARGE_SPACING : 0
 
-    Rectangle {
-        id: leftie
-        color: UI.SUBTITLE_COLOR
-        height: 1
-        width: 0 // 2 * UI.LARGE_SPACING
-        anchors.verticalCenter: label.verticalCenter
-    }
-
     Text {
         id: label
         font.family: UI.FONT_FAMILY
@@ -44,7 +36,7 @@ Row {
         id: rightie
         color: UI.SUBTITLE_COLOR
         height: 1
-        width: parent.width - leftie.width - label.width - parent.spacing // * 2
+        width: parent.width - label.width - parent.spacing
         anchors.verticalCenter: label.verticalCenter
     }
 }
