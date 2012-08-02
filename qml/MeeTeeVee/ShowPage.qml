@@ -62,17 +62,14 @@ CommonPage {
                 link: show.link
             }
 
-            Expander {
+            Label {
+                id: summary
                 width: parent.width
-                visible: summary.text
-                animated: root.status == PageStatus.Active
-                Label {
-                    id: summary
-                    width: parent.width
-                    text: show.summary
-                    font.family: UI.FONT_FAMILY
-                    font.pixelSize: UI.MEDIUM_FONT
-                }
+                text: show.summary
+                font.family: UI.FONT_FAMILY
+                font.pixelSize: UI.MEDIUM_FONT
+                elide: Text.ElideRight
+                maximumLineCount: 5
             }
 
 //            Section {
