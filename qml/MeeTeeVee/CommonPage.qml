@@ -24,6 +24,7 @@ Page {
     property alias busy: indicator.running
     property alias placeholder: placeholder.text
     property alias error: error.text
+    default property alias data: flickableParent.data
 
     clip: true
     orientationLock: PageOrientation.LockPortrait

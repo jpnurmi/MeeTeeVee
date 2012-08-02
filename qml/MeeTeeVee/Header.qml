@@ -48,6 +48,7 @@ BorderImage {
         height: emptyLabel.height + UI.SMALL_SPACING + UI.MEDIUM_SPACING
         anchors.top: parent.top
         anchors.right: parent.right
+        anchors.rightMargin: -4
         opacity: enabled ? 1.0 : UI.DISABLED_OPACITY
         onClicked: root.iconClicked()
         Label {

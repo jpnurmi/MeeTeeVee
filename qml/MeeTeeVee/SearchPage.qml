@@ -31,19 +31,24 @@ CommonPage {
         onIconClicked: searchModel.search(searchModel.showName)
     }
 
+    SearchBox {
+        id: searchBox
+        width: parent.width
+        placeholderText: qsTr("Search")
+        onTextChanged: if (searchModel.showName) searchModel.showName = "";
+        Keys.onEnterPressed: { searchModel.search(text); closeSoftwareInputPanel(); parent.forceActiveFocus(); }
+        Keys.onReturnPressed: { searchModel.search(text); closeSoftwareInputPanel(); parent.forceActiveFocus(); }
+        transform: Translate {
+            y: -listView.contentY
+        }
+        z: 2 // on top of scroll decorator
+    }
+
     flickable: ListView {
         id: listView
 
         cacheBuffer: 4000
-
-        header: SearchBox {
-            id: searchBox
-            width: parent.width
-            placeholderText: qsTr("Search")
-            onTextChanged: if (searchModel.showName) searchModel.showName = "";
-            Keys.onEnterPressed: { searchModel.search(text); closeSoftwareInputPanel(); parent.forceActiveFocus(); }
-            Keys.onReturnPressed: { searchModel.search(text); closeSoftwareInputPanel(); parent.forceActiveFocus(); }
-        }
+        anchors.topMargin: searchBox.height
 
         model: SearchModel {
             id: searchModel
