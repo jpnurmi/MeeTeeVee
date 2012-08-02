@@ -32,7 +32,7 @@ Item {
     Column {
         id: column
         width: (parent.width - UI.MEDIUM_SPACING) / 2
-        anchors.left: parent.left
+        anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
 
         Label {
@@ -81,9 +81,9 @@ Item {
         id: placeholder
         width: (parent.width - UI.MEDIUM_SPACING) / 2
         height: parent.height
-        anchors.right: parent.right
+        anchors.left: parent.left
         anchors.verticalCenter: parent.verticalCenter
-        color: UI.INFO_COLOR
+        color: image.status == Image.Ready ? "transparent" : UI.INFO_COLOR
         opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
 
         Image {
