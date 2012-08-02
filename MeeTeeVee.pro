@@ -30,8 +30,12 @@ QT += network meegographicssystemhelper
 # Add dependency to Symbian components
 # CONFIG += qt-components
 
-# The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += main.cpp
+HEADERS += src/meegographicssystemimageprovider.h
+HEADERS += src/networkaccessmanager.h
+
+SOURCES += src/main.cpp
+SOURCES += src/meegographicssystemimageprovider.cpp
+SOURCES += src/networkaccessmanager.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
