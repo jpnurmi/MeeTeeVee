@@ -36,11 +36,7 @@ CommonPage {
         Column {
             id: column
             width: parent.width
-            spacing: UI.MEDIUM_SPACING
-
-            Section {
-                title: summary.text != "" ? qsTr("Summary") : screencap.source != "" ? qsTr("Screencap") : ""
-            }
+            spacing: UI.LARGE_SPACING
 
             Label {
                 id: summary
@@ -50,14 +46,10 @@ CommonPage {
                 font.pixelSize: UI.MEDIUM_FONT
             }
 
-            Section {
-                title: qsTr("Screencap")
-                visible: summary.text != "" && screencap.source != ""
-            }
-
             Image {
                 id: screencap
                 width: Math.min(implicitWidth, parent.width)
+                anchors.horizontalCenter: parent.horizontalCenter
             }
         }
     }

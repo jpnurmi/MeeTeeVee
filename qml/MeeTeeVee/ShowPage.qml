@@ -50,7 +50,7 @@ CommonPage {
         Column {
             id: column
             width: parent.width
-            spacing: UI.MEDIUM_SPACING
+            spacing: UI.LARGE_SPACING
 
             ShowInfoBox {
                 info: show.info
@@ -60,11 +60,6 @@ CommonPage {
                 airing: show.airing
                 image: show.image
                 link: show.link
-            }
-
-            Section {
-                title: qsTr("Summary")
-                visible: summary.text
             }
 
             Expander {
@@ -101,11 +96,6 @@ CommonPage {
 //                    XmlRole { name: "airdate"; query: "airdate/string()" }
 //                }
 //            }
-
-            Section {
-                title: qsTr("Seasons (%1)").arg(repeater.count)
-                visible: repeater.count
-            }
 
             Column {
                 width: parent.width

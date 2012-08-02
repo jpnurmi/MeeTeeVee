@@ -33,7 +33,6 @@ Item {
         id: column
         width: (parent.width - UI.MEDIUM_SPACING) / 2
         anchors.right: parent.right
-        anchors.verticalCenter: parent.verticalCenter
 
         Label {
             id: info
@@ -82,7 +81,6 @@ Item {
         width: (parent.width - UI.MEDIUM_SPACING) / 2
         height: parent.height
         anchors.left: parent.left
-        anchors.verticalCenter: parent.verticalCenter
         color: image.status == Image.Ready ? "transparent" : UI.INFO_COLOR
         opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
 

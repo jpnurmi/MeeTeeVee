@@ -33,10 +33,6 @@ CommonPage {
 
         cacheBuffer: 4000
 
-        header: Section {
-            title: qsTr("Season %1").arg(root.model.season)
-        }
-
         delegate: EpisodeDelegate {
             id: delegate
             property string seasonNumber: root.model.season < 10 ? "0" + root.model.season : root.model.season
