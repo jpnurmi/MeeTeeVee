@@ -37,42 +37,24 @@ Item {
         width: parent.width
         anchors.verticalCenter: parent.verticalCenter
 
-        Row {
-            Text {
-                id: title
-                width: column.width - (root.hasSummary ? summaryIcon.width : 0) - (root.hasScreencap ? screencapIcon.width : 0)
-                font.family: UI.FONT_FAMILY
-                font.pixelSize: UI.MEDIUM_FONT
-                font.weight: Font.Bold
-                color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
-                opacity: !enabled ? UI.DISABLED_OPACITY : 1.0
-                textFormat: Text.PlainText
-                maximumLineCount: 1
-            }
-
-            Image {
-                id: summaryIcon
-                visible: root.hasSummary
-                anchors.verticalCenter: title.verticalCenter
-                source: !root.hasSummary ? "" : mouseArea.pressed ? "image://theme/icon-m-toolbar-edit-dimmed-white" : "image://theme/icon-m-toolbar-edit-white"
-                sourceSize { width: 20; height: 20 }
-            }
-
-            Image {
-                id: screencapIcon
-                visible: root.hasScreencap
-                anchors.verticalCenter: title.verticalCenter
-                source: !root.hasScreencap ? "" : mouseArea.pressed ? "image://theme/icon-m-toolbar-gallery-dimmed-white" : "image://theme/icon-m-toolbar-gallery-white"
-                sourceSize { width: 20; height: 20 }
-            }
+        Text {
+            id: title
+            width: column.width
+            font.family: UI.FONT_FAMILY
+            font.pixelSize: UI.MEDIUM_FONT
+            font.weight: Font.Bold
+            color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
+            opacity: !enabled ? UI.DISABLED_OPACITY : 1.0
+            textFormat: Text.PlainText
+            maximumLineCount: 1
         }
 
         Row {
             id: row
-            width: column.width
+            width: indicator.width
             Text {
                 id: subtitle
-                width: row.width - indicator.width
+                width: parent.width - (root.hasSummary ? indicator.size : 0) - (root.hasScreencap ? indicator.size : 0)
                 font.family: UI.FONT_FAMILY
                 font.pixelSize: UI.SMALL_FONT
                 font.weight: Font.Light
@@ -80,21 +62,43 @@ Item {
                 textFormat: Text.PlainText
                 maximumLineCount: 1
             }
-
-            Row {
-                id: indicator
-                property int value: Math.round(root.rating)
-                visible: root.rating != ""
+            Item {
+                width: indicator.size; height: indicator.size
                 anchors.verticalCenter: subtitle.verticalCenter
-                opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
-                Repeater {
-                    model: indicator.value
-                    Image { source: "image://theme/meegotouch-indicator-rating-inverted-background-star" }
+                Image {
+                    id: screencapIcon
+                    visible: root.hasScreencap
+                    anchors.verticalCenter: parent.verticalCenter
+                    source: !root.hasScreencap ? "" : mouseArea.pressed ? "image://theme/icon-m-toolbar-gallery-dimmed-white" : "image://theme/icon-m-toolbar-gallery-white"
+                    sourceSize { width: 16; height: 16 }
                 }
-                Repeater {
-                    model: 10 - indicator.value
-                    Image { source: "image://theme/meegotouch-indicator-rating-inverted-star" }
+            }
+            Item {
+                width: indicator.size; height: indicator.size
+                anchors.verticalCenter: subtitle.verticalCenter
+                Image {
+                    id: summaryIcon
+                    visible: root.hasSummary
+                    anchors.verticalCenter: parent.verticalCenter
+                    source: !root.hasSummary ? "" : mouseArea.pressed ? "image://theme/icon-m-toolbar-edit-dimmed-white" : "image://theme/icon-m-toolbar-edit-white"
+                    sourceSize { width: 16; height: 16 }
                 }
+            }
+        }
+
+        Row {
+            id: indicator
+            property int size: width / 10
+            property int value: Math.round(root.rating)
+            visible: root.rating != ""
+            opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
+            Repeater {
+                model: indicator.value
+                Image { source: "image://theme/meegotouch-indicator-rating-inverted-background-star" }
+            }
+            Repeater {
+                model: 10 - indicator.value
+                Image { source: "image://theme/meegotouch-indicator-rating-inverted-star" }
             }
         }
     }
