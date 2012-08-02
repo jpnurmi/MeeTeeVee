@@ -26,16 +26,21 @@ symbian:TARGET.CAPABILITY += NetworkServices
 # Speed up launching on MeeGo/Harmattan when using applauncherd daemon
 CONFIG += qdeclarative-boostable
 QT += network meegographicssystemhelper
+#CONFIG += link_pkgconfig
+#PKGCONFIG += icu
+LIBS += -licui18n -licuuc -licudata
 
 # Add dependency to Symbian components
 # CONFIG += qt-components
 
 HEADERS += src/meegographicssystemimageprovider.h
 HEADERS += src/networkaccessmanager.h
+HEADERS += src/timezoner.h
 
 SOURCES += src/main.cpp
 SOURCES += src/meegographicssystemimageprovider.cpp
 SOURCES += src/networkaccessmanager.cpp
+SOURCES += src/timezoner.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)

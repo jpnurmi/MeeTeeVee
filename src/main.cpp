@@ -16,6 +16,7 @@
 #include "qmlapplicationviewer.h"
 #include "networkaccessmanager.h"
 #include "meegographicssystemimageprovider.h"
+#include "timezoner.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -30,6 +31,10 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     viewer.engine()->setNetworkAccessManagerFactory(new NetworkAccessManagerFactory);
     viewer.engine()->addImageProvider("MeeTeeVee", provider);
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
+
+    TimeZoner timeZoner;
+    viewer.rootContext()->setContextProperty("TimeZone", &timeZoner);
+
     viewer.setMainQmlFile(QLatin1String("qml/MeeTeeVee/main.qml"));
     viewer.showExpanded();
 
