@@ -26,7 +26,7 @@ CommonPage {
     error: empty && updatesModel.status === XmlListModel.Error ? updatesModel.errorString() : ""
 
     header: Header {
-        title: "MeeTeeVee"
+        title: qsTr("Recent updates")
         iconId: "toolbar-refresh"
         iconEnabled: updatesModel.status !== XmlListModel.Loading
         onIconClicked: {
@@ -40,10 +40,6 @@ CommonPage {
         id: listView
 
         cacheBuffer: 4000
-
-        header: Section {
-            title: qsTr("Recent updates")
-        }
 
         model: XmlListModel {
             id: updatesModel
