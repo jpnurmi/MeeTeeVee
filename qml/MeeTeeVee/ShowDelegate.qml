@@ -55,9 +55,13 @@ Item {
         id: placeholder
         anchors.fill: squircle
         source: (show.error && !show.empty) || thumbnail.error ? "image://theme/icon-l-error" :
-                thumbnail.loading ? "images/downloading.png" :
-                !show.image ? "images/squircle.png" : ""
+                thumbnail.loading || !show.image ? "images/squircle.png" : ""
         opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
+        Image {
+            anchors.centerIn: parent
+            visible: thumbnail.loading
+            source: thumbnail.loading ? "icons/download.png" : ""
+        }
     }
 
     Column {
