@@ -45,9 +45,9 @@ Page {
             z: 1 // on top of delegates
             Image {
                 z: -1 // under scroll decorator
-                anchors.bottom: parent.bottom
-                anchors.right: parent.right
-                anchors.rightMargin: -UI.PAGE_MARGIN
+                anchors.top: parent.top
+                anchors.horizontalCenter: parent.right
+                anchors.topMargin: -(flickableParent.anchors.topMargin + scroller.anchors.topMargin + headerParent.height)
                 source: "image://MeeTeeVee/scroller.png"
             }
         }
