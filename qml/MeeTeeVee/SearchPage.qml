@@ -26,9 +26,6 @@ CommonPage {
 
     header: Header {
         title: qsTr("Search")
-        iconId: "toolbar-refresh"
-        iconEnabled: searchModel.showName && searchModel.status !== XmlListModel.Loading
-        onIconClicked: searchModel.search(searchModel.showName)
     }
 
     SearchBox {

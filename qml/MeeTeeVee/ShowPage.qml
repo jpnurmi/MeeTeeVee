@@ -34,7 +34,7 @@ CommonPage {
 
     header: Header {
         title: show.name
-        iconId: show.favorited ? "toolbar-favorite-mark" : "toolbar-favorite-unmark"
+        iconSource: show.favorited ? "icons/unfavorite.png" : "icons/favorite.png"
         iconEnabled: !show.empty && Singleton.favoritesModel && Singleton.favoritesModel.loaded
         onIconClicked: {
             if (Singleton.favoritesModel)

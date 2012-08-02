@@ -37,33 +37,14 @@ Item {
 
         property real minimumHeight: Math.min(root.preferredHeight, height)
 
+        clip: true
         width: parent.width
         height: childrenRect.height
     }
 
     Image {
-        source: "images/bottom-shadow.png"
-        fillMode: Image.TileHorizontally
-        opacity: arrow.y < container.height ? 1.0 : 0.0
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: rectangle.top
-
-        Behavior on opacity { NumberAnimation { duration: root.duration / 4; easing.type: Easing.InOutSine } }
-    }
-
-    Rectangle {
-        id: rectangle
-        color: "black"
-        anchors.top: arrow.top
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: arrow.bottom
-    }
-
-    Image {
         id: arrow
-        source: "images/arrow.png"
+        source: "icons/expander.png"
         height: obscured ? implicitHeight : 0
         visible: obscured
         rotation: expanded ? -180 : 0

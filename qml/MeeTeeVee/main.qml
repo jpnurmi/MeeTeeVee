@@ -87,7 +87,7 @@ PageStackWindow {
     ToolBarLayout {
         id: tabBar
         ToolIcon {
-            iconId: "toolbar-back"
+            iconSource: "icons/back.png"
             opacity: enabled ? 1.0 : UI.DISABLED_OPACITY
             enabled: !!tabGroup.currentTab && tabGroup.currentTab.depth > 1
             onClicked: tabGroup.currentTab.pop()
@@ -96,19 +96,19 @@ PageStackWindow {
             exclusive: true
             TabButton {
                 tab: homeTab
-                iconSource: "image://theme/icon-m-toolbar-home-white"
+                iconSource: "icons/home.png"
             }
             TabButton {
                 tab: searchTab
-                iconSource: "image://theme/icon-m-toolbar-search-white"
+                iconSource: "icons/search.png"
             }
             TabButton {
                 tab: favoritesTab
-                iconSource: "image://theme/icon-m-toolbar-favorite-mark-white"
+                iconSource: "icons/favorites.png"
             }
             TabButton {
                 tab: historyTab
-                iconSource: "image://theme/icon-m-toolbar-history-white"
+                iconSource: "icons/history.png"
             }
         }
     }

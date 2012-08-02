@@ -48,12 +48,6 @@ Item {
                 opacity: !enabled ? UI.DISABLED_OPACITY : 1.0
                 textFormat: Text.PlainText
                 maximumLineCount: 1
-                clip: true
-                Image {
-                    height: parent.height
-                    anchors.right: parent.right
-                    source: "images/right-shadow.png"
-                }
             }
 
             Image {
@@ -85,12 +79,6 @@ Item {
                 color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
                 textFormat: Text.PlainText
                 maximumLineCount: 1
-                clip: true
-                Image {
-                    height: parent.height
-                    anchors.right: parent.right
-                    source: "images/right-shadow.png"
-                }
             }
 
             Row {

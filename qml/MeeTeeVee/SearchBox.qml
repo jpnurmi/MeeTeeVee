@@ -34,7 +34,7 @@ TextField {
                 width: 32
                 height: 32
                 smooth: true
-                source: "image://theme/icon-m-toolbar-search"
+                source: "images/magnifier.png"
             }
         }
 

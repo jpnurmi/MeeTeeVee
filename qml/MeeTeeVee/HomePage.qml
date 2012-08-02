@@ -27,7 +27,7 @@ CommonPage {
 
     header: Header {
         title: qsTr("Recent updates")
-        iconId: "toolbar-refresh"
+        iconSource: "icons/refresh.png"
         iconEnabled: updatesModel.status !== XmlListModel.Loading
         onIconClicked: {
             updatesModel.source = "";

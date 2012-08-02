@@ -27,12 +27,6 @@ CommonPage {
 
     header: Header {
         title: model ? model.name : ""
-        iconId: "toolbar-delete"
-        iconEnabled: !root.empty
-        onIconClicked: {
-            var dialog = confirmation.createObject(root);
-            dialog.open();
-        }
     }
 
     flickable: ListView {
