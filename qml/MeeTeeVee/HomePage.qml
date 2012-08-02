@@ -25,21 +25,24 @@ CommonPage {
     placeholder: busy ? qsTr("Loading...") : error ? qsTr("Error") : empty ? qsTr("No recent updates") : ""
     error: empty && updatesModel.status === XmlListModel.Error ? updatesModel.errorString() : ""
 
+    header: Header {
+        title: "MeeTeeVee"
+        iconId: "toolbar-refresh"
+        iconEnabled: updatesModel.status !== XmlListModel.Loading
+        onIconClicked: {
+            updatesModel.source = "";
+            updatesModel.source = "http://services.tvrage.com/feeds/last_updates.php?&sort=episodes&hours=1";
+            updatesModel.reload()
+        }
+    }
+
     flickable: ListView {
         id: listView
 
         cacheBuffer: 4000
 
-        header: Header {
-            title: "MeeTeeVee"
-            subtitle: qsTr("Recent updates")
-            iconId: "toolbar-refresh"
-            iconEnabled: updatesModel.status !== XmlListModel.Loading
-            onIconClicked: {
-                updatesModel.source = "";
-                updatesModel.source = "http://services.tvrage.com/feeds/last_updates.php?&sort=episodes&hours=1";
-                updatesModel.reload()
-            }
+        header: Separator {
+            title: qsTr("Recent updates")
         }
 
         model: XmlListModel {

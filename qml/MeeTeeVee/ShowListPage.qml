@@ -25,20 +25,20 @@ CommonPage {
     busy: model && model.loading && empty
     placeholder: busy ? qsTr("Loading...") : empty && model ? qsTr("No %1").arg(model.name.toLowerCase()) : ""
 
+    header: Header {
+        title: model ? model.name : ""
+        iconId: "toolbar-delete"
+        iconEnabled: !root.empty
+        onIconClicked: {
+            var dialog = confirmation.createObject(root);
+            dialog.open();
+        }
+    }
+
     flickable: ListView {
         id: listView
 
         cacheBuffer: 4000
-
-        header: Header {
-            title: model ? model.name : ""
-            iconId: "toolbar-delete"
-            iconEnabled: !root.empty
-            onIconClicked: {
-                var dialog = confirmation.createObject(root);
-                dialog.open();
-            }
-        }
 
         delegate: ShowDelegate {
             showId: showid

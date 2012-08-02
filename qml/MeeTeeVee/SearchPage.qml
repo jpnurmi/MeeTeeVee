@@ -24,25 +24,25 @@ CommonPage {
     placeholder: busy ? qsTr("Searching...") : error ? qsTr("Error") : empty ? qsTr("No results") : ""
     error: empty && searchModel.status === XmlListModel.Error ? searchModel.errorString() : ""
 
+    header: Header {
+        title: qsTr("Search")
+        iconId: "toolbar-refresh"
+        iconEnabled: searchModel.showName && searchModel.status !== XmlListModel.Loading
+        onIconClicked: searchModel.search(searchModel.showName)
+    }
+
     flickable: ListView {
         id: listView
 
         cacheBuffer: 4000
 
-        header: Header {
-            title: qsTr("Search")
-            iconId: "toolbar-refresh"
-            iconEnabled: searchModel.showName && searchModel.status !== XmlListModel.Loading
-            onIconClicked: searchModel.search(searchModel.showName)
-
-            SearchBox {
-                id: searchBox
-                width: parent.width
-                placeholderText: qsTr("Search")
-                onTextChanged: if (searchModel.showName) searchModel.showName = "";
-                Keys.onEnterPressed: { searchModel.search(text); closeSoftwareInputPanel(); parent.forceActiveFocus(); }
-                Keys.onReturnPressed: { searchModel.search(text); closeSoftwareInputPanel(); parent.forceActiveFocus(); }
-            }
+        header: SearchBox {
+            id: searchBox
+            width: parent.width
+            placeholderText: qsTr("Search")
+            onTextChanged: if (searchModel.showName) searchModel.showName = "";
+            Keys.onEnterPressed: { searchModel.search(text); closeSoftwareInputPanel(); parent.forceActiveFocus(); }
+            Keys.onReturnPressed: { searchModel.search(text); closeSoftwareInputPanel(); parent.forceActiveFocus(); }
         }
 
         model: SearchModel {

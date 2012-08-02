@@ -24,14 +24,17 @@ CommonPage {
     busy: model.busy && empty
     placeholder: busy ? qsTr("Loading...") : empty ? qsTr("No episodes") : ""
 
+    header: Header {
+        title: root.title
+    }
+
     flickable: ListView {
         id: listView
 
         cacheBuffer: 4000
 
-        header: Header {
-            title: root.title
-            subtitle: qsTr("Season %1").arg(root.model.season)
+        header: Separator {
+            title: qsTr("Season %1").arg(root.model.season)
         }
 
         delegate: EpisodeDelegate {

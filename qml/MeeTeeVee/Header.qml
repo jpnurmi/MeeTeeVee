@@ -15,39 +15,46 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 import "UIConstants.js" as UI
 
-Column {
+BorderImage {
     id: root
 
     property alias title: label.text
-    property alias subtitle: separator.title
     property alias iconId: icon.iconId
     property alias iconEnabled: icon.enabled
     signal iconClicked()
 
-    spacing: UI.SMALL_SPACING
+    height: label.height + UI.SMALL_SPACING + UI.MEDIUM_SPACING
     width: parent ? parent.width : 0
+    source: "image://theme/meegotouch-sheet-header-inverted-background"
+    border.bottom: 2
 
     Label {
         id: label
-        width: parent.width - icon.width + UI.PAGE_MARGIN
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: icon.left
+        anchors.topMargin: UI.SMALL_SPACING
+        anchors.leftMargin: UI.MEDIUM_SPACING
+        anchors.rightMargin: UI.SMALL_SPACING
         font.weight: Font.Light
         font.family: UI.FONT_FAMILY
         font.pixelSize: UI.LARGE_FONT
         textFormat: Text.PlainText
         color: UI.TITLE_COLOR
-
-        ToolIcon {
-            id: icon
-            anchors.left: label.right
-            anchors.verticalCenter: parent.verticalCenter
-            opacity: enabled ? 1.0 : UI.DISABLED_OPACITY
-            onClicked: root.iconClicked()
-        }
     }
 
-    Separator {
-        id: separator
-        width: parent.width
-        visible: label.text.length
+    ToolIcon {
+        id: icon
+        height: emptyLabel.height + UI.SMALL_SPACING + UI.MEDIUM_SPACING
+        anchors.top: parent.top
+        anchors.right: parent.right
+        opacity: enabled ? 1.0 : UI.DISABLED_OPACITY
+        onClicked: root.iconClicked()
+        Label {
+            id: emptyLabel
+            font.weight: Font.Light
+            font.family: UI.FONT_FAMILY
+            font.pixelSize: UI.LARGE_FONT
+        }
     }
 }

@@ -32,6 +32,16 @@ CommonPage {
         fetchEpisodes: true
     }
 
+    header: Header {
+        title: show.name
+        iconId: show.favorited ? "toolbar-favorite-mark" : "toolbar-favorite-unmark"
+        iconEnabled: !show.empty && Singleton.favoritesModel && Singleton.favoritesModel.loaded
+        onIconClicked: {
+            if (Singleton.favoritesModel)
+                Singleton.favoritesModel.setFavorited(show.showId, !show.favorited);
+        }
+    }
+
     flickable: Flickable {
         id: flickable
 
@@ -42,15 +52,8 @@ CommonPage {
             width: parent.width
             spacing: UI.MEDIUM_SPACING
 
-            Header {
-                title: show.name
-                subtitle: qsTr("Info")
-                iconId: show.favorited ? "toolbar-favorite-mark" : "toolbar-favorite-unmark"
-                iconEnabled: !show.empty && Singleton.favoritesModel && Singleton.favoritesModel.loaded
-                onIconClicked: {
-                    if (Singleton.favoritesModel)
-                        Singleton.favoritesModel.setFavorited(show.showId, !show.favorited);
-                }
+            Separator {
+                title: qsTr("Info")
             }
 
             ShowInfoBox {

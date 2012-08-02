@@ -24,6 +24,10 @@ CommonPage {
 
     placeholder: title == "" && summary == "" && screencap == ""  ? qsTr("No info available") : ""
 
+    header: Header {
+        id: header
+    }
+
     flickable: Flickable {
         id: flickable
 
@@ -34,9 +38,8 @@ CommonPage {
             width: parent.width
             spacing: UI.MEDIUM_SPACING
 
-            Header {
-                id: header
-                subtitle: summary.text != "" ? qsTr("Summary") : screencap.source != "" ? qsTr("Screencap") : ""
+            Separator {
+                title: summary.text != "" ? qsTr("Summary") : screencap.source != "" ? qsTr("Screencap") : ""
             }
 
             Label {

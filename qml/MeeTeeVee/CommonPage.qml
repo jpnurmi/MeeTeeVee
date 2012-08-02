@@ -19,20 +19,54 @@ Page {
     id: root
 
     property bool empty
+    property Header header
     property Flickable flickable
     property alias busy: indicator.running
     property alias placeholder: placeholder.text
     property alias error: error.text
 
-    anchors.leftMargin: UI.MEDIUM_SPACING
-    anchors.rightMargin: UI.PAGE_MARGIN
     orientationLock: PageOrientation.LockPortrait
+
+    Item {
+        id: flickableParent
+        property bool __isPage: true
+        anchors.top: headerParent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        anchors.leftMargin: UI.MEDIUM_SPACING
+        anchors.rightMargin: UI.PAGE_MARGIN
+
+        ScrollDecorator {
+            id: scroller
+            z: 1 // on top of delegates
+            Image {
+                z: -1 // under scroll decorator
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
+                anchors.rightMargin: -UI.PAGE_MARGIN
+                source: "image://MeeTeeVee/scroller.png"
+            }
+        }
+    }
+
+    Item {
+        id: headerParent
+        width: parent.width
+        height: childrenRect.height
+    }
+
+    onHeaderChanged: {
+        if (header)
+            header.parent = headerParent;
+    }
 
     onFlickableChanged: {
         if (flickable) {
-            flickable.parent = root;
-            flickable.anchors.fill = root;
+            flickable.parent = flickableParent;
+            flickable.anchors.fill = flickableParent;
         }
+        scroller.flickableItem = flickable;
     }
 
     BusyIndicator {
@@ -76,18 +110,6 @@ Page {
         wrapMode: Text.Wrap
         transform: Translate {
             y: root.flickable ? -root.flickable.contentY : 0
-        }
-    }
-
-    ScrollDecorator {
-        flickableItem: root.flickable
-        z: 1 // on top of delegates
-        Image {
-            z: -1 // under scroll decorator
-            anchors.top: parent.top
-            anchors.right: parent.right
-            anchors.rightMargin: -UI.PAGE_MARGIN
-            source: "image://MeeTeeVee/scroller.png"
         }
     }
 }
