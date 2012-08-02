@@ -38,7 +38,7 @@ CommonPage {
             width: parent.width
             spacing: UI.MEDIUM_SPACING
 
-            Separator {
+            Section {
                 title: summary.text != "" ? qsTr("Summary") : screencap.source != "" ? qsTr("Screencap") : ""
             }
 
@@ -50,7 +50,7 @@ CommonPage {
                 font.pixelSize: UI.MEDIUM_FONT
             }
 
-            Separator {
+            Section {
                 title: qsTr("Screencap")
                 visible: summary.text != "" && screencap.source != ""
             }

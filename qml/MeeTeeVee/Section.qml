@@ -14,14 +14,13 @@
 import QtQuick 1.1
 import "UIConstants.js" as UI
 
-Row {
+Item {
     id: root
 
     property alias title: label.text
 
     height: label.height
-    width: parent.width
-    spacing: label.text.length ? UI.LARGE_SPACING : 0
+    width: parent ? parent.width : 0
 
     Text {
         id: label
@@ -30,13 +29,6 @@ Row {
         font.weight: Font.Light
         textFormat: Text.PlainText
         color: UI.SUBTITLE_COLOR
-    }
-
-    Rectangle {
-        id: rightie
-        color: UI.SUBTITLE_COLOR
-        height: 1
-        width: parent.width - label.width - parent.spacing
-        anchors.verticalCenter: label.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
     }
 }

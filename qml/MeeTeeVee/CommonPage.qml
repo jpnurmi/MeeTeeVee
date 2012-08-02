@@ -34,6 +34,7 @@ Page {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
+        anchors.topMargin: UI.MEDIUM_SPACING
         anchors.leftMargin: UI.MEDIUM_SPACING
         anchors.rightMargin: UI.PAGE_MARGIN
 

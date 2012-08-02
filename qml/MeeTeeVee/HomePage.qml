@@ -41,7 +41,7 @@ CommonPage {
 
         cacheBuffer: 4000
 
-        header: Separator {
+        header: Section {
             title: qsTr("Recent updates")
         }
 

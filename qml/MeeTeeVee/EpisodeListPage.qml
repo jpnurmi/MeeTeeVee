@@ -33,7 +33,7 @@ CommonPage {
 
         cacheBuffer: 4000
 
-        header: Separator {
+        header: Section {
             title: qsTr("Season %1").arg(root.model.season)
         }
 

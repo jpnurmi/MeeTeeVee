@@ -52,10 +52,6 @@ CommonPage {
             width: parent.width
             spacing: UI.MEDIUM_SPACING
 
-            Separator {
-                title: qsTr("Info")
-            }
-
             ShowInfoBox {
                 info: show.info
                 genres: show.genres
@@ -66,7 +62,7 @@ CommonPage {
                 link: show.link
             }
 
-            Separator {
+            Section {
                 title: qsTr("Summary")
                 visible: summary.text
             }
@@ -84,7 +80,7 @@ CommonPage {
                 }
             }
 
-//            Separator {
+//            Section {
 //                title: qsTr("Latest episode")
 //            }
 
@@ -106,7 +102,7 @@ CommonPage {
 //                }
 //            }
 
-            Separator {
+            Section {
                 title: qsTr("Seasons (%1)").arg(repeater.count)
                 visible: repeater.count
             }
