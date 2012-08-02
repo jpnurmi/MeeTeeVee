@@ -19,8 +19,8 @@ BorderImage {
     id: root
 
     property alias title: label.text
-    property alias iconId: icon.iconId
-    property alias iconEnabled: icon.enabled
+    property string iconSource
+    property bool iconEnabled
     signal iconClicked()
 
     height: label.height + UI.SMALL_SPACING + UI.MEDIUM_SPACING
@@ -32,7 +32,7 @@ BorderImage {
         id: label
         anchors.top: parent.top
         anchors.left: parent.left
-        anchors.right: icon.left
+        anchors.right: loader.left
         anchors.topMargin: UI.SMALL_SPACING
         anchors.leftMargin: UI.MEDIUM_SPACING
         anchors.rightMargin: UI.SMALL_SPACING
@@ -43,19 +43,27 @@ BorderImage {
         color: UI.TITLE_COLOR
     }
 
-    ToolIcon {
-        id: icon
-        height: emptyLabel.height + UI.SMALL_SPACING + UI.MEDIUM_SPACING
+    Loader {
+        id: loader
         anchors.top: parent.top
         anchors.right: parent.right
         anchors.rightMargin: -4
-        opacity: enabled ? 1.0 : UI.DISABLED_OPACITY
-        onClicked: root.iconClicked()
-        Label {
-            id: emptyLabel
-            font.weight: Font.Light
-            font.family: UI.FONT_FAMILY
-            font.pixelSize: UI.LARGE_FONT
+        sourceComponent: root.iconSource ? icon : undefined
+        Component {
+            id: icon
+            ToolIcon {
+                height: emptyLabel.height + UI.SMALL_SPACING + UI.MEDIUM_SPACING
+                opacity: enabled ? 1.0 : UI.DISABLED_OPACITY
+                enabled: root.iconEnabled
+                iconSource: root.iconSource
+                onClicked: root.iconClicked()
+                Label {
+                    id: emptyLabel
+                    font.weight: Font.Light
+                    font.family: UI.FONT_FAMILY
+                    font.pixelSize: UI.LARGE_FONT
+                }
+            }
         }
     }
 }
