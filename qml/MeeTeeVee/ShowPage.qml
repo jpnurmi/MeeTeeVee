@@ -34,7 +34,7 @@ CommonPage {
 
     header: Header {
         title: show.name
-        iconSource: infoBox.pressed ? "icons/external.png" : show.favorited ? "icons/unfavorite.png" : "icons/favorite.png"
+        iconSource: show.favorited ? "icons/unfavorite.png" : "icons/favorite.png"
         iconEnabled: !show.empty && Singleton.favoritesModel && Singleton.favoritesModel.loaded
         onIconClicked: {
             if (Singleton.favoritesModel)

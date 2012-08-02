@@ -36,6 +36,5 @@ var INFO_COLOR = "#282828";
 var TITLE_COLOR = "#ffffff";
 var SUBTITLE_COLOR = "#c8c8c8";
 var PRESSED_COLOR = "#f1661a";
-var SEPARATOR_COLOR = "#b2b2b4";
 
 var DISABLED_OPACITY = 0.4;

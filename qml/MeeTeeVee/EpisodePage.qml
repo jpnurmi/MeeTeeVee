@@ -28,7 +28,6 @@ CommonPage {
 
     header: Header {
         id: header
-        iconSource: mouseArea.pressed && mouseArea.containsMouse ? "icons/external.png" : ""
     }
 
     flickable: Flickable {
@@ -41,37 +40,11 @@ CommonPage {
             width: parent.width
             spacing: UI.LARGE_SPACING
 
-            Rectangle {
-                id: placeholder
+            Thumbnail {
+                id: screencap
+                link: root.link
                 width: UI.SCREENCAP_WIDTH
                 height: UI.SCREENCAP_HEIGHT
-                anchors.horizontalCenter: parent.horizontalCenter
-                color: UI.INFO_COLOR
-                opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
-
-                MouseArea {
-                    id: mouseArea
-                    anchors.fill: parent
-                    onClicked: Qt.openUrlExternally(link)
-                }
-
-                Image {
-                    id: screencap
-                    anchors.fill: parent
-                    anchors.margins: UI.MEDIUM_SPACING
-                    fillMode: Image.PreserveAspectFit
-                }
-
-                Image {
-                    anchors.centerIn: parent
-                    source: screencap.status == Image.Null ? "icons/image.png" : ""
-                }
-
-                BusyIndicator {
-                    anchors.centerIn: parent
-                    running: screencap.status == Image.Loading
-                    visible: screencap.status == Image.Loading
-                }
             }
 
             Label {

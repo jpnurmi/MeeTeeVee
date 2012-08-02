@@ -19,7 +19,6 @@ Item {
     id: root
 
     property Show show
-    property bool pressed: mouseArea.pressed && mouseArea.containsMouse
 
     width: parent.width
     height: width / 2
@@ -70,37 +69,12 @@ Item {
         }
     }
 
-    Rectangle {
-        id: placeholder
+    Thumbnail {
+        id: thumbnail
+        link: show.link
+        source: show.image
         width: (parent.width - UI.MEDIUM_SPACING) / 2
         height: parent.height
         anchors.left: parent.left
-        color: UI.INFO_COLOR
-        opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
-
-        MouseArea {
-            id: mouseArea
-            anchors.fill: parent
-            onClicked: Qt.openUrlExternally(link)
-        }
-
-        Image {
-            id: image
-            source: show.image
-            anchors.fill: parent
-            anchors.margins: UI.MEDIUM_SPACING
-            fillMode: Image.PreserveAspectFit
-        }
-
-        Image {
-            anchors.centerIn: parent
-            source: image.status == Image.Null ? "icons/image.png" : ""
-        }
-
-        BusyIndicator {
-            anchors.centerIn: parent
-            running: image.status == Image.Loading
-            visible: image.status == Image.Loading
-        }
     }
 }
