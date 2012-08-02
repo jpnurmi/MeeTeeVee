@@ -23,7 +23,7 @@ BorderImage {
     property alias iconSource: icon.iconSource
     signal iconClicked()
 
-    height: label.height + UI.SMALL_SPACING + UI.MEDIUM_SPACING
+    height: UI.HEADER_HEIGHT
     width: parent ? parent.width : 0
     source: "image://theme/meegotouch-sheet-header-inverted-background"
     border.bottom: 2

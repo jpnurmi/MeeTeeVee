@@ -25,27 +25,22 @@ CommonPage {
     error: empty && searchModel.status === XmlListModel.Error ? searchModel.errorString() : ""
 
     header: Header {
-        title: qsTr("Search")
-    }
-
-    SearchBox {
-        id: searchBox
-        width: parent.width
-        placeholderText: qsTr("Search")
-        onTextChanged: if (searchModel.showName) searchModel.showName = "";
-        Keys.onEnterPressed: { searchModel.search(text); closeSoftwareInputPanel(); parent.forceActiveFocus(); }
-        Keys.onReturnPressed: { searchModel.search(text); closeSoftwareInputPanel(); parent.forceActiveFocus(); }
-        transform: Translate {
-            y: -listView.contentY
+        SearchBox {
+            id: searchBox
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.margins: UI.MEDIUM_SPACING
+            placeholderText: qsTr("Search")
+            onTextChanged: if (searchModel.showName) searchModel.showName = "";
+            Keys.onEnterPressed: { searchModel.search(text); closeSoftwareInputPanel(); parent.forceActiveFocus(); }
+            Keys.onReturnPressed: { searchModel.search(text); closeSoftwareInputPanel(); parent.forceActiveFocus(); }
         }
-        z: 2 // on top of scroll decorator
     }
 
     flickable: ListView {
         id: listView
 
         cacheBuffer: 4000
-        anchors.topMargin: searchBox.height + UI.MEDIUM_SPACING
 
         model: SearchModel {
             id: searchModel
