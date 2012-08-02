@@ -48,7 +48,7 @@ CommonPage {
         id: listView
 
         cacheBuffer: 4000
-        anchors.topMargin: searchBox.height
+        anchors.topMargin: searchBox.height + UI.MEDIUM_SPACING
 
         model: SearchModel {
             id: searchModel
