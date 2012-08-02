@@ -25,6 +25,7 @@ Page {
     property alias placeholder: placeholder.text
     property alias error: error.text
 
+    clip: true
     orientationLock: PageOrientation.LockPortrait
 
     Item {
