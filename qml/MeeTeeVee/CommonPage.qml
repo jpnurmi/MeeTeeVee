@@ -24,6 +24,7 @@ Page {
     property alias placeholder: placeholder.text
     property alias error: error.text
 
+    anchors.leftMargin: UI.MEDIUM_SPACING
     anchors.rightMargin: UI.PAGE_MARGIN
     orientationLock: PageOrientation.LockPortrait
 
