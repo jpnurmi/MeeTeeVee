@@ -80,5 +80,13 @@ Page {
 
     ScrollDecorator {
         flickableItem: root.flickable
+        z: 1 // on top of delegates
+        Image {
+            z: -1 // under scroll decorator
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.rightMargin: -UI.PAGE_MARGIN
+            source: "image://MeeTeeVee/scroller.png"
+        }
     }
 }
