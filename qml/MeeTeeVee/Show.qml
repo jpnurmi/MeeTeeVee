@@ -57,8 +57,6 @@ QtObject {
             strings.push(airday);
         if (airtime)
             strings.push(qsTr("at %1").arg(airtime));
-        if (runtime)
-            strings.push(qsTr("(%1min)").arg(runtime));
         return strings.join(" ");
     }
 

@@ -54,13 +54,7 @@ CommonPage {
 
             ShowInfoBox {
                 id: infoBox
-                info: show.info
-                genres: show.genres
-                status: show.status
-                period: show.period
-                airing: show.airing
-                image: show.image
-                link: show.link
+                show: show
             }
 
             Label {

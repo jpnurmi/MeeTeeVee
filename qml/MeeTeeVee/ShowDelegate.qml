@@ -95,7 +95,8 @@ Item {
         }
 
         Text {
-            text: show.ended ? show.period : show.airing
+            text: (show.ended ? show.period : show.airing)
+                  + (!show.ended && show.runtime ? qsTr(" (%1min)").arg(show.runtime) : "")
             width: column.width
             font.family: UI.FONT_FAMILY
             font.pixelSize: UI.SMALL_FONT

@@ -18,13 +18,7 @@ import "UIConstants.js" as UI
 Item {
     id: root
 
-    property alias info: info.text
-    property alias genres: genres.text
-    property alias status: status.text
-    property alias period: period.text
-    property alias airing: airing.text
-    property alias image: image.source
-    property string link
+    property Show show
     property bool pressed: mouseArea.pressed && mouseArea.containsMouse
 
     width: parent.width
@@ -35,45 +29,44 @@ Item {
         width: (parent.width - UI.MEDIUM_SPACING) / 2
         anchors.right: parent.right
 
-        Label {
-            id: info
-            width: parent.width
-            font.family: UI.FONT_FAMILY
-            font.pixelSize: UI.SMALL_FONT
-            textFormat: Text.PlainText
-            color: UI.TITLE_COLOR
+        ShowInfoLabel {
+            title: qsTr("Classification")
+            value: show.classification
         }
-        Label {
-            id: genres
-            width: parent.width
-            font.family: UI.FONT_FAMILY
-            font.pixelSize: UI.SMALL_FONT
-            textFormat: Text.PlainText
-            color: UI.TITLE_COLOR
+        ShowInfoLabel {
+            title: qsTr("Network")
+            value: show.network
         }
-        Label {
-            id: status
-            width: parent.width
-            font.family: UI.FONT_FAMILY
-            font.pixelSize: UI.SMALL_FONT
-            textFormat: Text.PlainText
-            color: UI.TITLE_COLOR
+        ShowInfoLabel {
+            title: qsTr("Genres")
+            value: show.genres
         }
-        Label {
-            id: period
-            width: parent.width
-            font.family: UI.FONT_FAMILY
-            font.pixelSize: UI.SMALL_FONT
-            textFormat: Text.PlainText
-            color: UI.TITLE_COLOR
+        ShowInfoLabel {
+            title: qsTr("Status")
+            value: show.status
         }
-        Label {
-            id: airing
-            width: parent.width
-            font.family: UI.FONT_FAMILY
-            font.pixelSize: UI.SMALL_FONT
-            textFormat: Text.PlainText
-            color: UI.TITLE_COLOR
+        ShowInfoLabel {
+            title: qsTr("Started")
+            value: show.started
+        }
+        ShowInfoLabel {
+            title: qsTr("Ended")
+            value: show.ended
+        }
+        ShowInfoLabel {
+            title: qsTr("Airing")
+            value: show.airing
+            visible: show.airing && !show.ended
+        }
+        ShowInfoLabel {
+            title: qsTr("Timezone")
+            value: show.timezone
+            visible: show.timezone && show.airtime && !show.ended
+        }
+        ShowInfoLabel {
+            title: qsTr("Runtime")
+            value: qsTr("%1 minutes").arg(show.runtime)
+            visible: show.runtime
         }
     }
 
@@ -93,6 +86,7 @@ Item {
 
         Image {
             id: image
+            source: show.image
             anchors.fill: parent
             anchors.margins: UI.MEDIUM_SPACING
             fillMode: Image.PreserveAspectFit
