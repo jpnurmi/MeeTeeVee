@@ -29,11 +29,7 @@ CommonPage {
         title: qsTr("Recent updates")
         iconSource: "icons/refresh.png"
         iconEnabled: updatesModel.status !== XmlListModel.Loading
-        onIconClicked: {
-            updatesModel.source = "";
-            updatesModel.source = "http://services.tvrage.com/feeds/last_updates.php?&sort=episodes&hours=1";
-            updatesModel.reload()
-        }
+        onIconClicked: updatesModel.reload()
     }
 
     flickable: ListView {
