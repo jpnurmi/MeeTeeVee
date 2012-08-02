@@ -25,9 +25,10 @@ Item {
     property alias airing: airing.text
     property alias image: image.source
     property string link
+    property bool pressed: mouseArea.pressed && mouseArea.containsMouse
 
     width: parent.width
-    height: Math.max(image.implicitHeight, column.implicitHeight)
+    height: width / 2
 
     Column {
         id: column
@@ -40,7 +41,7 @@ Item {
             font.family: UI.FONT_FAMILY
             font.pixelSize: UI.SMALL_FONT
             textFormat: Text.PlainText
-            color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
+            color: UI.TITLE_COLOR
         }
         Label {
             id: genres
@@ -48,7 +49,7 @@ Item {
             font.family: UI.FONT_FAMILY
             font.pixelSize: UI.SMALL_FONT
             textFormat: Text.PlainText
-            color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
+            color: UI.TITLE_COLOR
         }
         Label {
             id: status
@@ -56,7 +57,7 @@ Item {
             font.family: UI.FONT_FAMILY
             font.pixelSize: UI.SMALL_FONT
             textFormat: Text.PlainText
-            color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
+            color: UI.TITLE_COLOR
         }
         Label {
             id: period
@@ -64,7 +65,7 @@ Item {
             font.family: UI.FONT_FAMILY
             font.pixelSize: UI.SMALL_FONT
             textFormat: Text.PlainText
-            color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
+            color: UI.TITLE_COLOR
         }
         Label {
             id: airing
@@ -72,7 +73,7 @@ Item {
             font.family: UI.FONT_FAMILY
             font.pixelSize: UI.SMALL_FONT
             textFormat: Text.PlainText
-            color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
+            color: UI.TITLE_COLOR
         }
     }
 
@@ -81,14 +82,24 @@ Item {
         width: (parent.width - UI.MEDIUM_SPACING) / 2
         height: parent.height
         anchors.left: parent.left
-        color: image.status == Image.Ready ? "transparent" : UI.INFO_COLOR
+        color: UI.INFO_COLOR
         opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
+
+        MouseArea {
+            id: mouseArea
+            anchors.fill: parent
+            onClicked: Qt.openUrlExternally(link)
+        }
 
         Image {
             id: image
-            width: parent.width
-            anchors.verticalCenter: parent.verticalCenter
+            anchors.fill: parent
             fillMode: Image.PreserveAspectFit
+        }
+
+        Image {
+            anchors.centerIn: parent
+            source: image.status == Image.Null ? "icons/image.png" : ""
         }
 
         BusyIndicator {
@@ -96,19 +107,5 @@ Item {
             running: image.status == Image.Loading
             visible: image.status == Image.Loading
         }
-    }
-
-    Image {
-        source: "image://theme/icon-s-status-notifier-software-update"
-        anchors.top: parent.top
-        anchors.right: parent.right
-        visible: mouseArea.pressed && mouseArea.containsMouse
-        rotation: 180
-    }
-
-    MouseArea {
-        id: mouseArea
-        anchors.fill: parent
-        onClicked: Qt.openUrlExternally(link)
     }
 }

@@ -20,7 +20,7 @@ BorderImage {
 
     property alias title: label.text
     property string iconSource
-    property bool iconEnabled
+    property bool iconEnabled: true
     signal iconClicked()
 
     height: label.height + UI.SMALL_SPACING + UI.MEDIUM_SPACING

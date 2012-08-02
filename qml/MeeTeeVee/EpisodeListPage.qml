@@ -44,7 +44,7 @@ CommonPage {
             hasScreencap: model.screencap != ""
             enabled: hasSummary || hasScreencap
             onClicked: {
-                var page = episodePage.createObject(root, {title: delegate.title, summary: model.summary, screencap: model.screencap});
+                var page = episodePage.createObject(root, {title: delegate.title, summary: model.summary, screencap: model.screencap, link: model.link});
                 pageStack.push(page);
                 // TODO: root.showed(showid);
             }

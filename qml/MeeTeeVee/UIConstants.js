@@ -19,6 +19,8 @@ var MEDIUM_SPACING = 8;
 var SMALL_SPACING = 2;
 
 var THUMBNAIL_SIZE = 80;
+var SCREENCAP_WIDTH = 320;
+var SCREENCAP_HEIGHT = 200;
 
 var FONT_FAMILY = "Nokia Pure Text";
 var FONT_FAMILY_LIGHT = "Nokia Pure Text Light";
@@ -33,7 +35,7 @@ var ERROR_COLOR = "#a21c22";
 var INFO_COLOR = "#282828";
 var TITLE_COLOR = "#ffffff";
 var SUBTITLE_COLOR = "#c8c8c8";
-var PRESSED_COLOR = "#4591ff";
+var PRESSED_COLOR = "#f1661a";
 var SEPARATOR_COLOR = "#b2b2b4";
 
 var DISABLED_OPACITY = 0.4;

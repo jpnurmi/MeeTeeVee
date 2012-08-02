@@ -34,7 +34,7 @@ CommonPage {
 
     header: Header {
         title: show.name
-        iconSource: show.favorited ? "icons/unfavorite.png" : "icons/favorite.png"
+        iconSource: infoBox.pressed ? "icons/external.png" : show.favorited ? "icons/unfavorite.png" : "icons/favorite.png"
         iconEnabled: !show.empty && Singleton.favoritesModel && Singleton.favoritesModel.loaded
         onIconClicked: {
             if (Singleton.favoritesModel)
@@ -53,6 +53,7 @@ CommonPage {
             spacing: UI.LARGE_SPACING
 
             ShowInfoBox {
+                id: infoBox
                 info: show.info
                 genres: show.genres
                 status: show.status

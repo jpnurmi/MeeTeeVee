@@ -59,8 +59,9 @@ Item {
         opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
         Image {
             anchors.centerIn: parent
-            visible: thumbnail.loading
-            source: thumbnail.loading ? "icons/download.png" : ""
+            visible: thumbnail.loading || thumbnail.status == Image.Null
+            source: thumbnail.loading ? "icons/download.png" :
+                    thumbnail.status == Image.Null ? "icons/image.png" : ""
         }
     }
 
