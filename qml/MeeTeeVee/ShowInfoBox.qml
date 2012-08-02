@@ -94,6 +94,7 @@ Item {
         Image {
             id: image
             anchors.fill: parent
+            anchors.margins: UI.MEDIUM_SPACING
             fillMode: Image.PreserveAspectFit
         }
 

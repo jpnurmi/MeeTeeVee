@@ -19,6 +19,7 @@ CommonPage {
     id: root
 
     property alias title: header.title
+    property alias subtitle: subtitle.text
     property alias summary: summary.text
     property alias screencap: screencap.source
     property url link
@@ -57,6 +58,7 @@ CommonPage {
                 Image {
                     id: screencap
                     anchors.fill: parent
+                    anchors.margins: UI.MEDIUM_SPACING
                     fillMode: Image.PreserveAspectFit
                 }
 
@@ -70,6 +72,15 @@ CommonPage {
                     running: screencap.status == Image.Loading
                     visible: screencap.status == Image.Loading
                 }
+            }
+
+            Label {
+                id: subtitle
+                width: parent.width
+                visible: text.length
+                font.weight: Font.Light
+                font.family: UI.FONT_FAMILY
+                font.pixelSize: UI.LARGE_FONT
             }
 
             Label {

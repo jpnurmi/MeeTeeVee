@@ -41,6 +41,8 @@ BorderImage {
         font.pixelSize: UI.LARGE_FONT
         textFormat: Text.PlainText
         color: UI.TITLE_COLOR
+        elide: Text.ElideRight
+        maximumLineCount: 1
     }
 
     ToolIcon {
