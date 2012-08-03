@@ -12,8 +12,8 @@
 * GNU General Public License for more details.
 */
 import QtQuick 1.1
-import "MultiHash.js" as Shows
 import "Singleton.js" as Singleton
+import "utils/MultiHash.js" as Shows
 
 StorageModel {
     id: root

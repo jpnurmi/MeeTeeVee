@@ -12,9 +12,9 @@
 * GNU General Public License for more details.
 */
 import QtQuick 1.1
-import "Hash.js" as Models
-import "MultiHash.js" as Shows
 import "Singleton.js" as Singleton
+import "utils/Hash.js" as Models
+import "utils/MultiHash.js" as Shows
 
 QtObject {
     id: root
