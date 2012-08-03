@@ -28,7 +28,7 @@ CommonPage {
 
     header: Header {
         title: qsTr("Recent updates")
-        iconSource: "icons/help.png"
+        iconSource: "icons/info.png"
         onIconClicked: root.about()
     }
 
