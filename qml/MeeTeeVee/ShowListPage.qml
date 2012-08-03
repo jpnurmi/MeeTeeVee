@@ -27,6 +27,9 @@ CommonPage {
 
     header: Header {
         title: model ? model.name : ""
+        iconSource: "icons/clear.png"
+        iconEnabled: !root.busy && !root.empty
+        onIconClicked: confirmation.createObject(root).open()
     }
 
     flickable: ListView {

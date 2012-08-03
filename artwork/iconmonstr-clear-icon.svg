@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<!-- The icon can be used freely in both personal and commercial projects with no attribution required, but always appreciated. 
+You may NOT sub-license, resell, rent, redistribute or otherwise transfer the icon without express written permission from iconmonstr.com -->
+
+
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+
+	 width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+
+<path id="danger-2-icon" d="M297.08,171.063l61.938-107.278C420.581,99.404,462,165.973,462,242.215H338.2
+
+	C338.2,211.849,321.636,185.295,297.08,171.063z M214.919,313.369l-61.937,107.277c30.304,17.533,65.489,27.568,103.018,27.568
+
+	s72.714-10.035,103.018-27.568L297.08,313.367C272.205,327.787,240.866,328.406,214.919,313.369z M214.92,171.062L152.982,63.785
+
+	C91.419,99.404,50,165.973,50,242.215h123.799C173.799,211.849,190.363,185.295,214.92,171.062z M256,289.416
+
+	c26.066,0,47.2-21.135,47.2-47.201c0-26.067-21.134-47.198-47.2-47.198c-26.067,0-47.201,21.131-47.201,47.198
+
+	C208.799,268.281,229.933,289.416,256,289.416z"/>
+
+</svg>
+
+
