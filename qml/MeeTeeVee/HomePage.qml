@@ -18,6 +18,7 @@ import "UIConstants.js" as UI
 CommonPage {
     id: root
 
+    signal about()
     signal showed(string showId)
 
     empty: listView.count <= 0
@@ -27,9 +28,8 @@ CommonPage {
 
     header: Header {
         title: qsTr("Recent updates")
-        iconSource: "icons/refresh.png"
-        iconEnabled: updatesModel.status !== XmlListModel.Loading
-        onIconClicked: updatesModel.reload()
+        iconSource: "icons/help.png"
+        onIconClicked: root.about()
     }
 
     flickable: ListView {
