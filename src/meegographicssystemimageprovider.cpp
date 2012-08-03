@@ -13,26 +13,17 @@
 */
 #include "meegographicssystemimageprovider.h"
 #include <QtMeeGoGraphicsSystemHelper>
+#include <QDir>
 
-MeeGoGraphicsSystemImageProvider::MeeGoGraphicsSystemImageProvider() :
-    QDeclarativeImageProvider(Pixmap)
+MeeGoGraphicsSystemImageProvider::MeeGoGraphicsSystemImageProvider(const QString& imagePath) :
+    QDeclarativeImageProvider(Pixmap), imagePath(imagePath)
 {
-}
-
-QString MeeGoGraphicsSystemImageProvider::path() const
-{
-    return dir.path();
-}
-
-void MeeGoGraphicsSystemImageProvider::setPath(const QString& path)
-{
-    dir = QDir(path);
 }
 
 QPixmap MeeGoGraphicsSystemImageProvider::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
 {
     QPixmap pixmap;
-    QImage image(dir.filePath(id));
+    QImage image(QDir(imagePath).filePath(id));
     if (size)
         *size = image.size();
     image = image.convertToFormat(QImage::Format_ARGB32_Premultiplied);

@@ -15,20 +15,16 @@
 #define MEEGOGRAPHICSSYSTEMIMAGEPROVIDER_H
 
 #include <QDeclarativeImageProvider>
-#include <QDir>
 
 class MeeGoGraphicsSystemImageProvider : public QDeclarativeImageProvider
 {
 public:
-    MeeGoGraphicsSystemImageProvider();
-
-    QString path() const;
-    void setPath(const QString& path);
+    MeeGoGraphicsSystemImageProvider(const QString& imagePath);
 
     QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize);
 
 private:
-    QDir dir;
+    QString imagePath;
 };
 
 #endif // MEEGOGRAPHICSSYSTEMIMAGEPROVIDER_H

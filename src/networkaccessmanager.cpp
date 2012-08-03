@@ -13,7 +13,6 @@
 */
 #include "networkaccessmanager.h"
 #include <QNetworkDiskCache>
-#include <QDesktopServices>
 #include <QNetworkRequest>
 
 NetworkAccessManager::NetworkAccessManager(QObject *parent) :
@@ -28,11 +27,16 @@ QNetworkReply *NetworkAccessManager::createRequest(Operation operation, const QN
     return QNetworkAccessManager::createRequest(operation, cacheRequest, outgoingData);
 }
 
+NetworkAccessManagerFactory::NetworkAccessManagerFactory(const QString &cachePath) :
+    cachePath(cachePath)
+{
+}
+
 QNetworkAccessManager *NetworkAccessManagerFactory::create(QObject *parent)
 {
     QNetworkAccessManager *nam = new NetworkAccessManager(parent);
     QNetworkDiskCache *cache = new QNetworkDiskCache(nam);
-    cache->setCacheDirectory(QDesktopServices::storageLocation(QDesktopServices::CacheLocation));
+    cache->setCacheDirectory(cachePath);
     nam->setCache(cache);
     return nam;
 }

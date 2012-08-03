@@ -29,7 +29,12 @@ protected:
 class NetworkAccessManagerFactory : public QDeclarativeNetworkAccessManagerFactory
 {
 public:
+    NetworkAccessManagerFactory(const QString &cachePath);
+
     virtual QNetworkAccessManager *create(QObject *parent);
+
+private:
+    QString cachePath;
 };
 
 #endif // NETWORKACCESSMANAGER_H

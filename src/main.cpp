@@ -23,12 +23,17 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QScopedPointer<QApplication> app(createApplication(argc, argv));
 
     QPixmapCache::setCacheLimit(20 * 1024);
-    MeeGoGraphicsSystemImageProvider* provider = new MeeGoGraphicsSystemImageProvider;
-    provider->setPath("/opt/MeeTeeVee/qml/MeeTeeVee/images");
 
     QmlApplicationViewer viewer;
-    viewer.engine()->setNetworkAccessManagerFactory(new NetworkAccessManagerFactory);
+
+    QString cachePath = QDesktopServices::storageLocation(QDesktopServices::CacheLocation);
+    NetworkAccessManagerFactory *factory = new NetworkAccessManagerFactory(cachePath);
+    viewer.engine()->setNetworkAccessManagerFactory(factory);
+
+    QLatin1String imagePath("/opt/MeeTeeVee/qml/MeeTeeVee/images");
+    MeeGoGraphicsSystemImageProvider *provider = new MeeGoGraphicsSystemImageProvider(imagePath);
     viewer.engine()->addImageProvider("MeeTeeVee", provider);
+
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
     viewer.setMainQmlFile(QLatin1String("qml/MeeTeeVee/main.qml"));
     viewer.showExpanded();
