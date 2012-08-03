@@ -94,7 +94,7 @@ CommonPage {
                 Repeater {
                     id: repeater
                     model: show.seasons
-                    EpisodeDelegate {
+                    SeasonDelegate {
                         title: qsTr("Season %1").arg(index + 1)
                         subtitle: episodeListModel.busy ? qsTr("Loading...") : qsTr("%1 episodes").arg(episodeListModel.count)
                         onClicked: {
