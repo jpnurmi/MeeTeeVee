@@ -18,6 +18,7 @@ import "UIConstants.js" as UI
 CommonDelegate {
     id: root
 
+    property alias badge: badge.text
     property alias title: title.text
     property alias subtitle: subtitle.text
     property string rating
@@ -27,6 +28,17 @@ CommonDelegate {
 
     image: Image {
         source: "images/squircle.png"
+
+        Text {
+            id: badge
+            anchors.centerIn: parent
+            font.family: UI.FONT_FAMILY
+            font.pixelSize: UI.SMALL_FONT
+            font.weight: Font.Bold
+            color: root.pressed ? UI.PRESSED_COLOR : UI.TITLE_COLOR
+            textFormat: Text.PlainText
+            maximumLineCount: 1
+        }
     }
 
     Text {
@@ -42,11 +54,9 @@ CommonDelegate {
     }
 
     Row {
-        id: row
-        width: indicator.width
         Text {
             id: subtitle
-            width: parent.width - (root.hasSummary ? indicator.size : 0) - (root.hasScreencap ? indicator.size : 0)
+            width: indicator.width - (root.hasSummary ? indicator.size : 0) - (root.hasScreencap ? indicator.size : 0)
             font.family: UI.FONT_FAMILY
             font.pixelSize: UI.SMALL_FONT
             font.weight: Font.Light
@@ -54,8 +64,10 @@ CommonDelegate {
             textFormat: Text.PlainText
             maximumLineCount: 1
         }
+
         Item {
-            width: indicator.size; height: indicator.size
+            width: root.hasScreencap ? indicator.size : 0
+            height: root.hasScreencap ? indicator.size : 0
             anchors.verticalCenter: subtitle.verticalCenter
             Image {
                 id: screencapIcon
@@ -65,8 +77,10 @@ CommonDelegate {
                 sourceSize { width: 16; height: 16 }
             }
         }
+
         Item {
-            width: indicator.size; height: indicator.size
+            width: root.hasSummary ? indicator.size : 0
+            height: root.hasSummary ? indicator.size : 0
             anchors.verticalCenter: subtitle.verticalCenter
             Image {
                 id: summaryIcon
