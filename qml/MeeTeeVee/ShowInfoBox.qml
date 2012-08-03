@@ -21,7 +21,15 @@ Item {
     property Show show
 
     width: parent.width
-    height: width / 2
+    height: Math.max(column.height, width / 2)
+
+    Thumbnail {
+        id: thumbnail
+        link: show.link
+        source: show.image
+        width: (parent.width - UI.MEDIUM_SPACING) / 2
+        height: parent.height
+    }
 
     Column {
         id: column
@@ -67,14 +75,5 @@ Item {
             value: qsTr("%1 minutes").arg(show.runtime)
             visible: show.runtime
         }
-    }
-
-    Thumbnail {
-        id: thumbnail
-        link: show.link
-        source: show.image
-        width: (parent.width - UI.MEDIUM_SPACING) / 2
-        height: parent.height
-        anchors.left: parent.left
     }
 }
