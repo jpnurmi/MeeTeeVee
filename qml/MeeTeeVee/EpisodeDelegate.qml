@@ -15,7 +15,7 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 import "UIConstants.js" as UI
 
-Item {
+CommonDelegate {
     id: root
 
     property alias title: title.text
@@ -25,88 +25,72 @@ Item {
     property bool hasSummary: false
     property bool hasScreencap: false
 
-    signal clicked
-    signal pressAndHold
+    image: Image {
+        source: "images/squircle.png"
+    }
 
-    width: parent ? parent.width : 0
-    height: column.height + 2 * UI.MEDIUM_SPACING
-
-    Column {
-        id: column
-
+    Text {
+        id: title
         width: parent.width
-        anchors.verticalCenter: parent.verticalCenter
+        font.family: UI.FONT_FAMILY
+        font.pixelSize: UI.MEDIUM_FONT
+        font.weight: Font.Bold
+        color: root.pressed ? UI.PRESSED_COLOR : UI.TITLE_COLOR
+        opacity: !enabled ? UI.DISABLED_OPACITY : 1.0
+        textFormat: Text.PlainText
+        maximumLineCount: 1
+    }
 
+    Row {
+        id: row
+        width: indicator.width
         Text {
-            id: title
-            width: column.width
+            id: subtitle
+            width: parent.width - (root.hasSummary ? indicator.size : 0) - (root.hasScreencap ? indicator.size : 0)
             font.family: UI.FONT_FAMILY
-            font.pixelSize: UI.MEDIUM_FONT
-            font.weight: Font.Bold
-            color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.TITLE_COLOR
-            opacity: !enabled ? UI.DISABLED_OPACITY : 1.0
+            font.pixelSize: UI.SMALL_FONT
+            font.weight: Font.Light
+            color: root.pressed ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
             textFormat: Text.PlainText
             maximumLineCount: 1
         }
-
-        Row {
-            id: row
-            width: indicator.width
-            Text {
-                id: subtitle
-                width: parent.width - (root.hasSummary ? indicator.size : 0) - (root.hasScreencap ? indicator.size : 0)
-                font.family: UI.FONT_FAMILY
-                font.pixelSize: UI.SMALL_FONT
-                font.weight: Font.Light
-                color: mouseArea.pressed && mouseArea.containsMouse ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
-                textFormat: Text.PlainText
-                maximumLineCount: 1
-            }
-            Item {
-                width: indicator.size; height: indicator.size
-                anchors.verticalCenter: subtitle.verticalCenter
-                Image {
-                    id: screencapIcon
-                    visible: root.hasScreencap
-                    anchors.verticalCenter: parent.verticalCenter
-                    source: !root.hasScreencap ? "" : mouseArea.pressed ? "image://theme/icon-m-toolbar-gallery-dimmed-white" : "image://theme/icon-m-toolbar-gallery-white"
-                    sourceSize { width: 16; height: 16 }
-                }
-            }
-            Item {
-                width: indicator.size; height: indicator.size
-                anchors.verticalCenter: subtitle.verticalCenter
-                Image {
-                    id: summaryIcon
-                    visible: root.hasSummary
-                    anchors.verticalCenter: parent.verticalCenter
-                    source: !root.hasSummary ? "" : mouseArea.pressed ? "image://theme/icon-m-toolbar-edit-dimmed-white" : "image://theme/icon-m-toolbar-edit-white"
-                    sourceSize { width: 16; height: 16 }
-                }
+        Item {
+            width: indicator.size; height: indicator.size
+            anchors.verticalCenter: subtitle.verticalCenter
+            Image {
+                id: screencapIcon
+                visible: root.hasScreencap
+                anchors.verticalCenter: parent.verticalCenter
+                source: !root.hasScreencap ? "" : root.pressed ? "image://theme/icon-m-toolbar-gallery-dimmed-white" : "image://theme/icon-m-toolbar-gallery-white"
+                sourceSize { width: 16; height: 16 }
             }
         }
-
-        Row {
-            id: indicator
-            property int size: width / 10
-            property int value: Math.round(root.rating)
-            visible: root.rating != ""
-            opacity: mouseArea.pressed && mouseArea.containsMouse ? UI.DISABLED_OPACITY : 1.0
-            Repeater {
-                model: indicator.value
-                Image { source: "image://theme/meegotouch-indicator-rating-inverted-background-star" }
-            }
-            Repeater {
-                model: 10 - indicator.value
-                Image { source: "image://theme/meegotouch-indicator-rating-inverted-star" }
+        Item {
+            width: indicator.size; height: indicator.size
+            anchors.verticalCenter: subtitle.verticalCenter
+            Image {
+                id: summaryIcon
+                visible: root.hasSummary
+                anchors.verticalCenter: parent.verticalCenter
+                source: !root.hasSummary ? "" : root.pressed ? "image://theme/icon-m-toolbar-edit-dimmed-white" : "image://theme/icon-m-toolbar-edit-white"
+                sourceSize { width: 16; height: 16 }
             }
         }
     }
 
-    MouseArea {
-        id: mouseArea
-        anchors.fill: parent
-        onClicked: root.clicked()
-        onPressAndHold: root.pressAndHold()
+    Row {
+        id: indicator
+        property int size: width / 10
+        property int value: Math.round(root.rating)
+        visible: root.rating != ""
+        opacity: root.pressed ? UI.DISABLED_OPACITY : 1.0
+        Repeater {
+            model: indicator.value
+            Image { source: "image://theme/meegotouch-indicator-rating-inverted-background-star" }
+        }
+        Repeater {
+            model: 10 - indicator.value
+            Image { source: "image://theme/meegotouch-indicator-rating-inverted-star" }
+        }
     }
 }
