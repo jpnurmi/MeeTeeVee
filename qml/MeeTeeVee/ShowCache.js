@@ -11,24 +11,17 @@
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
 */
-function __openCache() {
-    var db = openDatabaseSync("MeeTeeVee", "1.0", "ShowCache", 4096);
-    db.transaction(
-        function(tx) {
-            tx.executeSql("CREATE TABLE IF NOT EXISTS Shows(showId TEXT PRIMARY KEY ON CONFLICT REPLACE, name TEXT,"
-                                                            + "link TEXT, seasons TEXT, image TEXT, started TEXT, ended TEXT,"
-                                                            + "country TEXT, status TEXT, classification TEXT, summary TEXT, genres TEXT,"
-                                                            + "runtime TEXT, network TEXT, airtime TEXT, airday TEXT, timezone TEXT)");
-        }
-    );
-    return db;
-}
+var CREATE_TABLE_SQL =  "CREATE TABLE IF NOT EXISTS Shows(showId TEXT PRIMARY KEY ON CONFLICT REPLACE, name TEXT,"
+                                                       + "link TEXT, seasons TEXT, image TEXT, started TEXT, ended TEXT,"
+                                                       + "country TEXT, status TEXT, classification TEXT, summary TEXT, genres TEXT,"
+                                                       + "runtime TEXT, network TEXT, airtime TEXT, airday TEXT, timezone TEXT)"
 
 function readCache(showId) {
     var data = {};
-    var db = __openCache();
-    db.readTransaction(
+    var db = openDatabaseSync("MeeTeeVee", "1.0", "ShowCache", 4096);
+    db.transaction(
         function(tx) {
+            tx.executeSql(CREATE_TABLE_SQL)
             var rs = tx.executeSql("SELECT * FROM Shows WHERE showId=?", [showId]);
             if (rs.rows.length)
                 data = rs.rows.item(0);
@@ -38,9 +31,10 @@ function readCache(showId) {
 }
 
 function writeCache(data) {
-    var db = __openCache();
+    var db = openDatabaseSync("MeeTeeVee", "1.0", "ShowCache", 4096);
     db.transaction(
         function(tx) {
+            tx.executeSql(CREATE_TABLE_SQL)
             tx.executeSql("INSERT INTO Shows VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                           [data.showId, data.name, data.link, data.seasons, data.image, data.started, data.ended,
                            data.country, data.status, data.classification, data.summary, data.genres, data.runtime,
