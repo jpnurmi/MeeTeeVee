@@ -28,41 +28,41 @@ Item {
         width: (parent.width - UI.MEDIUM_SPACING) / 2
         anchors.right: parent.right
 
-        ShowInfoLabel {
+        InfoLabel {
             title: qsTr("Classification")
             value: show.classification
         }
-        ShowInfoLabel {
+        InfoLabel {
             title: qsTr("Network")
             value: show.network
         }
-        ShowInfoLabel {
+        InfoLabel {
             title: qsTr("Genres")
             value: show.genres
         }
-        ShowInfoLabel {
+        InfoLabel {
             title: qsTr("Status")
             value: show.status
         }
-        ShowInfoLabel {
+        InfoLabel {
             title: qsTr("Started")
             value: show.started
         }
-        ShowInfoLabel {
+        InfoLabel {
             title: qsTr("Ended")
             value: show.ended
         }
-        ShowInfoLabel {
+        InfoLabel {
             title: qsTr("Airing")
             value: show.airing
             visible: show.airing && !show.ended
         }
-        ShowInfoLabel {
+        InfoLabel {
             title: qsTr("Timezone")
             value: show.timezone
             visible: show.timezone && show.airtime && !show.ended
         }
-        ShowInfoLabel {
+        InfoLabel {
             title: qsTr("Runtime")
             value: qsTr("%1 minutes").arg(show.runtime)
             visible: show.runtime
