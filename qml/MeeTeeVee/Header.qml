@@ -20,7 +20,7 @@ BorderImage {
 
     property alias title: label.text
     property alias iconEnabled: icon.enabled
-    property alias iconSource: icon.iconSource
+    property string iconSource
     signal iconClicked()
 
     height: UI.HEADER_HEIGHT
@@ -47,6 +47,7 @@ BorderImage {
 
     ToolIcon {
         id: icon
+        iconSource: root.iconSource ? root.iconSource: "images/empty.png"
         anchors.top: parent.top
         anchors.right: parent.right
         anchors.rightMargin: -4
