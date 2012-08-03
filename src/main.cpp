@@ -17,6 +17,24 @@
 #include "networkaccessmanager.h"
 #include "meegographicssystemimageprovider.h"
 
+static bool removeDir(const QDir &dir)
+{
+    bool result = true;
+    if (dir.exists()) {
+        QFileInfoList entries = dir.entryInfoList(QDir::NoDotAndDotDot | QDir::System | QDir::Hidden  | QDir::AllDirs | QDir::Files);
+        foreach (const QFileInfo &info, entries) {
+            if (info.isDir())
+                result &= removeDir(QDir(info.absoluteFilePath()));
+            else
+                result &= QFile::remove(info.absoluteFilePath());
+        }
+        QDir parent(dir);
+        if (parent.cdUp())
+            parent.rmdir(dir.dirName());
+    }
+    return result;
+}
+
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     QApplication::setApplicationName("MeeTeeVee");
@@ -33,6 +51,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QLatin1String imagePath("/opt/MeeTeeVee/qml/MeeTeeVee/images");
     MeeGoGraphicsSystemImageProvider *provider = new MeeGoGraphicsSystemImageProvider(imagePath);
     viewer.engine()->addImageProvider("MeeTeeVee", provider);
+
+    if (app->arguments().contains("-reset")) {
+        qDebug() << "MeeTeeVee reset...";
+        qDebug() << "  -> Network disk cache:" << (removeDir(cachePath) ? "OK" : "FAIL!") << qPrintable("("+cachePath+")");
+        qDebug() << "  -> QML offline storage:" << (removeDir(viewer.engine()->offlineStoragePath()) ? "OK" : "FAIL!") << qPrintable("("+viewer.engine()->offlineStoragePath()+")");
+    }
 
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
     viewer.setMainQmlFile(QLatin1String("qml/MeeTeeVee/main.qml"));
