@@ -26,7 +26,7 @@ Item {
     signal pressAndHold
 
     width: parent ? parent.width : 0
-    height: UI.DELEGATE_HEIGHT
+    height: Math.max(image.height, column.height) + 2 * UI.MEDIUM_SPACING
 
     Item {
         id: image
@@ -37,11 +37,11 @@ Item {
 
     Column {
         id: column
+        anchors.top: parent.top
         anchors.left: image.right
-        anchors.leftMargin: UI.MEDIUM_SPACING
-        anchors.verticalCenter: parent.verticalCenter
-        width: root.width - image.width - UI.MEDIUM_SPACING
-        height: childrenRect.height
+        anchors.right: parent.right
+        anchors.topMargin: UI.MEDIUM_SPACING
+        anchors.leftMargin: image.width ? UI.MEDIUM_SPACING : 0
     }
 
     MouseArea {

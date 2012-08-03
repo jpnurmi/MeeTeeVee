@@ -21,8 +21,6 @@ CommonDelegate {
     property alias title: title.text
     property alias subtitle: subtitle.text
 
-    height: UI.HEADER_HEIGHT + 2 * UI.MEDIUM_SPACING
-
     Text {
         id: title
         width: parent.width
