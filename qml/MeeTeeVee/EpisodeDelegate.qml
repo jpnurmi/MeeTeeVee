@@ -78,19 +78,11 @@ CommonDelegate {
         }
     }
 
-    Row {
+    StarIndicator {
         id: indicator
         property int size: width / 10
-        property int value: Math.round(root.rating)
+        value: Math.round(root.rating)
         visible: root.rating != ""
         opacity: root.pressed ? UI.DISABLED_OPACITY : 1.0
-        Repeater {
-            model: indicator.value
-            Image { source: "image://theme/meegotouch-indicator-rating-inverted-background-star" }
-        }
-        Repeater {
-            model: 10 - indicator.value
-            Image { source: "image://theme/meegotouch-indicator-rating-inverted-star" }
-        }
     }
 }
