@@ -26,5 +26,5 @@ Label {
     font.family: UI.FONT_FAMILY
     font.pixelSize: UI.SMALL_FONT
     textFormat: Text.RichText
-    text: qsTr("<font color=\"%1\">%2:</font> <font color=\"%3\">%4</font>").arg(UI.SUBTITLE_COLOR).arg(title).arg(UI.TITLE_COLOR).arg(value)
+    text: qsTr("<font color=\"%1\">%2:</font> <strong><font color=\"%3\">%4</font></strong>").arg(UI.SUBTITLE_COLOR).arg(title).arg(UI.TITLE_COLOR).arg(value)
 }

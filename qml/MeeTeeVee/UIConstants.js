@@ -33,9 +33,9 @@ var SMALL_FONT = 18;
 var TINY_FONT = 14;
 
 var ERROR_COLOR = "#a21c22";
-var INFO_COLOR = "#282828";
+var INFO_COLOR = "#333333";
 var TITLE_COLOR = "#ffffff";
-var SUBTITLE_COLOR = "#c8c8c8";
+var SUBTITLE_COLOR = "#eeeeee";
 var PRESSED_COLOR = "#f1661a";
 
 var DISABLED_OPACITY = 0.4;
