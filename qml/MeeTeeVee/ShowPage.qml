@@ -13,7 +13,6 @@
 */
 import QtQuick 1.1
 import com.nokia.meego 1.0
-import com.nokia.extras 1.0
 import "UIConstants.js" as UI
 import "Singleton.js" as Singleton
 
@@ -60,6 +59,7 @@ CommonPage {
             Label {
                 id: summary
                 width: parent.width
+                visible: text.length
                 text: show.summary
                 font.family: UI.FONT_FAMILY
                 font.pixelSize: UI.MEDIUM_FONT
