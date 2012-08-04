@@ -39,7 +39,7 @@ CommonPage {
             property string episodeNumber: model.episode < 10 ? "0" + model.episode : model.episode
             badge: qsTr("%1x%2").arg(seasonNumber).arg(episodeNumber)
             title: model.name
-            subtitle: model.airdate
+            subtitle: model.airdate && model.airdate != "0000-00-00" ? model.airdate : qsTr("No date")
             rating: model.rating
             hasSummary: model.summary != ""
             hasScreencap: model.screencap != ""

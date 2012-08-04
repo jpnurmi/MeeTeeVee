@@ -54,7 +54,6 @@ CommonDelegate {
         font.pixelSize: UI.MEDIUM_FONT
         font.weight: Font.Bold
         color: root.pressed ? UI.PRESSED_COLOR : UI.TITLE_COLOR
-        opacity: !enabled ? UI.DISABLED_OPACITY : 1.0
         textFormat: Text.PlainText
         elide: Text.ElideRight
     }
@@ -99,6 +98,15 @@ CommonDelegate {
         id: indicator
         value: Math.round(root.rating)
         pressed: root.pressed
-        visible: root.rating != ""
+        visible: root.rating
+    }
+
+    Text {
+        text: qsTr("No rating")
+        visible: !root.rating
+        font.family: UI.FONT_FAMILY
+        font.pixelSize: UI.SMALL_FONT
+        font.weight: Font.Light
+        color: root.pressed ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
     }
 }
