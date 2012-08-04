@@ -17,14 +17,19 @@ Row {
     id: root
 
     property int value: 0
+    property bool pressed: false
 
     Repeater {
         model: root.value
-        Image { source: "image://theme/meegotouch-indicator-rating-inverted-background-star" }
+        Image {
+            source: pressed ? "images/star-filled-pressed.png" : "images/star-filled.png"
+        }
     }
 
     Repeater {
         model: 10 - root.value
-        Image { source: "image://theme/meegotouch-indicator-rating-inverted-star" }
+        Image {
+            source: pressed ? "images/star-empty-pressed.png" : "images/star-empty.png"
+        }
     }
 }
