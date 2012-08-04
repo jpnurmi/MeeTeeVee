@@ -64,7 +64,7 @@ CommonPage {
                 font.family: UI.FONT_FAMILY
                 font.pixelSize: UI.MEDIUM_FONT
                 elide: Text.ElideRight
-                maximumLineCount: 10
+                maximumLineCount: 8
             }
 
 //            Section {
