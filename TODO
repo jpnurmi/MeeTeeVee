@@ -1,2 +1,4 @@
-- Improve error handling (allow reload)
-- Busy indicator to the top right corner
+Future feature ideas:
+- Support/convert timezones
+- Multiple service providers
+- Episodes as calendar events
