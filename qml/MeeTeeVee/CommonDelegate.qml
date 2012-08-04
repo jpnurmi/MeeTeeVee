@@ -19,6 +19,7 @@ Item {
     id: root
 
     property alias image: image.data
+    property alias indicator: indicator.data
     default property alias content: column.data
     property bool pressed: mouseArea.pressed && mouseArea.containsMouse
 
@@ -39,9 +40,18 @@ Item {
         id: column
         anchors.top: parent.top
         anchors.left: image.right
-        anchors.right: parent.right
+        anchors.right: indicator.left
         anchors.topMargin: UI.MEDIUM_SPACING
         anchors.leftMargin: image.width ? UI.MEDIUM_SPACING : 0
+        anchors.rightMargin: indicator.width ? UI.MEDIUM_SPACING : 0
+    }
+
+    Item {
+        id: indicator
+        width: childrenRect.width
+        height: childrenRect.height
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
     }
 
     MouseArea {
