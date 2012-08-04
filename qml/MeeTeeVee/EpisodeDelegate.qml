@@ -26,8 +26,15 @@ CommonDelegate {
     property bool hasSummary: false
     property bool hasScreencap: false
 
-    image: Image {
-        source: "images/squircle.png"
+    image: Item {
+        width: squircle.width
+        height: squircle.height
+
+        Image {
+            id: squircle
+            source: "images/squircle.png"
+            opacity: root.pressed ? UI.DISABLED_OPACITY : 1.0
+        }
 
         Text {
             id: badge
@@ -52,10 +59,15 @@ CommonDelegate {
         elide: Text.ElideRight
     }
 
-    Row {
+    Item {
+        width: indicator.width
+        height: subtitle.height
+
         Text {
             id: subtitle
-            width: indicator.width - (root.hasSummary ? indicator.size : 0) - (root.hasScreencap ? indicator.size : 0)
+            anchors.left: parent.left
+            anchors.right: screencapIcon.left
+            anchors.rightMargin: UI.LARGE_SPACING
             font.family: UI.FONT_FAMILY
             font.pixelSize: UI.SMALL_FONT
             font.weight: Font.Light
@@ -64,38 +76,29 @@ CommonDelegate {
             elide: Text.ElideRight
         }
 
-        Item {
-            width: root.hasScreencap ? indicator.size : 0
-            height: root.hasScreencap ? indicator.size : 0
+        Image {
+            id: screencapIcon
+            visible: root.hasScreencap
+            anchors.right: summaryIcon.left
             anchors.verticalCenter: subtitle.verticalCenter
-            Image {
-                id: screencapIcon
-                visible: root.hasScreencap
-                anchors.verticalCenter: parent.verticalCenter
-                source: !root.hasScreencap ? "" : root.pressed ? "image://theme/icon-m-toolbar-gallery-dimmed-white" : "image://theme/icon-m-toolbar-gallery-white"
-                sourceSize { width: 16; height: 16 }
-            }
+            width: root.hasScreencap ? implicitWidth : 0
+            source: !root.hasScreencap ? "" : root.pressed ? "images/image-pressed.png" : "images/image.png"
         }
 
-        Item {
-            width: root.hasSummary ? indicator.size : 0
-            height: root.hasSummary ? indicator.size : 0
+        Image {
+            id: summaryIcon
+            visible: root.hasSummary
+            anchors.right: parent.right
             anchors.verticalCenter: subtitle.verticalCenter
-            Image {
-                id: summaryIcon
-                visible: root.hasSummary
-                anchors.verticalCenter: parent.verticalCenter
-                source: !root.hasSummary ? "" : root.pressed ? "image://theme/icon-m-toolbar-edit-dimmed-white" : "image://theme/icon-m-toolbar-edit-white"
-                sourceSize { width: 16; height: 16 }
-            }
+            width: root.hasScreencap ? implicitWidth : 0
+            source: !root.hasSummary ? "" : root.pressed ? "images/edit-pressed.png" : "images/edit.png"
         }
     }
 
     StarIndicator {
         id: indicator
-        property int size: width / 10
         value: Math.round(root.rating)
+        pressed: root.pressed
         visible: root.rating != ""
-        opacity: root.pressed ? UI.DISABLED_OPACITY : 1.0
     }
 }
