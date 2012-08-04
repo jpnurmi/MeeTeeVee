@@ -21,12 +21,6 @@ CommonDelegate {
     property alias title: title.text
     property alias subtitle: subtitle.text
 
-    indicator: Image {
-        transform: Translate { x: 6 }
-        source: root.pressed ? "image://theme/icon-m-common-drilldown-arrow-inverse-disabled"
-                             : "image://theme/icon-m-common-drilldown-arrow-inverse"
-    }
-
     Text {
         id: title
         width: parent.width

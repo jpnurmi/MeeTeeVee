@@ -19,7 +19,6 @@ Item {
     id: root
 
     property alias image: image.data
-    property alias indicator: indicator.data
     default property alias content: column.data
     property bool pressed: mouseArea.pressed && mouseArea.containsMouse
 
@@ -46,12 +45,12 @@ Item {
         anchors.rightMargin: indicator.width ? UI.MEDIUM_SPACING : 0
     }
 
-    Item {
+    Image {
         id: indicator
-        width: childrenRect.width
-        height: childrenRect.height
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
+        source: root.pressed ? "image://theme/icon-m-common-drilldown-arrow-inverse-disabled"
+                             : "image://theme/icon-m-common-drilldown-arrow-inverse"
     }
 
     MouseArea {
