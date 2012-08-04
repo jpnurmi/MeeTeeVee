@@ -38,7 +38,7 @@ Page {
         anchors.bottom: parent.bottom
         anchors.topMargin: UI.PAGE_MARGIN
         anchors.leftMargin: UI.PAGE_MARGIN
-        anchors.rightMargin: UI.PAGE_MARGIN
+        anchors.rightMargin: UI.PAGE_MARGIN + UI.MEDIUM_SPACING
 
         ScrollDecorator {
             id: scroller
