@@ -35,7 +35,7 @@ BorderImage {
         anchors.right: icon.left
         anchors.topMargin: UI.SMALL_SPACING
         anchors.leftMargin: UI.PAGE_MARGIN
-        anchors.rightMargin: UI.SMALL_SPACING
+        anchors.rightMargin: -UI.LARGE_SPACING
         font.weight: Font.Light
         font.family: UI.FONT_FAMILY
         font.pixelSize: UI.LARGE_FONT
@@ -49,7 +49,7 @@ BorderImage {
         iconSource: root.iconSource ? root.iconSource: "images/empty.png"
         anchors.top: parent.top
         anchors.right: parent.right
-        anchors.rightMargin: -4
+        anchors.rightMargin: -UI.MEDIUM_SPACING
         height: emptyLabel.height + UI.SMALL_SPACING + UI.MEDIUM_SPACING
         opacity: enabled ? 1.0 : UI.DISABLED_OPACITY
         onClicked: root.iconClicked()
