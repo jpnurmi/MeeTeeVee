@@ -90,7 +90,7 @@ PageStackWindow {
                 id: dialog
                 acceptButtonText: qsTr("OK")
                 titleText: qsTr("MeeTeeVee v0.0.1")
-                message: qsTr("<p>Powered by <a href='http://www.tvrage.com'><img src='%1'/></a></p>" +
+                message: qsTr("<p><a href='http://www.tvrage.com'><img src='%1'/></a></p>" +
                               "<p>Copyright (C) 2012 J-P Nurmi <a href=\"mailto:jpnurmi@gmail.com\">jpnurmi@gmail.com</a></p>" +
                               "<p><small>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</small></p>" +
                               "<p><small>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</small></p>")
