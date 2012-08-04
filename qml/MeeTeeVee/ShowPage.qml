@@ -45,7 +45,7 @@ CommonPage {
     flickable: Flickable {
         id: flickable
 
-        contentHeight: Math.max(column.height, root.height)
+        contentHeight: column.height
 
         Column {
             id: column
