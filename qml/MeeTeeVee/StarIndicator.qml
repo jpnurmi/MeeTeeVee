@@ -18,6 +18,8 @@ Row {
 
     property int value: 0
 
+    height: childrenRect.height
+
     Repeater {
         model: root.value
         Image { source: "image://theme/meegotouch-indicator-rating-inverted-background-star" }

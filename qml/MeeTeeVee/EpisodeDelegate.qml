@@ -52,50 +52,40 @@ CommonDelegate {
         elide: Text.ElideRight
     }
 
-    Row {
-        Text {
-            id: subtitle
-            width: indicator.width - (root.hasSummary ? indicator.size : 0) - (root.hasScreencap ? indicator.size : 0)
-            font.family: UI.FONT_FAMILY
-            font.pixelSize: UI.SMALL_FONT
-            font.weight: Font.Light
-            color: root.pressed ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
-            textFormat: Text.PlainText
-            elide: Text.ElideRight
-        }
-
-        Item {
-            width: root.hasScreencap ? indicator.size : 0
-            height: root.hasScreencap ? indicator.size : 0
-            anchors.verticalCenter: subtitle.verticalCenter
-            Image {
-                id: screencapIcon
-                visible: root.hasScreencap
-                anchors.verticalCenter: parent.verticalCenter
-                source: !root.hasScreencap ? "" : root.pressed ? "image://theme/icon-m-toolbar-gallery-dimmed-white" : "image://theme/icon-m-toolbar-gallery-white"
-                sourceSize { width: 16; height: 16 }
-            }
-        }
-
-        Item {
-            width: root.hasSummary ? indicator.size : 0
-            height: root.hasSummary ? indicator.size : 0
-            anchors.verticalCenter: subtitle.verticalCenter
-            Image {
-                id: summaryIcon
-                visible: root.hasSummary
-                anchors.verticalCenter: parent.verticalCenter
-                source: !root.hasSummary ? "" : root.pressed ? "image://theme/icon-m-toolbar-edit-dimmed-white" : "image://theme/icon-m-toolbar-edit-white"
-                sourceSize { width: 16; height: 16 }
-            }
-        }
+    Text {
+        id: subtitle
+        width: parent.width
+        font.family: UI.FONT_FAMILY
+        font.pixelSize: UI.SMALL_FONT
+        font.weight: Font.Light
+        color: root.pressed ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
+        textFormat: Text.PlainText
+        elide: Text.ElideRight
     }
 
-    StarIndicator {
-        id: indicator
-        property int size: width / 10
-        value: Math.round(root.rating)
-        visible: root.rating != ""
-        opacity: root.pressed ? UI.DISABLED_OPACITY : 1.0
+    Row {
+        width: parent.width
+        height: indicator.height
+
+        StarIndicator {
+            id: indicator
+            value: Math.round(root.rating)
+            opacity: root.pressed ? UI.DISABLED_OPACITY : 1.0
+            width: parent.width - (root.hasSummary ? height : 0) - (root.hasScreencap ? height : 0)
+        }
+
+        Image {
+            id: screencapIcon
+            visible: root.hasScreencap
+            source: !root.hasScreencap ? "" : root.pressed ? "image://theme/icon-m-toolbar-gallery-dimmed-white" : "image://theme/icon-m-toolbar-gallery-white"
+            sourceSize { width: indicator.height; height: indicator.height }
+        }
+
+        Image {
+            id: summaryIcon
+            visible: root.hasSummary
+            source: !root.hasSummary ? "" : root.pressed ? "image://theme/icon-m-toolbar-edit-dimmed-white" : "image://theme/icon-m-toolbar-edit-white"
+            sourceSize { width: indicator.height; height: indicator.height }
+        }
     }
 }
