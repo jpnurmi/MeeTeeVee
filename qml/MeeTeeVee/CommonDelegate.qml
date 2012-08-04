@@ -49,8 +49,7 @@ Item {
         id: indicator
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
-        source: root.pressed ? "image://theme/icon-m-common-drilldown-arrow-inverse-disabled"
-                             : "image://theme/icon-m-common-drilldown-arrow-inverse"
+        source: root.pressed ? "images/arrow-pressed.png" : "images/arrow.png"
     }
 
     MouseArea {
