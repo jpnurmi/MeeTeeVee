@@ -28,13 +28,13 @@ BorderImage {
     source: "image://theme/meegotouch-sheet-header-inverted-background"
     border.bottom: 2
 
-    Label {
+    Text {
         id: label
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: icon.left
         anchors.topMargin: UI.SMALL_SPACING
-        anchors.leftMargin: UI.MEDIUM_SPACING
+        anchors.leftMargin: UI.PAGE_MARGIN
         anchors.rightMargin: UI.SMALL_SPACING
         font.weight: Font.Light
         font.family: UI.FONT_FAMILY
@@ -42,7 +42,6 @@ BorderImage {
         textFormat: Text.PlainText
         color: UI.TITLE_COLOR
         elide: Text.ElideRight
-        maximumLineCount: 1
     }
 
     ToolIcon {

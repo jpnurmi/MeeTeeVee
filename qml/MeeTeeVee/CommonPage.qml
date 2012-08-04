@@ -36,20 +36,12 @@ Page {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        anchors.topMargin: UI.MEDIUM_SPACING
-        anchors.leftMargin: UI.MEDIUM_SPACING
+        anchors.topMargin: UI.PAGE_MARGIN
+        anchors.leftMargin: UI.PAGE_MARGIN
         anchors.rightMargin: UI.PAGE_MARGIN
 
         ScrollDecorator {
             id: scroller
-            z: 1 // on top of delegates
-            Image {
-                z: -1 // under scroll decorator
-                anchors.top: parent.top
-                anchors.horizontalCenter: parent.right
-                anchors.topMargin: -(flickableParent.anchors.topMargin + scroller.anchors.topMargin + headerParent.height)
-                source: "image://MeeTeeVee/scroller.png"
-            }
         }
     }
 

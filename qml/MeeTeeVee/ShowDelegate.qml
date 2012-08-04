@@ -68,7 +68,7 @@ CommonDelegate {
         font.weight: Font.Bold
         color: root.pressed ? UI.PRESSED_COLOR : UI.TITLE_COLOR
         textFormat: Text.PlainText
-        maximumLineCount: 1
+        elide: Text.ElideRight
     }
 
     Text {
@@ -79,7 +79,7 @@ CommonDelegate {
         font.weight: Font.Light
         color: root.pressed ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
         textFormat: Text.PlainText
-        maximumLineCount: 1
+        elide: Text.ElideRight
     }
 
     Text {
@@ -91,6 +91,6 @@ CommonDelegate {
         font.weight: Font.Light
         color: root.pressed ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
         textFormat: Text.PlainText
-        maximumLineCount: 1
+        elide: Text.ElideRight
     }
 }
