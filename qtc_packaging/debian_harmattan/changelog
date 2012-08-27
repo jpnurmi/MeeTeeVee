@@ -1,3 +1,9 @@
+meeteevee (0.0.2) unstable; urgency=low
+
+  * Added a disclaimer that PR 1.2 is required.
+
+ -- J-P Nurmi <jpnurmi@gmail.com>  Mon, 27 Aug 2012 07:20:12 +0100
+
 meeteevee (0.0.1) unstable; urgency=low
 
   * Initial Release.
