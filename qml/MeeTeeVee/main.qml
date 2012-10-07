@@ -91,7 +91,7 @@ PageStackWindow {
             QueryDialog {
                 id: dialog
                 acceptButtonText: qsTr("OK")
-                titleText: qsTr("MeeTeeVee v0.0.2")
+                titleText: qsTr("MeeTeeVee v0.0.3")
                 message: qsTr("<h3>A TV show guide for Nokia N9</h3>" +
                               "<p>Browse and track your favourite TV shows and episodes.</p>" +
                               "<p>Copyright (C) 2012 J-P Nurmi <a href=\"mailto:jpnurmi@gmail.com\">jpnurmi@gmail.com</a></p>" +

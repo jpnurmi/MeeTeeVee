@@ -1,3 +1,11 @@
+meeteevee (0.0.3) unstable; urgency=low
+
+  * Fixed episode summary & screenshot icons
+  * Attempt to fix internal SQL storage handling
+    (history & favorites loading problems)
+
+ -- J-P Nurmi <jpnurmi@gmail.com>  Sun, 7 Oct 2012 15:19:50 +0100
+
 meeteevee (0.0.2) unstable; urgency=low
 
   * Added a disclaimer that PR 1.2 is required.
