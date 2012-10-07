@@ -20,13 +20,14 @@ CommonPage {
 
     signal showed(string showId)
     property alias model: listView.model
+    property alias title: header.title
 
     empty: listView.count <= 0
     busy: model && model.loading && empty
     placeholder: busy ? qsTr("Loading...") : empty && model ? qsTr("No %1").arg(model.name.toLowerCase()) : ""
 
     header: Header {
-        title: model ? model.name : ""
+        id: header
         iconSource: "icons/clear.png"
         iconEnabled: !root.busy && !root.empty
         onIconClicked: confirmation.createObject(root).open()

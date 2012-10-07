@@ -47,8 +47,13 @@ StorageModel {
             remove(idx);
     }
 
-    name: "Favorites"
+    Component.onCompleted: {
+        Singleton.favoritesModel = root;
+        root.load("Favorites");
+    }
 
-    Component.onCompleted: Singleton.favoritesModel = root
-    Component.onDestruction: Singleton.favoritesModel = null
+    Component.onDestruction: {
+        root.save("Favorites");
+        Singleton.favoritesModel = null;
+    }
 }

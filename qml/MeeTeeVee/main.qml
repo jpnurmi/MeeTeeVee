@@ -62,6 +62,7 @@ PageStackWindow {
                 objectName: "favorites"
                 ShowListPage {
                     id: favoritesPage
+                    title: qsTr("Favorites")
                     tools: tabBar
                     model: FavoritesModel {
                         id: favoritesModel
@@ -75,6 +76,7 @@ PageStackWindow {
                 objectName: "history"
                 ShowListPage {
                     id: historyPage
+                    title: qsTr("History")
                     tools: tabBar
                     model: HistoryModel {
                         id: historyModel

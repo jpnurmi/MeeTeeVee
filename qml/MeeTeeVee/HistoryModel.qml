@@ -29,5 +29,6 @@ StorageModel {
             remove(10, count - 10);
     }
 
-    name: "History"
+    Component.onCompleted: root.load("History")
+    Component.onDestruction: root.save("History")
 }
