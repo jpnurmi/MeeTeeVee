@@ -59,7 +59,7 @@ CommonDelegate {
     }
 
     Item {
-        width: indicator.width
+        width: indicator.implicitWidth
         height: subtitle.height
 
         Text {
@@ -89,7 +89,7 @@ CommonDelegate {
             visible: root.hasSummary
             anchors.right: parent.right
             anchors.verticalCenter: subtitle.verticalCenter
-            width: root.hasScreencap ? implicitWidth : 0
+            width: root.hasSummary ? implicitWidth : 0
             source: !root.hasSummary ? "" : root.pressed ? "images/edit-pressed.png" : "images/edit.png"
         }
     }
