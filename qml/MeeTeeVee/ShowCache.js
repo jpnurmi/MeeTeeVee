@@ -11,10 +11,10 @@
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
 */
-var CREATE_TABLE_SQL =  "CREATE TABLE IF NOT EXISTS Shows(showId TEXT PRIMARY KEY ON CONFLICT REPLACE, name TEXT,"
-                                                       + "link TEXT, seasons TEXT, image TEXT, started TEXT, ended TEXT,"
-                                                       + "country TEXT, status TEXT, classification TEXT, summary TEXT, genres TEXT,"
-                                                       + "runtime TEXT, network TEXT, airtime TEXT, airday TEXT, timezone TEXT)"
+var CREATE_TABLE_SQL = "CREATE TABLE IF NOT EXISTS Shows(showId TEXT PRIMARY KEY ON CONFLICT REPLACE, name TEXT,"
+                                                      + "link TEXT, seasons TEXT, image TEXT, started TEXT, ended TEXT,"
+                                                      + "country TEXT, status TEXT, classification TEXT, summary TEXT, genres TEXT,"
+                                                      + "runtime TEXT, network TEXT, airtime TEXT, airday TEXT, timezone TEXT)"
 
 function readCache(showId) {
     var data = {};
@@ -35,7 +35,7 @@ function writeCache(data) {
     db.transaction(
         function(tx) {
             tx.executeSql(CREATE_TABLE_SQL)
-            tx.executeSql("INSERT INTO Shows VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            tx.executeSql("INSERT OR REPLACE INTO Shows VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                           [data.showId, data.name, data.link, data.seasons, data.image, data.started, data.ended,
                            data.country, data.status, data.classification, data.summary, data.genres, data.runtime,
                            data.network, data.airtime, data.airday, data.timezone]);

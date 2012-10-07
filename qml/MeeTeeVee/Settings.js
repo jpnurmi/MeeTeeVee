@@ -11,12 +11,14 @@
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
 */
+var CREATE_TABLE_SQL = "CREATE TABLE IF NOT EXISTS Settings(key TEXT PRIMARY KEY ON CONFLICT REPLACE, value TEXT)";
+
 function read(key) {
     var value = undefined;
     var db = openDatabaseSync("MeeTeeVee", "1.0", "Settings", 1024);
     db.transaction(
         function(tx) {
-            tx.executeSql("CREATE TABLE IF NOT EXISTS Settings(key TEXT UNIQUE, value TEXT)");
+            tx.executeSql(CREATE_TABLE_SQL);
             var rs = tx.executeSql("SELECT value FROM Settings WHERE key=?", [key]);
             if (rs.rows.length)
                 value = rs.rows.item(0).value;
@@ -29,10 +31,8 @@ function write(key, value) {
     var db = openDatabaseSync("MeeTeeVee", "1.0", "Settings", 1024);
     db.transaction(
         function(tx) {
-            tx.executeSql("CREATE TABLE IF NOT EXISTS Settings(key TEXT UNIQUE, value TEXT)");
-            var rs = tx.executeSql("UPDATE Settings SET value=? WHERE key=?", [value, key]);
-            if (rs.rowsAffected <= 0)
-                tx.executeSql("INSERT INTO Settings VALUES (?, ?)", [key, value]);
+            tx.executeSql(CREATE_TABLE_SQL);
+            tx.executeSql("INSERT OR REPLACE INTO Settings VALUES (?, ?)", [key, value]);
         }
     )
 }

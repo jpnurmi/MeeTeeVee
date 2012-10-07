@@ -11,11 +11,15 @@
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
 */
+function createTableSql(name) {
+    return "CREATE TABLE IF NOT EXISTS " + name + "(showId TEXT PRIMARY KEY ON CONFLICT REPLACE)";
+}
+
 function __load(name, model) {
     var db = openDatabaseSync("MeeTeeVee", "1.0", name, 2048);
     db.transaction(
         function(tx) {
-            tx.executeSql("CREATE TABLE IF NOT EXISTS " + name + "(showId TEXT UNIQUE)");
+            tx.executeSql(createTableSql(name));
             var rs = tx.executeSql("SELECT * FROM " + name);
             for (var i = 0; i < rs.rows.length; ++i)
                 model.append({"showid": rs.rows.item(i).showId});
@@ -27,10 +31,9 @@ function save(name, model) {
     var db = openDatabaseSync("MeeTeeVee", "1.0", name, 2048);
     db.transaction(
         function(tx) {
-            tx.executeSql("CREATE TABLE IF NOT EXISTS " + name + "(showId TEXT UNIQUE)");
-            tx.executeSql("DELETE FROM " + name);
+            tx.executeSql(createTableSql(name));
             for (var i = 0; i < model.count; ++i)
-                tx.executeSql("INSERT INTO " + name + " VALUES (?)", [model.get(i).showid]);
+                tx.executeSql("INSERT OR REPLACE INTO " + name + " VALUES (?)", [model.get(i).showid]);
         }
     )
 }
