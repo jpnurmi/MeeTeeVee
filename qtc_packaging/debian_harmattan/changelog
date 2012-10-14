@@ -1,3 +1,9 @@
+meeteevee (0.0.4) unstable; urgency=low
+
+  * Fixed clearing of favorites/history
+
+ -- J-P Nurmi <jpnurmi@gmail.com>  Sun, 14 Oct 2012 10:25:14 +0100
+
 meeteevee (0.0.3) unstable; urgency=low
 
   * Fixed episode summary & screenshot icons
