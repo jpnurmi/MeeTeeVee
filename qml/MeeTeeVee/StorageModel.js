@@ -31,6 +31,7 @@ function save(name, model) {
     var db = openDatabaseSync("MeeTeeVee", "1.0", name, 2048);
     db.transaction(
         function(tx) {
+            tx.executeSql("DELETE FROM " + name);
             tx.executeSql(createTableSql(name));
             for (var i = 0; i < model.count; ++i)
                 tx.executeSql("INSERT OR REPLACE INTO " + name + " VALUES (?)", [model.get(i).showid]);

@@ -24,7 +24,7 @@ CommonPage {
 
     empty: listView.count <= 0
     busy: model && model.loading && empty
-    placeholder: busy ? qsTr("Loading...") : empty && model ? qsTr("No %1").arg(model.name.toLowerCase()) : ""
+    placeholder: busy ? qsTr("Loading...") : empty && model ? qsTr("No %1").arg(title.toLowerCase()) : ""
 
     header: Header {
         id: header
@@ -52,8 +52,8 @@ CommonPage {
         id: confirmation
         QueryDialog {
             id: dialog
-            titleText: root.model ? qsTr("Clear %1").arg(root.model.name.toLowerCase()) : ""
-            message: root.model ? qsTr("Are you sure you want to clear the %1?").arg(root.model.name.toLowerCase()) : ""
+            titleText: qsTr("Clear %1").arg(root.title.toLowerCase())
+            message: qsTr("Are you sure you want to clear the %1?").arg(root.title.toLowerCase())
             acceptButtonText: qsTr("Yes")
             rejectButtonText: qsTr("No")
             onRejected: dialog.destroy(1000)
