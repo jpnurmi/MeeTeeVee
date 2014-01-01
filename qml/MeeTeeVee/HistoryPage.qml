@@ -13,7 +13,6 @@
 */
 import QtQuick 2.1
 import Sailfish.Silica 1.0
-import QtQuick.XmlListModel 2.0
 
 Page {
     SilicaListView {
@@ -22,12 +21,7 @@ Page {
         anchors.fill: parent
         cacheBuffer: 4000
 
-        header: SearchField {
-            width: parent.width
-            onTextChanged: if (searchModel.showName) searchModel.showName = ""
-            Keys.onEnterPressed: { searchModel.search(text) }
-            Keys.onReturnPressed: { searchModel.search(text) }
-        }
+        header: PageHeader { title: qsTr("History") }
 
         PullDownMenu {
             MenuItem {
@@ -35,30 +29,22 @@ Page {
                 onClicked: pageStack.replace(homePage)
             }
             MenuItem {
-                text: qsTr("Favorites")
-                onClicked: pageStack.replace(favoritesPage)
+                text: qsTr("Search")
+                onClicked: pageStack.replace(searchPage)
             }
             MenuItem {
-                text: qsTr("History")
-                onClicked: pageStack.replace(historyPage)
+                text: qsTr("Favorites")
+                onClicked: pageStack.replace(favoritesPage)
             }
         }
 
         ViewPlaceholder {
             property bool empty: listView.count <= 0
-            property bool busy: searchModel.status === XmlListModel.Loading
-            property string error: empty && searchModel.status === XmlListModel.Error ? searchModel.errorString() : ""
-            text: busy && empty ? qsTr("Searching...") : error ? qsTr("Error") : empty ? qsTr("No results") : ""
+            property bool busy: favoritesModel.loading
+            text: busy && empty ? qsTr("Loading...") : empty ? qsTr("No history") : ""
         }
 
-        model: SearchModel {
-            id: searchModel
-            function search(text) {
-                showName = ""
-                showName = text
-                reload()
-            }
-        }
+        model: historyModel
 
         delegate: ShowDelegate {
             showId: showid

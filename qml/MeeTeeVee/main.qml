@@ -52,7 +52,7 @@ ApplicationWindow {
 
     Component {
         id: historyPage
-        Page { }
+        HistoryPage { }
     }
 
     initialPage: Component {

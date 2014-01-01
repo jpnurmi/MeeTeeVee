@@ -34,7 +34,7 @@ Page {
             }
             MenuItem {
                 text: qsTr("History")
-                onClicked: pageStack.push(historyPage)
+                onClicked: pageStack.replace(historyPage)
             }
         }
 
