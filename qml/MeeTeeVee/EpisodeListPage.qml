@@ -12,42 +12,39 @@
 * GNU General Public License for more details.
 */
 import QtQuick 2.1
+import Sailfish.Silica 1.0
 
-CommonPage {
-    id: root
+Page {
+    id: page
 
     property string title
-    property string subtitle
     property alias model: listView.model
 
-    empty: listView.count <= 0
-    busy: model.busy && empty
-    placeholder: busy ? qsTr("Loading...") : empty ? qsTr("No episodes") : ""
-
-    header: Header {
-        title: root.title
-    }
-
-    flickable: ListView {
+    SilicaListView {
         id: listView
 
+        anchors.fill: parent
         cacheBuffer: 4000
+
+        header: PageHeader { title: page.title }
+
+        ViewPlaceholder {
+            property bool empty: listView.count <= 0
+            property bool busy: model.busy && empty
+            text: busy ? qsTr("Loading...") : empty ? qsTr("No episodes") : ""
+        }
 
         delegate: EpisodeDelegate {
             id: delegate
-            property string seasonNumber: root.model.season < 10 ? "0" + root.model.season : root.model.season
+            property string seasonNumber: page.model.season < 10 ? "0" + page.model.season : page.model.season
             property string episodeNumber: model.episode < 10 ? "0" + model.episode : model.episode
             badge: qsTr("%1x%2").arg(seasonNumber).arg(episodeNumber)
             title: model.name
             subtitle: model.airdate && model.airdate != "0000-00-00" ? model.airdate : qsTr("No date")
             rating: model.rating
-            hasSummary: model.summary != ""
-            hasScreencap: model.screencap != ""
-            onClicked: {
-                var page = episodePage.createObject(root, {title: root.title, subtitle: qsTr("%1: %2").arg(badge).arg(delegate.title), summary: model.summary, screencap: model.screencap, link: model.link});
-                pageStack.push(page);
-                // TODO: root.showed(showid);
-            }
+            hasSummary: model.summary !== ""
+            hasScreencap: model.screencap !== ""
+            onClicked: pageStack.push(episodePage, {title: page.title, subtitle: qsTr("%1: %2").arg(badge).arg(delegate.title), summary: model.summary, screencap: model.screencap, link: model.link})
         }
     }
 
