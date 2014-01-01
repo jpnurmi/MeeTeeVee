@@ -15,54 +15,51 @@ import QtQuick 2.1
 import Sailfish.Silica 1.0
 import "UIConstants.js" as UI
 
-CommonPage {
-    id: root
+Page {
+    id: page
 
-    property alias title: header.title
+    property string title
     property alias subtitle: subtitle.text
     property alias summary: summary.text
     property alias screencap: screencap.source
     property url link
 
-    placeholder: title == "" && summary == "" && screencap == ""  ? qsTr("No info available") : ""
+    SilicaListView {
+        id: listView
 
-    header: Header {
-        id: header
-    }
+        anchors.fill: parent
+        cacheBuffer: 4000
 
-    flickable: Flickable {
-        id: flickable
+        header: PageHeader { title: page.title }
 
-        contentHeight: column.height
+        ViewPlaceholder {
+            text: title === "" && summary === "" && screencap === ""  ? qsTr("No info available") : ""
+        }
 
-        Column {
-            id: column
-            width: parent.width
-            spacing: UI.LARGE_SPACING
+        model: VisualItemModel {
 
             Thumbnail {
                 id: screencap
-                link: root.link
+                link: page.link
                 width: UI.SCREENCAP_WIDTH
                 height: UI.SCREENCAP_HEIGHT
             }
 
             Label {
                 id: subtitle
-                width: parent.width
+                anchors { left: parent.left; right: parent.right; margins: Theme.paddingLarge }
                 visible: text.length
                 font.weight: Font.Light
-                font.family: UI.FONT_FAMILY
-                font.pixelSize: UI.LARGE_FONT
+                font.pixelSize: Theme.fontSizeLarge
+                wrapMode: Text.WordWrap
             }
 
             Label {
                 id: summary
-                width: parent.width
+                anchors { left: parent.left; right: parent.right; margins: Theme.paddingLarge }
                 visible: text.length
-                font.family: UI.FONT_FAMILY
-                font.pixelSize: UI.MEDIUM_FONT
                 elide: Text.ElideRight
+                wrapMode: Text.WordWrap
                 maximumLineCount: 8
             }
         }
