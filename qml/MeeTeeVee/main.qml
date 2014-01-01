@@ -47,7 +47,7 @@ ApplicationWindow {
 
     Component {
         id: favoritesPage
-        Page { }
+        FavoritesPage { }
     }
 
     Component {
