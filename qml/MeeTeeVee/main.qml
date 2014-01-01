@@ -16,7 +16,7 @@ import Sailfish.Silica 1.0
 import "UIConstants.js" as UI
 import "Settings.js" as Settings
 
-PageStackWindow {
+ApplicationWindow {
     id: window
 
     EpisodeManager {
@@ -25,10 +25,6 @@ PageStackWindow {
 
     ShowManager {
         id: showManager
-    }
-
-    style: PageStackWindowStyle {
-        background: "image://MeeTeeVee/background.png"
     }
 
     initialPage: Page {
