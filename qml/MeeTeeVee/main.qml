@@ -42,7 +42,7 @@ ApplicationWindow {
 
     Component {
         id: searchPage
-        Page { }
+        SearchPage { }
     }
 
     Component {

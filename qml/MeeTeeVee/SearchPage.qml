@@ -12,58 +12,57 @@
 * GNU General Public License for more details.
 */
 import QtQuick 2.1
+import Sailfish.Silica 1.0
 import QtQuick.XmlListModel 2.0
-import "UIConstants.js" as UI
 
-CommonPage {
-    id: root
-
-    signal showed(string showId)
-
-    empty: listView.count <= 0
-    busy: searchModel.status === XmlListModel.Loading && empty
-    placeholder: busy ? qsTr("Searching...") : error ? qsTr("Error") : empty ? qsTr("No results") : ""
-    error: empty && searchModel.status === XmlListModel.Error ? searchModel.errorString() : ""
-
-    header: Header {
-        SearchBox {
-            id: searchBox
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.margins: UI.MEDIUM_SPACING
-            placeholderText: qsTr("Search")
-            onTextChanged: if (searchModel.showName) searchModel.showName = "";
-            Keys.onEnterPressed: { searchModel.search(text); closeSoftwareInputPanel(); parent.forceActiveFocus(); }
-            Keys.onReturnPressed: { searchModel.search(text); closeSoftwareInputPanel(); parent.forceActiveFocus(); }
-        }
-    }
-
-    flickable: ListView {
+Page {
+    SilicaListView {
         id: listView
 
+        anchors.fill: parent
         cacheBuffer: 4000
+
+        header: SearchField {
+            width: parent.width
+            onTextChanged: if (searchModel.showName) searchModel.showName = ""
+            Keys.onEnterPressed: { searchModel.search(text) }
+            Keys.onReturnPressed: { searchModel.search(text) }
+        }
+
+        PullDownMenu {
+            MenuItem {
+                text: qsTr("Recent updates")
+                onClicked: pageStack.replace(homePage)
+            }
+            MenuItem {
+                text: qsTr("Favorites")
+                onClicked: pageStack.replace(favoritesPage)
+            }
+            MenuItem {
+                text: qsTr("History")
+                onClicked: pageStack.push(historyPage)
+            }
+        }
+
+        ViewPlaceholder {
+            property bool empty: listView.count <= 0
+            property bool busy: searchModel.status === XmlListModel.Loading
+            property string error: empty && searchModel.status === XmlListModel.Error ? searchModel.errorString() : ""
+            text: busy && empty ? qsTr("Searching...") : error ? qsTr("Error") : empty ? qsTr("No results") : ""
+        }
 
         model: SearchModel {
             id: searchModel
             function search(text) {
-                showName = "";
-                showName = text;
-                reload();
+                showName = ""
+                showName = text
+                reload()
             }
         }
 
         delegate: ShowDelegate {
             showId: showid
-            onClicked: {
-                var page = showPage.createObject(root, {showId: showid});
-                pageStack.push(page);
-                root.showed(showid);
-            }
+            onClicked: pageStack.push(showPage, {showId: showid})
         }
-    }
-
-    Component {
-        id: showPage
-        ShowPage { }
     }
 }
