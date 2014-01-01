@@ -11,7 +11,7 @@
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
 */
-import QtQuick 1.1
+import QtQuick 2.1
 import com.nokia.meego 1.0
 import "UIConstants.js" as UI
 import "Singleton.js" as Singleton

@@ -11,7 +11,7 @@
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
 */
-import QtQuick 1.1
+import QtQuick 2.1
 import "UIConstants.js" as UI
 
 CommonPage {
