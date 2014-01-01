@@ -11,6 +11,8 @@
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
 */
+.import QtQuick.LocalStorage 2.0
+
 var CREATE_TABLE_SQL = "CREATE TABLE IF NOT EXISTS Shows(showId TEXT PRIMARY KEY ON CONFLICT REPLACE, name TEXT,"
                                                       + "link TEXT, seasons TEXT, image TEXT, started TEXT, ended TEXT,"
                                                       + "country TEXT, status TEXT, classification TEXT, summary TEXT, genres TEXT,"
@@ -18,7 +20,7 @@ var CREATE_TABLE_SQL = "CREATE TABLE IF NOT EXISTS Shows(showId TEXT PRIMARY KEY
 
 function readCache(showId) {
     var data = {};
-    var db = openDatabaseSync("MeeTeeVee", "1.0", "ShowCache", 4096);
+    var db = LocalStorage.openDatabaseSync("MeeTeeVee", "1.0", "ShowCache", 4096);
     db.transaction(
         function(tx) {
             tx.executeSql(CREATE_TABLE_SQL)
@@ -31,7 +33,7 @@ function readCache(showId) {
 }
 
 function writeCache(data) {
-    var db = openDatabaseSync("MeeTeeVee", "1.0", "ShowCache", 4096);
+    var db = LocalStorage.openDatabaseSync("MeeTeeVee", "1.0", "ShowCache", 4096);
     db.transaction(
         function(tx) {
             tx.executeSql(CREATE_TABLE_SQL)
