@@ -11,14 +11,14 @@
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
 */
-.import QtQuick.LocalStorage 2.0
+.import QtQuick.LocalStorage 2.0 as Sql
 
 function createTableSql(name) {
     return "CREATE TABLE IF NOT EXISTS " + name + "(showId TEXT PRIMARY KEY ON CONFLICT REPLACE)";
 }
 
 function __load(name, model) {
-    var db = LocalStorage.openDatabaseSync("MeeTeeVee", "1.0", name, 2048);
+    var db = Sql.LocalStorage.openDatabaseSync("MeeTeeVee", "1.0", name, 2048);
     db.transaction(
         function(tx) {
             tx.executeSql(createTableSql(name));
@@ -30,7 +30,7 @@ function __load(name, model) {
 }
 
 function save(name, model) {
-    var db = LocalStorage.openDatabaseSync("MeeTeeVee", "1.0", name, 2048);
+    var db = Sql.LocalStorage.openDatabaseSync("MeeTeeVee", "1.0", name, 2048);
     db.transaction(
         function(tx) {
             tx.executeSql("DELETE FROM " + name);
