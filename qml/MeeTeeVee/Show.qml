@@ -12,7 +12,6 @@
 * GNU General Public License for more details.
 */
 import QtQuick 2.1
-import "Singleton.js" as Singleton
 
 QtObject {
     id: root
@@ -70,27 +69,30 @@ QtObject {
     }
 
     Component.onCompleted: {
-        if (fetchShows && Singleton.showManager)
-            Singleton.showManager.fetchShow(root);
-        if (fetchEpisodes && Singleton.episodeManager)
-            Singleton.episodeManager.fetchEpisodes(root);
-        if (Singleton.favoritesModel)
-            Singleton.favoritesModel.addShow(root);
+        if (fetchShows)
+            showManager.fetchShow(root);
+        if (fetchEpisodes)
+            episodeManager.fetchEpisodes(root);
+        favoritesModel.addShow(root);
 
-        if (!Singleton.showManager)
+        if (!showManager)
             console.debug("WARNING Show.onCompleted: no ShowManager instance")
-        if (!Singleton.episodeManager)
+        if (!episodeManager)
             console.debug("WARNING Show.onCompleted: no EpisodeManager instance")
-        if (!Singleton.favoritesModel)
+        if (!favoritesModel)
             console.debug("WARNING Show.onCompleted: no FavoritesModel instance")
     }
 
     Component.onDestruction: {
-        if (Singleton.showManager)
-            Singleton.showManager.unfetchShow(root);
-        if (Singleton.episodeManager)
-            Singleton.episodeManager.unfetchEpisodes(root);
-        if (Singleton.favoritesModel)
-            Singleton.favoritesModel.removeShow(root);
+        showManager.unfetchShow(root);
+        episodeManager.unfetchEpisodes(root);
+        favoritesModel.removeShow(root);
+
+        if (!showManager)
+            console.debug("WARNING Show.onDestruction: no ShowManager instance")
+        if (!episodeManager)
+            console.debug("WARNING Show.onDestruction: no EpisodeManager instance")
+        if (!favoritesModel)
+            console.debug("WARNING Show.onDestruction: no FavoritesModel instance")
     }
 }

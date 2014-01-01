@@ -12,7 +12,6 @@
 * GNU General Public License for more details.
 */
 import QtQuick 2.1
-import "Singleton.js" as Singleton
 import "utils/Hash.js" as Models
 import "utils/MultiHash.js" as Shows
 
@@ -63,7 +62,4 @@ QtObject {
             }
         }
     }
-
-    Component.onCompleted: Singleton.episodeManager = root
-    Component.onDestruction: Singleton.episodeManager = null
 }

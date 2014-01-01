@@ -12,7 +12,6 @@
 * GNU General Public License for more details.
 */
 import QtQuick 2.1
-import "Singleton.js" as Singleton
 import "utils/MultiHash.js" as Shows
 
 StorageModel {
@@ -47,13 +46,6 @@ StorageModel {
             remove(idx);
     }
 
-    Component.onCompleted: {
-        Singleton.favoritesModel = root;
-        root.load("Favorites");
-    }
-
-    Component.onDestruction: {
-        root.save("Favorites");
-        Singleton.favoritesModel = null;
-    }
+    Component.onCompleted: root.load("Favorites")
+    Component.onDestruction: root.save("Favorites")
 }
