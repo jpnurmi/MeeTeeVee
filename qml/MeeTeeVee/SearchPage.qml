@@ -12,6 +12,7 @@
 * GNU General Public License for more details.
 */
 import QtQuick 2.1
+import QtQuick.XmlListModel 2.0
 import "UIConstants.js" as UI
 
 CommonPage {
