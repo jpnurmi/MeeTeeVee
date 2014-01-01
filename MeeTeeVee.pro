@@ -25,21 +25,24 @@ symbian:TARGET.CAPABILITY += NetworkServices
 
 # Speed up launching on MeeGo/Harmattan when using applauncherd daemon
 CONFIG += qdeclarative-boostable
-QT += network meegographicssystemhelper
+QT += network # meegographicssystemhelper
+
+CONFIG += sailfishapp
+DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x000000
 
 # Add dependency to Symbian components
 # CONFIG += qt-components
 
-HEADERS += src/meegographicssystemimageprovider.h
+#HEADERS += src/meegographicssystemimageprovider.h
 HEADERS += src/networkaccessmanager.h
 
 SOURCES += src/main.cpp
-SOURCES += src/meegographicssystemimageprovider.cpp
+#SOURCES += src/meegographicssystemimageprovider.cpp
 SOURCES += src/networkaccessmanager.cpp
 
 # Please do not modify the following two lines. Required for deployment.
-include(qmlapplicationviewer/qmlapplicationviewer.pri)
-qtcAddDeployment()
+#include(qmlapplicationviewer/qmlapplicationviewer.pri)
+#qtcAddDeployment()
 
 OTHER_FILES += \
     qtc_packaging/debian_harmattan/rules \

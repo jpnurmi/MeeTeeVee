@@ -15,7 +15,7 @@
 #define NETWORKACCESSMANAGER_H
 
 #include <QNetworkAccessManager>
-#include <QDeclarativeNetworkAccessManagerFactory>
+#include <QQmlNetworkAccessManagerFactory>
 
 class NetworkAccessManager : public QNetworkAccessManager
 {
@@ -26,7 +26,7 @@ protected:
     virtual QNetworkReply *createRequest(Operation operation, const QNetworkRequest &request, QIODevice *outgoingData = 0);
 };
 
-class NetworkAccessManagerFactory : public QDeclarativeNetworkAccessManagerFactory
+class NetworkAccessManagerFactory : public QQmlNetworkAccessManagerFactory
 {
 public:
     NetworkAccessManagerFactory(const QString &cachePath);

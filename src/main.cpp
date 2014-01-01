@@ -11,11 +11,17 @@
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
 */
-#include <QtGui>
-#include <QtDeclarative>
-#include "qmlapplicationviewer.h"
+#include <QGuiApplication>
+#include <QDesktopServices>
+#include <QPixmapCache>
+#include <QQuickView>
+#include <QDebug>
+#include <QtQml>
+
+#include <sailfishapp.h>
+
 #include "networkaccessmanager.h"
-#include "meegographicssystemimageprovider.h"
+//#include "meegographicssystemimageprovider.h"
 
 static bool removeDir(const QDir &dir)
 {
@@ -37,30 +43,28 @@ static bool removeDir(const QDir &dir)
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
-    QApplication::setApplicationName("MeeTeeVee");
-    QScopedPointer<QApplication> app(createApplication(argc, argv));
+    QGuiApplication::setApplicationName("MeeTeeVee");
+    QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
+    QScopedPointer<QQuickView> viewer(SailfishApp::createView());
 
     QPixmapCache::setCacheLimit(20 * 1024);
 
-    QmlApplicationViewer viewer;
-
     QString cachePath = QDesktopServices::storageLocation(QDesktopServices::CacheLocation);
     NetworkAccessManagerFactory *factory = new NetworkAccessManagerFactory(cachePath);
-    viewer.engine()->setNetworkAccessManagerFactory(factory);
+    viewer->engine()->setNetworkAccessManagerFactory(factory);
 
-    QLatin1String imagePath("/opt/MeeTeeVee/qml/MeeTeeVee/images");
-    MeeGoGraphicsSystemImageProvider *provider = new MeeGoGraphicsSystemImageProvider(imagePath);
-    viewer.engine()->addImageProvider("MeeTeeVee", provider);
+//    QLatin1String imagePath("/opt/MeeTeeVee/qml/MeeTeeVee/images");
+//    MeeGoGraphicsSystemImageProvider *provider = new MeeGoGraphicsSystemImageProvider(imagePath);
+//    viewer.engine()->addImageProvider("MeeTeeVee", provider);
 
     if (app->arguments().contains("-reset")) {
         qDebug() << "MeeTeeVee reset...";
         qDebug() << "  -> Network disk cache:" << (removeDir(cachePath) ? "OK" : "FAIL!") << qPrintable("("+cachePath+")");
-        qDebug() << "  -> QML offline storage:" << (removeDir(viewer.engine()->offlineStoragePath()) ? "OK" : "FAIL!") << qPrintable("("+viewer.engine()->offlineStoragePath()+")");
+        qDebug() << "  -> QML offline storage:" << (removeDir(viewer->engine()->offlineStoragePath()) ? "OK" : "FAIL!") << qPrintable("("+viewer->engine()->offlineStoragePath()+")");
     }
 
-    viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
-    viewer.setMainQmlFile(QLatin1String("qml/MeeTeeVee/main.qml"));
-    viewer.showExpanded();
+    viewer->setSource(SailfishApp::pathTo("qml/MeeTeeVee/main.qml"));
+    viewer->show();
 
     return app->exec();
 }
