@@ -13,6 +13,7 @@
 */
 import QtQuick 2.1
 import QtQuick.XmlListModel 2.0
+import QtQuick.LocalStorage 2.0
 import "utils/Hash.js" as Models
 import "utils/MultiHash.js" as Shows
 
@@ -82,22 +83,43 @@ QtObject {
         }
     }
 
-    property WorkerScript worker: WorkerScript {
+    property QtObject worker: QtObject {
         id: worker
-        source: "ShowCache.js"
+
+        property string createTableSql: "CREATE TABLE IF NOT EXISTS Shows(showId TEXT PRIMARY KEY ON CONFLICT REPLACE, name TEXT,"
+                                                              + "link TEXT, seasons TEXT, image TEXT, started TEXT, ended TEXT,"
+                                                              + "country TEXT, status TEXT, classification TEXT, summary TEXT, genres TEXT,"
+                                                              + "runtime TEXT, network TEXT, airtime TEXT, airday TEXT, timezone TEXT)"
 
         function readCache(showId) {
-            worker.sendMessage({showId: showId, operation: "read"});
+            var data = {};
+            var db = LocalStorage.openDatabaseSync("MeeTeeVee", "1.0", "ShowCache", 4096);
+            db.transaction(
+                function(tx) {
+                    tx.executeSql(createTableSql)
+                    var rs = tx.executeSql("SELECT * FROM Shows WHERE showId=?", [showId]);
+                    if (rs.rows.length)
+                        data = rs.rows.item(0);
+                }
+            );
+            if (data.showId) {
+                var shows = Shows.values(data.showId);
+                for (var i = 0; i < shows.length; ++i)
+                    shows[i].setData(data, false);
+            }
         }
 
         function writeCache(data) {
-            worker.sendMessage(data);
-        }
-
-        onMessage: {
-            var shows = Shows.values(messageObject.showId);
-            for (var i = 0; i < shows.length; ++i)
-                shows[i].setData(messageObject, false);
+            var db = LocalStorage.openDatabaseSync("MeeTeeVee", "1.0", "ShowCache", 4096);
+            db.transaction(
+                function(tx) {
+                    tx.executeSql(createTableSql)
+                    tx.executeSql("INSERT OR REPLACE INTO Shows VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                                  [data.showId, data.name, data.link, data.seasons, data.image, data.started, data.ended,
+                                   data.country, data.status, data.classification, data.summary, data.genres, data.runtime,
+                                   data.network, data.airtime, data.airday, data.timezone]);
+                }
+            );
         }
     }
 }
