@@ -42,3 +42,4 @@ build-stamp
 configure-stamp
 /debian
 /MeeTeeVee
+*.spec
