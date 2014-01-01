@@ -27,6 +27,14 @@ ApplicationWindow {
         id: showManager
     }
 
+    FavoritesModel {
+        id: favoritesModel
+    }
+
+    HistoryModel {
+        id: historyModel
+    }
+
     initialPage: Page {
         orientationLock: PageOrientation.LockPortrait
         tools: tabBar
@@ -60,9 +68,7 @@ ApplicationWindow {
                     id: favoritesPage
                     title: qsTr("Favorites")
                     tools: tabBar
-                    model: FavoritesModel {
-                        id: favoritesModel
-                    }
+                    model: favoritesModel
                     onShowed: historyModel.addShow(showId)
                 }
                 Component.onCompleted: favoritesTab.push(favoritesPage)
@@ -74,9 +80,7 @@ ApplicationWindow {
                     id: historyPage
                     title: qsTr("History")
                     tools: tabBar
-                    model: HistoryModel {
-                        id: historyModel
-                    }
+                    model: historyModel
                 }
                 Component.onCompleted: historyTab.push(historyPage)
             }
