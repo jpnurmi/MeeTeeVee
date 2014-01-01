@@ -14,81 +14,56 @@
 import QtQuick 2.1
 import QtQuick.XmlListModel 2.0
 import Sailfish.Silica 1.0
-import "UIConstants.js" as UI
-import "Singleton.js" as Singleton
 
-CommonPage {
-    id: root
-
+Page {
     property alias showId: show.showId
-    property alias favorited: show.favorited
-
-    empty: show.empty
-    busy: show.empty && show.loading
-    placeholder: busy ? qsTr("Loading...") : ""
 
     Show {
         id: show
         fetchEpisodes: true
     }
 
-    header: Header {
-        title: show.name
-        iconSource: show.favorited ? "icons/unfavorite.png" : "icons/favorite.png"
-        iconEnabled: !show.empty && Singleton.favoritesModel && Singleton.favoritesModel.loaded
-        onIconClicked: {
-            if (Singleton.favoritesModel)
-                Singleton.favoritesModel.setFavorited(show.showId, !show.favorited);
+    SilicaListView {
+        id: listView
+
+        anchors.fill: parent
+        cacheBuffer: 4000
+
+        header: PageHeader { title: show.name }
+
+        PullDownMenu {
+            MenuItem {
+                text: qsTr("Favorite")
+                visible: !show.favorited
+                onClicked: favoritesModel.setFavorited(show.showId, true)
+            }
+            MenuItem {
+                text: qsTr("Unfavorite")
+                visible: show.favorited
+                onClicked: favoritesModel.setFavorited(show.showId, false)
+            }
         }
-    }
 
-    flickable: Flickable {
-        id: flickable
+        ViewPlaceholder {
+            text: show.loading && show.empty ? qsTr("Loading...") : ""
+        }
 
-        contentHeight: column.height
-
-        Column {
-            id: column
-            width: parent.width
-            spacing: UI.LARGE_SPACING
-
+        model: VisualItemModel {
             ShowInfoBox {
                 id: infoBox
                 show: show
+                anchors { left: parent.left; right: parent.right; margins: Theme.paddingLarge }
             }
 
             Label {
                 id: summary
-                width: parent.width
+                anchors { left: parent.left; right: parent.right; margins: Theme.paddingLarge }
                 visible: text.length
                 text: show.summary
-                font.family: UI.FONT_FAMILY
-                font.pixelSize: UI.MEDIUM_FONT
                 elide: Text.ElideRight
+                wrapMode: Text.WordWrap
                 maximumLineCount: 8
             }
-
-//            Section {
-//                title: qsTr("Latest episode")
-//            }
-
-//            EpisodeDelegate {
-//                title: latestEpisodeModel.count === 1 ? qsTr("%1: %2").arg(latestEpisodeModel.get(0).number).arg(latestEpisodeModel.get(0).title) : qsTr("Loading...")
-//                subtitle: latestEpisodeModel.count === 1 ? latestEpisodeModel.get(0).airdate : ""
-//                onClicked: {
-//                    var page = episodePage.createObject(root, {showId: show.showId, number: latestEpisodeModel.get(0).number});
-//                    pageStack.push(page);
-//                    //root.showed(showid);
-//                }
-//                XmlListModel {
-//                    id: latestEpisodeModel
-//                    source: "http://services.tvrage.com/feeds/episodeinfo.php?sid=" + show.showId
-//                    query: "/show/latestepisode"
-//                    XmlRole { name: "number"; query: "number/string()" }
-//                    XmlRole { name: "title"; query: "title/string()" }
-//                    XmlRole { name: "airdate"; query: "airdate/string()" }
-//                }
-//            }
 
             Column {
                 width: parent.width
@@ -98,10 +73,7 @@ CommonPage {
                     SeasonDelegate {
                         title: qsTr("Season %1").arg(index + 1)
                         subtitle: episodeListModel.busy ? qsTr("Loading...") : qsTr("%1 episodes").arg(episodeListModel.count)
-                        onClicked: {
-                            var page = episodeListPage.createObject(root, {model: episodeListModel});
-                            pageStack.push(page);
-                        }
+                        onClicked: pageStack.push(episodeListPage, {title: show.name, model: episodeListModel})
                         EpisodeListModel {
                             id: episodeListModel
                             season: index + 1
@@ -113,15 +85,8 @@ CommonPage {
         }
     }
 
-//    Component {
-//        id: episodePage
-//        EpisodePage { }
-//    }
-
     Component {
         id: episodeListPage
-        EpisodeListPage {
-            title: show.name
-        }
+        EpisodeListPage { }
     }
 }
