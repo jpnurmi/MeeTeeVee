@@ -12,34 +12,43 @@
 * GNU General Public License for more details.
 */
 import QtQuick 2.1
-import QtQuick.XmlListModel 2.0
 import Sailfish.Silica 1.0
-import "UIConstants.js" as UI
+import QtQuick.XmlListModel 2.0
 
-CommonPage {
-    id: root
-
-    signal about()
-    signal showed(string showId)
-
-    empty: listView.count <= 0
-    busy: updatesModel.status === XmlListModel.Loading && empty
-    placeholder: busy ? qsTr("Loading...") : error ? qsTr("Error") : empty ? qsTr("No recent updates") : ""
-    error: empty && updatesModel.status === XmlListModel.Error ? updatesModel.errorString() : ""
-
-    header: Header {
-        title: qsTr("Recent updates")
-        iconSource: "icons/info.png"
-        onIconClicked: root.about()
-    }
-
-    flickable: ListView {
+Page {
+    SilicaListView {
         id: listView
 
+        anchors.fill: parent
         cacheBuffer: 4000
+
+        header: PageHeader { title: qsTr("Recent updates") }
+
+        PullDownMenu {
+            MenuItem {
+                text: qsTr("Search")
+                onClicked: pageStack.replace(searchPage)
+            }
+            MenuItem {
+                text: qsTr("Favorites")
+                onClicked: pageStack.replace(favoritesPage)
+            }
+            MenuItem {
+                text: qsTr("History")
+                onClicked: pageStack.push(historyPage)
+            }
+        }
+
+        ViewPlaceholder {
+            property bool empty: listView.count <= 0
+            property bool busy: updatesModel.status === XmlListModel.Loading
+            property string error: empty && updatesModel.status === XmlListModel.Error ? updatesModel.errorString() : ""
+            text: busy && empty ? qsTr("Loading...") : error ? qsTr("Error") : empty ? qsTr("No recent updates") : ""
+        }
 
         model: XmlListModel {
             id: updatesModel
+            source: "http://services.tvrage.com/feeds/last_updates.php?&sort=episodes&hours=1"
             query: "/updates/show[position() < 11]"
             XmlRole { name: "showid"; query: "id/string()"; isKey: true }
             XmlRole { name: "last"; query: "last/number()" }
@@ -48,21 +57,7 @@ CommonPage {
 
         delegate: ShowDelegate {
             showId: showid
-            onClicked: {
-                var page = showPage.createObject(root, {showId: showid});
-                pageStack.push(page);
-                root.showed(showid);
-            }
+            onClicked: pageStack.push(showPage, {showId: showid})
         }
-    }
-
-    Component {
-        id: showPage
-        ShowPage { }
-    }
-
-    onStatusChanged: {
-        if (status === PageStatus.Activating && updatesModel.source == "")
-            updatesModel.source = "http://services.tvrage.com/feeds/last_updates.php?&sort=episodes&hours=1";
     }
 }
