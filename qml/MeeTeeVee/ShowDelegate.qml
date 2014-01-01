@@ -25,15 +25,15 @@ CommonDelegate {
     }
 
     image: [
-        MaskedItem {
-            id: squircle
+//        MaskedItem {
+//            id: squircle
 
-            width: UI.THUMBNAIL_SIZE
-            height: UI.THUMBNAIL_SIZE
+//            width: UI.THUMBNAIL_SIZE
+//            height: UI.THUMBNAIL_SIZE
 
-            mask: Image {
-                source: "images/squircle.png"
-            }
+//            mask: Image {
+//                source: "images/squircle.png"
+//            }
 
             Image {
                 id: thumbnail
@@ -42,11 +42,11 @@ CommonDelegate {
                 source: show.image
                 sourceSize { width: UI.THUMBNAIL_SIZE; height: UI.THUMBNAIL_SIZE }
                 opacity: root.pressed ? UI.DISABLED_OPACITY : 1.0
-            }
-        },
+            },
+//        },
         Image {
             id: overlay
-            anchors.fill: squircle
+            anchors.fill: thumbnail
             source: (show.error && !show.empty) || thumbnail.error ? "image://theme/icon-l-error" :
                     thumbnail.loading || !show.image ? "images/squircle.png" : ""
             opacity: root.pressed ? UI.DISABLED_OPACITY : 1.0
