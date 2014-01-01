@@ -44,9 +44,9 @@ BorderImage {
         elide: Text.ElideRight
     }
 
-    ToolIcon {
+    IconButton {
         id: icon
-        iconSource: root.iconSource ? root.iconSource: "images/empty.png"
+        icon.source: root.iconSource ? root.iconSource: "images/empty.png"
         anchors.top: parent.top
         anchors.right: parent.right
         anchors.rightMargin: -UI.MEDIUM_SPACING
