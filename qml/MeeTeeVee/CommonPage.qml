@@ -70,7 +70,6 @@ Page {
         anchors.bottom: placeholder.top
         anchors.bottomMargin: UI.LARGE_SPACING
         anchors.horizontalCenter: parent.horizontalCenter
-        style: BusyIndicatorStyle { size: "large" }
         transform: Translate {
             y: root.flickable ? -root.flickable.contentY : 0
         }

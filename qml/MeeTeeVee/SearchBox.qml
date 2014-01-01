@@ -19,8 +19,6 @@ TextField {
 
     property bool busy: false
 
-    style: TextFieldStyle { paddingRight: loader.width }
-
     Loader {
         id: loader
         anchors.right: parent.right
@@ -42,10 +40,6 @@ TextField {
             id: busyIndicator
             BusyIndicator {
                 running: true
-                style: BusyIndicatorStyle {
-                    inverted: false
-                    size: "small"
-                }
             }
         }
 
