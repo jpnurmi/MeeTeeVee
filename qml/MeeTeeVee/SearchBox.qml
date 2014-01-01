@@ -12,7 +12,7 @@
 * GNU General Public License for more details.
 */
 import QtQuick 2.1
-import com.nokia.meego 1.0
+import Sailfish.Silica 1.0
 
 TextField {
     id: root
