@@ -27,7 +27,7 @@ Page {
     default property alias data: flickableParent.data
 
     clip: true
-    orientationLock: PageOrientation.LockPortrait
+    allowedOrientations: Orientation.Portrait
 
     Item {
         id: flickableParent

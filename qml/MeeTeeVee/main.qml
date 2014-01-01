@@ -36,7 +36,7 @@ ApplicationWindow {
     }
 
     initialPage: Page {
-        orientationLock: PageOrientation.LockPortrait
+        allowedOrientations: Orientation.Portrait
         tools: tabBar
         TabGroup {
             id: tabGroup
