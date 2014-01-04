@@ -13,20 +13,14 @@
 */
 import QtQuick 2.1
 import Sailfish.Silica 1.0
-import "UIConstants.js" as UI
 
-Item {
+ListItem {
     id: root
 
     property alias image: image.data
     default property alias content: column.data
-    property bool pressed: mouseArea.pressed && mouseArea.containsMouse
 
-    signal clicked
-    signal pressAndHold
-
-    width: parent ? parent.width : 0
-    height: Math.max(image.height, column.height) + 2 * UI.MEDIUM_SPACING
+    height: Math.max(image.height, column.height) + 2 * Theme.paddingMedium
 
     Item {
         id: image
@@ -39,23 +33,8 @@ Item {
         id: column
         anchors.top: parent.top
         anchors.left: image.right
-        anchors.right: indicator.left
-        anchors.topMargin: UI.MEDIUM_SPACING
-        anchors.leftMargin: image.width ? UI.MEDIUM_SPACING : 0
-        anchors.rightMargin: indicator.width ? UI.MEDIUM_SPACING : 0
-    }
-
-    Image {
-        id: indicator
         anchors.right: parent.right
-        anchors.verticalCenter: parent.verticalCenter
-        source: root.pressed ? "images/arrow-pressed.png" : "images/arrow.png"
-    }
-
-    MouseArea {
-        id: mouseArea
-        anchors.fill: parent
-        onClicked: root.clicked()
-        onPressAndHold: root.pressAndHold()
+        anchors.topMargin: Theme.paddingMedium
+        anchors.leftMargin: image.width ? Theme.paddingMedium : 0
     }
 }
