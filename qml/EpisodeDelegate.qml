@@ -15,7 +15,7 @@ import QtQuick 2.1
 import Sailfish.Silica 1.0
 import "UIConstants.js" as UI
 
-CommonDelegate {
+ListItem {
     id: root
 
     property alias badge: badge.text
@@ -26,27 +26,57 @@ CommonDelegate {
     property bool hasSummary: false
     property bool hasScreencap: false
 
-    image: Item {
-        width: squircle.width
-        height: squircle.height
+    contentHeight: Theme.itemSizeLarge
 
-        Image {
-            id: squircle
-            source: "images/squircle.png"
-            opacity: root.pressed ? UI.DISABLED_OPACITY : 1.0
+    Row {
+        id: row
+
+        spacing: Theme.paddingLarge
+        anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; margins: Theme.paddingLarge }
+
+        Rectangle {
+            id: rect
+            color: "transparent"
+            border.color: Theme.secondaryColor
+            width: Theme.itemSizeMedium
+            height: Theme.itemSizeMedium
+            anchors.verticalCenter: parent.verticalCenter
+
+            Text {
+                id: badge
+                anchors.centerIn: parent
+                font.pixelSize: Theme.fontSizeExtraSmall
+                font.weight: Font.Bold
+                color: Theme.secondaryColor
+                textFormat: Text.PlainText
+            }
         }
 
-        Text {
-            id: badge
-            anchors.centerIn: parent
-            font.family: UI.FONT_FAMILY
-            font.pixelSize: UI.SMALL_FONT
-            font.weight: Font.Bold
-            color: root.pressed ? UI.PRESSED_COLOR : UI.TITLE_COLOR
-            textFormat: Text.PlainText
+        Column {
+            spacing: Theme.paddingSmall
+            width: row.width - rect.width - row.spacing
+
+            Label {
+                id: title
+                width: parent.width
+                font.pixelSize: Theme.fontSizeMedium
+                color: Theme.primaryColor
+                textFormat: Text.PlainText
+                elide: Text.ElideRight
+            }
+
+            Label {
+                id: subtitle
+                width: parent.width
+                font.pixelSize: Theme.fontSizeSmall
+                color: Theme.secondaryColor
+                textFormat: Text.PlainText
+                elide: Text.ElideRight
+            }
         }
     }
 
+/*
     Text {
         id: title
         width: parent.width
@@ -109,4 +139,5 @@ CommonDelegate {
         font.weight: Font.Light
         color: root.pressed ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
     }
+*/
 }
