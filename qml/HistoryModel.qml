@@ -29,6 +29,15 @@ StorageModel {
             remove(10, count - 10);
     }
 
+    function removeShow(showId) {
+        for (var i = 0; i < count; ++i) {
+            if (get(i).showid === showId) {
+                remove(i, 1);
+                return;
+            }
+        }
+    }
+
     Component.onCompleted: root.load("History")
     Component.onDestruction: root.save("History")
 }
