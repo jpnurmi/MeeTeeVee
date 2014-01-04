@@ -25,16 +25,16 @@ Page {
 
         PullDownMenu {
             MenuItem {
-                text: qsTr("Updates")
-                onClicked: pageStack.replace(homePage)
+                text: qsTr("Favorites")
+                onClicked: pageStack.replace(favoritesPage)
             }
             MenuItem {
                 text: qsTr("Search")
                 onClicked: pageStack.replace(searchPage)
             }
             MenuItem {
-                text: qsTr("Favorites")
-                onClicked: pageStack.replace(favoritesPage)
+                text: qsTr("Updates")
+                onClicked: pageStack.replace(homePage)
             }
         }
 
