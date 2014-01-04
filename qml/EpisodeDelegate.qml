@@ -26,35 +26,29 @@ ListItem {
     property bool hasSummary: false
     property bool hasScreencap: false
 
-    contentHeight: Theme.itemSizeLarge
-
     Row {
         id: row
 
         spacing: Theme.paddingLarge
         anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; margins: Theme.paddingLarge }
 
-        Rectangle {
-            id: rect
-            color: "transparent"
-            border.color: Theme.secondaryColor
-            width: Theme.itemSizeMedium
-            height: Theme.itemSizeMedium
-            anchors.verticalCenter: parent.verticalCenter
-
-            Text {
-                id: badge
-                anchors.centerIn: parent
-                font.pixelSize: Theme.fontSizeExtraSmall
-                font.weight: Font.Bold
-                color: Theme.secondaryColor
-                textFormat: Text.PlainText
-            }
+        Label {
+            id: badge
+            anchors.baseline: column.baseline
+            font.pixelSize: Theme.fontSizeExtraSmall
+            width: Theme.iconSizeMedium
+            height: Theme.iconSizeMedium
+            horizontalAlignment: Text.AlignHCenter
+            font.weight: Font.Bold
+            color: Theme.secondaryColor
+            textFormat: Text.PlainText
         }
 
         Column {
+            id: column
             spacing: Theme.paddingSmall
-            width: row.width - rect.width - row.spacing
+            width: row.width - badge.width - row.spacing
+            baselineOffset: title.baselineOffset
 
             Label {
                 id: title
