@@ -45,10 +45,10 @@ Page {
         }
 
         ViewPlaceholder {
-            property bool empty: listView.count <= 0
             property bool busy: searchModel.status === XmlListModel.Loading
-            property string error: empty && searchModel.status === XmlListModel.Error ? searchModel.errorString() : ""
-            text: busy && empty ? qsTr("Searching...") : error ? qsTr("Error") : empty ? qsTr("No results") : ""
+            property string error: searchModel.status === XmlListModel.Error ? searchModel.errorString() : ""
+            enabled: !listView.count
+            text: busy ? qsTr("Searching...") : error ? qsTr("Error") : qsTr("No results")
         }
 
         model: SearchModel {

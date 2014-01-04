@@ -40,10 +40,10 @@ Page {
         }
 
         ViewPlaceholder {
-            property bool empty: listView.count <= 0
             property bool busy: updatesModel.status === XmlListModel.Loading
-            property string error: empty && updatesModel.status === XmlListModel.Error ? updatesModel.errorString() : ""
-            text: busy && empty ? qsTr("Loading...") : error ? qsTr("Error") : empty ? qsTr("No recent updates") : ""
+            property string error: updatesModel.status === XmlListModel.Error ? updatesModel.errorString() : ""
+            enabled: !listView.count
+            text: busy ? qsTr("Loading...") : error ? qsTr("Error") : qsTr("No updates")
         }
 
         model: XmlListModel {

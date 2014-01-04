@@ -29,9 +29,8 @@ Page {
         header: PageHeader { title: page.title }
 
         ViewPlaceholder {
-            property bool empty: listView.count <= 0
-            property bool busy: model.busy && empty
-            text: busy ? qsTr("Loading...") : empty ? qsTr("No episodes") : ""
+            enabled: !listView.count
+            text: model.busy ? qsTr("Loading...") : qsTr("No episodes")
         }
 
         delegate: EpisodeDelegate {

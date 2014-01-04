@@ -47,9 +47,8 @@ Page {
         }
 
         ViewPlaceholder {
-            property bool empty: listView.count <= 0
-            property bool busy: favoritesModel.loading
-            text: busy && empty ? qsTr("Loading...") : empty ? qsTr("No history") : ""
+            enabled: !listView.count
+            text: qsTr("No history")
         }
 
         model: historyModel
