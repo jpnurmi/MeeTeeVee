@@ -12,5 +12,4 @@ OTHER_FILES += \
     qml/MeeTeeVee/*.js \
     qml/MeeTeeVee/icons/*.png \
     qml/MeeTeeVee/images/*.png \
-    qml/MeeTeeVee/shaders/*.qml \
     qml/MeeTeeVee/util/*.js
