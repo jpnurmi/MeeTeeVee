@@ -13,9 +13,8 @@
 */
 import QtQuick 2.1
 import Sailfish.Silica 1.0
-import "UIConstants.js" as UI
 
-CommonDelegate {
+ListItem {
     id: root
 
     property alias showId: show.showId
@@ -24,73 +23,59 @@ CommonDelegate {
         id: show
     }
 
-    image: [
-//        MaskedItem {
-//            id: squircle
+    contentHeight: Theme.itemSizeLarge
 
-//            width: UI.THUMBNAIL_SIZE
-//            height: UI.THUMBNAIL_SIZE
+//    Image {
+//        id: overlay
+//        anchors.fill: thumbnail
+//        source: (show.error && !show.empty) || thumbnail.error ? "image://theme/icon-l-error" :
+//                thumbnail.loading || !show.image ? "images/squircle.png" : ""
+//        opacity: root.pressed ? UI.DISABLED_OPACITY : 1.0
 
-//            mask: Image {
-//                source: "images/squircle.png"
-//            }
+//        Image {
+//            anchors.centerIn: parent
+//            visible: thumbnail.loading || thumbnail.status == Image.Null
+//            source: thumbnail.loading ? "icons/download.png" :
+//                    thumbnail.status == Image.Null ? "icons/image.png" : ""
+//        }
+//    }
 
-            Image {
-                id: thumbnail
-                property bool loading: (show.empty && show.loading) || status == Image.Loading
-                property bool error: status == Image.Error
-                source: show.image
-                sourceSize { width: UI.THUMBNAIL_SIZE; height: UI.THUMBNAIL_SIZE }
-                opacity: root.pressed ? UI.DISABLED_OPACITY : 1.0
-            },
-//        },
+    Row {
+        id: row
+
+        spacing: Theme.paddingLarge
+        anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; margins: Theme.paddingLarge }
+
         Image {
-            id: overlay
-            anchors.fill: thumbnail
-            source: (show.error && !show.empty) || thumbnail.error ? "image://theme/icon-l-error" :
-                    thumbnail.loading || !show.image ? "images/squircle.png" : ""
-            opacity: root.pressed ? UI.DISABLED_OPACITY : 1.0
+            id: thumbnail
+            property bool loading: (show.empty && show.loading) || status == Image.Loading
+            property bool error: status == Image.Error
+            source: show.image
+            sourceSize { width: Theme.itemSizeMedium; height: Theme.itemSizeMedium }
+            anchors { verticalCenter: parent.verticalCenter }
+        }
 
-            Image {
-                anchors.centerIn: parent
-                visible: thumbnail.loading || thumbnail.status == Image.Null
-                source: thumbnail.loading ? "icons/download.png" :
-                        thumbnail.status == Image.Null ? "icons/image.png" : ""
+        Column {
+            spacing: Theme.paddingSmall
+            width: row.width - thumbnail.width - row.spacing
+
+            Label {
+                text: show.name
+                width: parent.width
+                font.pixelSize: Theme.fontSizeMedium
+                color: Theme.primaryColor
+                textFormat: Text.PlainText
+                elide: Text.ElideRight
+            }
+
+            Label {
+                text: show.info
+                width: parent.width
+                font.pixelSize: Theme.fontSizeSmall
+                color: Theme.secondaryColor
+                textFormat: Text.PlainText
+                elide: Text.ElideRight
             }
         }
-    ]
-
-    Text {
-        text: show.name
-        width: parent.width
-        font.family: UI.FONT_FAMILY
-        font.pixelSize: UI.MEDIUM_FONT
-        font.weight: Font.Bold
-        color: root.pressed ? UI.PRESSED_COLOR : UI.TITLE_COLOR
-        textFormat: Text.PlainText
-        elide: Text.ElideRight
-    }
-
-    Text {
-        text: show.info
-        width: parent.width
-        font.family: UI.FONT_FAMILY
-        font.pixelSize: UI.SMALL_FONT
-        font.weight: Font.Light
-        color: root.pressed ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
-        textFormat: Text.PlainText
-        elide: Text.ElideRight
-    }
-
-    Text {
-        text: (show.ended ? show.period : show.airing)
-              + (!show.ended && show.runtime ? qsTr(" (%1min)").arg(show.runtime) : "")
-        width: parent.width
-        font.family: UI.FONT_FAMILY
-        font.pixelSize: UI.SMALL_FONT
-        font.weight: Font.Light
-        color: root.pressed ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
-        textFormat: Text.PlainText
-        elide: Text.ElideRight
     }
 }
