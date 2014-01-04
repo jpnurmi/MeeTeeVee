@@ -45,13 +45,9 @@ Page {
                 height: 200
             }
 
-            Label {
+            SectionHeader {
                 id: subtitle
-                anchors { left: parent.left; right: parent.right; margins: Theme.paddingLarge }
                 visible: text.length
-                font.weight: Font.Light
-                font.pixelSize: Theme.fontSizeLarge
-                wrapMode: Text.WordWrap
             }
 
             Label {
