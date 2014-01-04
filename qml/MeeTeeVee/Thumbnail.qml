@@ -13,51 +13,30 @@
 */
 import QtQuick 2.1
 import Sailfish.Silica 1.0
-import "UIConstants.js" as UI
 
-Item {
+BackgroundItem {
     id: root
 
     property string link
     property alias source: image.source
 
-    MouseArea {
-        id: mouseArea
-        property bool reallyPressed: pressed && containsMouse
+    onClicked: if (link) Qt.openUrlExternally(link)
+
+    Image {
+        id: image
         anchors.fill: parent
-        onClicked: if (link) Qt.openUrlExternally(link)
+        anchors.margins: Theme.paddingMedium
+        fillMode: Image.PreserveAspectFit
     }
 
-    Rectangle {
-        anchors.fill: parent
-        color: UI.INFO_COLOR
-        opacity: mouseArea.reallyPressed ? UI.DISABLED_OPACITY : 1.0
-        border.color: Qt.lighter(UI.INFO_COLOR)
-        border.width: 1
-
-        Image {
-            id: image
-            anchors.fill: parent
-            anchors.margins: UI.MEDIUM_SPACING
-            fillMode: Image.PreserveAspectFit
-        }
-
-        Image {
-            anchors.centerIn: parent
-            source: image.status == Image.Null ? "icons/image.png" : ""
-        }
+    Image {
+        anchors.centerIn: parent
+        source: image.status == Image.Null ? "icons/image.png" : ""
     }
 
     BusyIndicator {
         anchors.centerIn: parent
         running: image.status == Image.Loading
         visible: image.status == Image.Loading
-    }
-
-    Image {
-        anchors.top: parent.top
-        anchors.right: parent.right
-        source: "icons/external.png"
-        visible: mouseArea.reallyPressed
     }
 }
