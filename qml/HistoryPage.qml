@@ -38,14 +38,6 @@ Page {
             }
         }
 
-        PushUpMenu {
-            MenuItem {
-                text: qsTr("Clear")
-                enabled: historyModel.count > 0
-                onClicked: historyModel.clear()
-            }
-        }
-
         ViewPlaceholder {
             enabled: !listView.count
             text: qsTr("No history")

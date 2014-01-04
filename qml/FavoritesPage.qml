@@ -38,14 +38,6 @@ Page {
             }
         }
 
-        PushUpMenu {
-            MenuItem {
-                text: qsTr("Clear")
-                enabled: favoritesModel.count > 0
-                onClicked: favoritesModel.clear()
-            }
-        }
-
         ViewPlaceholder {
             enabled: !listView.count
             text: qsTr("No favorites")
