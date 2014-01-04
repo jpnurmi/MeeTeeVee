@@ -38,6 +38,14 @@ Page {
             }
         }
 
+        PushUpMenu {
+            MenuItem {
+                text: qsTr("Clear")
+                enabled: favoritesModel.count > 0
+                onClicked: favoritesModel.clear()
+            }
+        }
+
         ViewPlaceholder {
             property bool empty: listView.count <= 0
             property bool busy: favoritesModel.loading
