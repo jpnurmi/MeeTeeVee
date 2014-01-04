@@ -13,33 +13,32 @@
 */
 import QtQuick 2.1
 import Sailfish.Silica 1.0
-import "UIConstants.js" as UI
 
-CommonDelegate {
+ListItem {
     id: root
 
     property alias title: title.text
     property alias subtitle: subtitle.text
 
-    Text {
-        id: title
-        width: parent.width
-        font.family: UI.FONT_FAMILY
-        font.pixelSize: UI.MEDIUM_FONT
-        font.weight: Font.Bold
-        color: root.pressed ? UI.PRESSED_COLOR : UI.TITLE_COLOR
-        textFormat: Text.PlainText
-        elide: Text.ElideRight
-    }
+    Column {
+        anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; margins: Theme.paddingLarge }
 
-    Text {
-        id: subtitle
-        width: parent.width
-        font.family: UI.FONT_FAMILY
-        font.pixelSize: UI.SMALL_FONT
-        font.weight: Font.Light
-        color: root.pressed ? UI.PRESSED_COLOR : UI.SUBTITLE_COLOR
-        textFormat: Text.PlainText
-        elide: Text.ElideRight
+        Label {
+            id: title
+            width: parent.width
+            font.pixelSize: Theme.fontSizeMedium
+            color: Theme.primaryColor
+            textFormat: Text.PlainText
+            elide: Text.ElideRight
+        }
+
+        Label {
+            id: subtitle
+            width: parent.width
+            font.pixelSize: Theme.fontSizeSmall
+            color: Theme.secondaryColor
+            textFormat: Text.PlainText
+            elide: Text.ElideRight
+        }
     }
 }
