@@ -25,6 +25,10 @@ Page {
 
         PullDownMenu {
             MenuItem {
+                text: qsTr("About")
+                onClicked: pageStack.push(aboutDialog)
+            }
+            MenuItem {
                 text: qsTr("Favorites")
                 onClicked: pageStack.replace(favoritesPage)
             }

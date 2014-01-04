@@ -26,6 +26,10 @@ Page {
 
         PullDownMenu {
             MenuItem {
+                text: qsTr("About")
+                onClicked: pageStack.push(aboutDialog)
+            }
+            MenuItem {
                 text: qsTr("History")
                 onClicked: pageStack.replace(historyPage)
             }

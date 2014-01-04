@@ -43,6 +43,7 @@ static bool removeDir(const QDir &dir)
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     QGuiApplication::setApplicationName("MeeTeeVee");
+    QGuiApplication::setApplicationVersion("0.1");
     QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
     QScopedPointer<QQuickView> viewer(SailfishApp::createView());
 
