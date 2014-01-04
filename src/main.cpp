@@ -21,7 +21,6 @@
 #include <sailfishapp.h>
 
 #include "networkaccessmanager.h"
-//#include "meegographicssystemimageprovider.h"
 
 static bool removeDir(const QDir &dir)
 {
@@ -52,10 +51,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QString cachePath = QDesktopServices::storageLocation(QDesktopServices::CacheLocation);
     NetworkAccessManagerFactory *factory = new NetworkAccessManagerFactory(cachePath);
     viewer->engine()->setNetworkAccessManagerFactory(factory);
-
-//    QLatin1String imagePath("/opt/MeeTeeVee/qml/MeeTeeVee/images");
-//    MeeGoGraphicsSystemImageProvider *provider = new MeeGoGraphicsSystemImageProvider(imagePath);
-//    viewer.engine()->addImageProvider("MeeTeeVee", provider);
 
     if (app->arguments().contains("-reset")) {
         qDebug() << "MeeTeeVee reset...";
