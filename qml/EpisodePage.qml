@@ -33,7 +33,8 @@ Page {
         header: PageHeader { title: page.title }
 
         ViewPlaceholder {
-            text: title === "" && summary === "" && screencap === ""  ? qsTr("No info available") : ""
+            enabled: !title && !summary && !screencap
+            text: qsTr("No info available")
         }
 
         model: VisualItemModel {
