@@ -48,7 +48,10 @@ Page {
 
         delegate: ShowDelegate {
             showId: showid
-            onClicked: pageStack.push(showPage, {showId: showid})
+            onClicked: {
+                historyModel.addShow(showId)
+                pageStack.push(showPage, {showId: showid})
+            }
         }
     }
 }
