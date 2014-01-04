@@ -48,6 +48,14 @@ Page {
         delegate: ShowDelegate {
             showId: showid
             onClicked: pageStack.push(showPage, {showId: showid})
+            menu: Component {
+                ContextMenu {
+                    MenuItem {
+                        text: qsTr("Remove")
+                        onClicked: historyModel.removeShow(showId)
+                    }
+                }
+            }
         }
     }
 }

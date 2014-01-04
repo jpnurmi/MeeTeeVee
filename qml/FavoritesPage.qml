@@ -51,6 +51,14 @@ Page {
                 historyModel.addShow(showId)
                 pageStack.push(showPage, {showId: showid})
             }
+            menu: Component {
+                ContextMenu {
+                    MenuItem {
+                        text: qsTr("Remove")
+                        onClicked: favoritesModel.removeShow(showId)
+                    }
+                }
+            }
         }
     }
 }
