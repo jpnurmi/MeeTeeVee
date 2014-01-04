@@ -13,7 +13,6 @@
 */
 import QtQuick 2.1
 import Sailfish.Silica 1.0
-import "UIConstants.js" as UI
 
 Label {
     id: root
@@ -23,8 +22,7 @@ Label {
 
     visible: value.length
     width: parent ? parent.width : 0
-    font.family: UI.FONT_FAMILY
-    font.pixelSize: UI.SMALL_FONT
+    font.pixelSize: Theme.fontSizeExtraSmall
     textFormat: Text.RichText
-    text: qsTr("<font color=\"%1\">%2:</font> <strong><font color=\"%3\">%4</font></strong>").arg(UI.SUBTITLE_COLOR).arg(title).arg(UI.TITLE_COLOR).arg(value)
+    text: qsTr("<font color=\"%1\">%2:</font> <strong><font color=\"%3\">%4</font></strong>").arg(Theme.secondaryColor).arg(title).arg(Theme.primaryColor).arg(value)
 }

@@ -13,7 +13,6 @@
 */
 import QtQuick 2.1
 import Sailfish.Silica 1.0
-import "UIConstants.js" as UI
 
 Item {
     id: root
@@ -27,13 +26,13 @@ Item {
         id: thumbnail
         link: show.link
         source: show.image
-        width: (parent.width - UI.MEDIUM_SPACING) / 2
+        width: (parent.width - Theme.paddingMedium) / 2
         height: parent.height
     }
 
     Column {
         id: column
-        width: (parent.width - UI.MEDIUM_SPACING) / 2
+        width: (parent.width - Theme.paddingMedium) / 2
         anchors.right: parent.right
 
         InfoLabel {
