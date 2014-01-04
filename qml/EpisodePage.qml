@@ -41,8 +41,8 @@ Page {
             Thumbnail {
                 id: screencap
                 link: page.link
-                width: UI.SCREENCAP_WIDTH
-                height: UI.SCREENCAP_HEIGHT
+                width: 320
+                height: 200
             }
 
             Label {
