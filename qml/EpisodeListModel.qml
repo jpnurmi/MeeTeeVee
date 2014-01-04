@@ -29,4 +29,5 @@ XmlListModel {
     XmlRole { name: "link"; query: "link/string()" }
     XmlRole { name: "rating"; query: "rating/string()" }
     XmlRole { name: "screencap"; query: "screencap/string()" }
+    XmlRole { name: "section"; query: "0" }
 }

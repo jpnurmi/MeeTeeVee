@@ -33,6 +33,9 @@ Page {
             text: model.busy ? qsTr("Loading...") : qsTr("No episodes")
         }
 
+        section.property: "section"
+        section.delegate: SectionHeader { text: qsTr("Episodes") }
+
         delegate: EpisodeDelegate {
             id: delegate
             property string seasonNumber: page.model.season < 10 ? "0" + page.model.season : page.model.season

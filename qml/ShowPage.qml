@@ -55,6 +55,8 @@ Page {
                 anchors { left: parent.left; right: parent.right; margins: Theme.paddingLarge }
             }
 
+            SectionHeader { text: qsTr("Summary") }
+
             Label {
                 id: summary
                 anchors { left: parent.left; right: parent.right; margins: Theme.paddingLarge }
@@ -64,6 +66,8 @@ Page {
                 wrapMode: Text.WordWrap
                 maximumLineCount: 8
             }
+
+            SectionHeader { text: qsTr("Seasons") }
 
             Column {
                 width: parent.width
