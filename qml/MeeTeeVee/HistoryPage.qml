@@ -25,7 +25,7 @@ Page {
 
         PullDownMenu {
             MenuItem {
-                text: qsTr("Recent updates")
+                text: qsTr("Updates")
                 onClicked: pageStack.replace(homePage)
             }
             MenuItem {

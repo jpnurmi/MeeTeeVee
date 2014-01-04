@@ -22,7 +22,7 @@ Page {
         anchors.fill: parent
         cacheBuffer: 4000
 
-        header: PageHeader { title: qsTr("Recent updates") }
+        header: PageHeader { title: qsTr("Updates") }
 
         PullDownMenu {
             MenuItem {
