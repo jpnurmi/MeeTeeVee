@@ -40,75 +40,24 @@ ApplicationWindow {
     }
 
     Component {
+        id: homePage
+        HomePage { objectName: "home" }
+    }
+
+    Component {
         id: searchPage
-        SearchPage { }
+        SearchPage { objectName: "search" }
     }
 
     Component {
         id: favoritesPage
-        FavoritesPage { }
+        FavoritesPage { objectName: "favorites" }
     }
 
     Component {
         id: historyPage
-        HistoryPage { }
+        HistoryPage { objectName: "history" }
     }
-
-    initialPage: Component {
-        id: homePage
-        HomePage { }
-    }
-
-//    initialPage: Page {
-//        allowedOrientations: Orientation.Portrait
-//        tools: tabBar
-//        TabGroup {
-//            id: tabGroup
-//            PageStack {
-//                id: homeTab
-//                objectName: "home"
-//                HomePage {
-//                    id: homePage
-//                    tools: tabBar
-//                    onShowed: historyModel.addShow(showId)
-//                    onAbout: about.createObject(homePage).open()
-//                }
-//                Component.onCompleted: homeTab.push(homePage)
-//            }
-//            PageStack {
-//                id: searchTab
-//                objectName: "search"
-//                SearchPage {
-//                    id: searchPage
-//                    tools: tabBar
-//                    onShowed: historyModel.addShow(showId)
-//                }
-//                Component.onCompleted: searchTab.push(searchPage)
-//            }
-//            PageStack {
-//                id: favoritesTab
-//                objectName: "favorites"
-//                ShowListPage {
-//                    id: favoritesPage
-//                    title: qsTr("Favorites")
-//                    tools: tabBar
-//                    model: favoritesModel
-//                    onShowed: historyModel.addShow(showId)
-//                }
-//                Component.onCompleted: favoritesTab.push(favoritesPage)
-//            }
-//            PageStack {
-//                id: historyTab
-//                objectName: "history"
-//                ShowListPage {
-//                    id: historyPage
-//                    title: qsTr("History")
-//                    tools: tabBar
-//                    model: historyModel
-//                }
-//                Component.onCompleted: historyTab.push(historyPage)
-//            }
-//        }
 
 //        Component {
 //            id: about
@@ -130,42 +79,22 @@ ApplicationWindow {
 //        }
 //    }
 
-//    ToolBarLayout {
-//        id: tabBar
-//        ToolIcon {
-//            iconSource: "icons/back.png"
-//            opacity: enabled ? 1.0 : UI.DISABLED_OPACITY
-//            enabled: !!tabGroup.currentTab && tabGroup.currentTab.depth > 1
-//            onClicked: tabGroup.currentTab.pop()
-//        }
-//        ButtonRow {
-//            exclusive: true
-//            TabButton {
-//                tab: homeTab
-//                iconSource: "icons/home.png"
-//            }
-//            TabButton {
-//                tab: searchTab
-//                iconSource: "icons/search.png"
-//            }
-//            TabButton {
-//                tab: favoritesTab
-//                iconSource: "icons/favorites.png"
-//            }
-//            TabButton {
-//                tab: historyTab
-//                iconSource: "icons/history.png"
-//            }
-//        }
-//    }
+    Component.onCompleted: {
+        var tab = Settings.read("current");
+        if (tab === "search")
+            pageStack.push(searchPage)
+        else if (tab === "favorites")
+            pageStack.push(favoritesPage)
+        else if (tab === "history")
+            pageStack.push(historyPage)
+        else
+            pageStack.push(homePage)
+    }
 
-//    Component.onCompleted: {
-//        theme.inverted = true;
-//        var tab = Settings.read("currentTab");
-//        tabGroup.currentTab = tab == "search" ? searchTab :
-//                              tab == "favorites" ? favoritesTab :
-//                              tab == "history" ? historyTab : homeTab;
-//    }
-
-//    Component.onDestruction: Settings.write("currentTab", tabGroup.currentTab.objectName)
+    Component.onDestruction: {
+        var page = pageStack.currentPage
+        while (pageStack.previousPage(page))
+            page = pageStack.previousPage(page)
+        Settings.write("current", page.objectName)
+    }
 }
