@@ -8,8 +8,8 @@ HEADERS += src/networkaccessmanager.h
 SOURCES += src/main.cpp src/networkaccessmanager.cpp
 
 OTHER_FILES += \
-    qml/MeeTeeVee/*.qml \
-    qml/MeeTeeVee/*.js \
-    qml/MeeTeeVee/icons/*.png \
-    qml/MeeTeeVee/images/*.png \
-    qml/MeeTeeVee/util/*.js
+    qml/*.qml \
+    qml/*.js \
+    qml/icons/*.png \
+    qml/images/*.png \
+    qml/util/*.js

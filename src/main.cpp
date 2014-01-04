@@ -63,7 +63,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
         qDebug() << "  -> QML offline storage:" << (removeDir(viewer->engine()->offlineStoragePath()) ? "OK" : "FAIL!") << qPrintable("("+viewer->engine()->offlineStoragePath()+")");
     }
 
-    viewer->setSource(SailfishApp::pathTo("qml/MeeTeeVee/main.qml"));
+    viewer->setSource(SailfishApp::pathTo("qml/main.qml"));
     viewer->show();
 
     return app->exec();
