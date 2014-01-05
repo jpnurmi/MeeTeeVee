@@ -14,15 +14,27 @@
 import QtQuick 2.1
 import Sailfish.Silica 1.0
 
-Label {
-    id: root
+Row {
+    id: row
 
-    property string title
-    property string value
+    property alias title: title.text
+    property alias value: value.text
 
-    visible: value.length
+    visible: !!value.text
     width: parent ? parent.width : 0
-    font.pixelSize: Theme.fontSizeExtraSmall
-    textFormat: Text.RichText
-    text: qsTr("<font color=\"%1\">%2:</font> <strong><font color=\"%3\">%4</font></strong>").arg(Theme.secondaryColor).arg(title).arg(Theme.primaryColor).arg(value)
+    spacing: Theme.paddingSmall
+
+    Label {
+        id: title
+        font.pixelSize: Theme.fontSizeExtraSmall
+        color: Theme.secondaryColor
+    }
+
+    Label {
+        id: value
+        width: row.width - row.spacing - title.width
+        font.pixelSize: Theme.fontSizeExtraSmall
+        color: Theme.primaryColor
+        elide: Text.ElideRight
+    }
 }
