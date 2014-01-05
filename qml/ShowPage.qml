@@ -55,7 +55,10 @@ Page {
                 anchors { left: parent.left; right: parent.right; margins: Theme.paddingLarge }
             }
 
-            SectionHeader { text: qsTr("Summary") }
+            SectionHeader {
+                text: qsTr("Summary")
+                visible: show.summary.length
+            }
 
             Label {
                 id: summary
@@ -67,7 +70,10 @@ Page {
                 maximumLineCount: 8
             }
 
-            SectionHeader { text: qsTr("Seasons") }
+            SectionHeader {
+                text: qsTr("Seasons")
+                visible: repeater.count
+            }
 
             Column {
                 width: parent.width
