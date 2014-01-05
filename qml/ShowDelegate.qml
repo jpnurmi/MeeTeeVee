@@ -51,7 +51,10 @@ ListItem {
             property bool loading: (show.empty && show.loading) || status == Image.Loading
             property bool error: status == Image.Error
             source: show.image
-            sourceSize { width: Theme.itemSizeMedium; height: Theme.itemSizeMedium }
+            width: Theme.iconSizeLarge
+            height: Theme.iconSizeLarge
+            fillMode: Image.PreserveAspectFit
+            sourceSize { width: Theme.iconSizeLarge; height: Theme.iconSizeLarge }
             anchors { verticalCenter: parent.verticalCenter }
         }
 
