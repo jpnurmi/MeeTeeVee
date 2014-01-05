@@ -50,14 +50,7 @@ Page {
             text: busy ? qsTr("Loading...") : error ? qsTr("Error") : qsTr("No updates")
         }
 
-        model: XmlListModel {
-            id: updatesModel
-            source: "http://services.tvrage.com/feeds/last_updates.php?&sort=episodes&hours=1"
-            query: "/updates/show[position() < 11]"
-            XmlRole { name: "showid"; query: "id/string()"; isKey: true }
-            XmlRole { name: "last"; query: "last/number()" }
-            XmlRole { name: "lastepisode"; query: "lastepisode/string()" }
-        }
+        model: updatesModel
 
         delegate: ShowDelegate {
             showId: showid

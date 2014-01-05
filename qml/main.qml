@@ -26,6 +26,10 @@ ApplicationWindow {
         id: showManager
     }
 
+    UpdatesModel {
+        id: updatesModel
+    }
+
     FavoritesModel {
         id: favoritesModel
     }
