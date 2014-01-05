@@ -32,15 +32,11 @@ ListItem {
         spacing: Theme.paddingLarge
         anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; margins: Theme.paddingLarge }
 
-        Image {
+        Thumbnail {
             id: thumbnail
-            property bool loading: (show.empty && show.loading) || status == Image.Loading
-            property bool error: status == Image.Error
             source: show.image
             width: Theme.iconSizeLarge
             height: Theme.iconSizeLarge
-            fillMode: Image.PreserveAspectFit
-            sourceSize { width: Theme.iconSizeLarge; height: Theme.iconSizeLarge }
             anchors { verticalCenter: parent.verticalCenter }
         }
 

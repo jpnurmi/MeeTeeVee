@@ -41,8 +41,9 @@ Page {
             Thumbnail {
                 id: screencap
                 link: page.link
-                width: 320
-                height: 200
+                width: Screen.width / 3 * 2
+                height: Screen.width / 2
+                anchors { left: parent.left; margins: Theme.paddingLarge }
             }
 
             SectionHeader {

@@ -14,24 +14,33 @@
 import QtQuick 2.1
 import Sailfish.Silica 1.0
 
-BackgroundItem {
+MouseArea {
     id: root
 
     property string link
     property alias source: image.source
 
-    onClicked: if (link) Qt.openUrlExternally(link)
+    enabled: !!link
+    onClicked: Qt.openUrlExternally(link)
+
+    Rectangle {
+        id: background
+        anchors.fill: parent
+        color: Theme.rgba(Theme.highlightBackgroundColor, 0.2)
+        border.color: root.link && root.pressed ? Theme.highlightBackgroundColor : "transparent"
+        border.width: 1
+    }
 
     Image {
         id: image
-        anchors.fill: parent
-        anchors.margins: Theme.paddingMedium
+        anchors.fill: background
+        anchors.margins: Theme.paddingSmall
         fillMode: Image.PreserveAspectFit
     }
 
     Image {
         anchors.centerIn: parent
-        source: image.status == Image.Null ? "icons/image.png" : ""
+        source: image.status == Image.Null ? "image://theme/icon-m-image" : ""
     }
 
     BusyIndicator {
