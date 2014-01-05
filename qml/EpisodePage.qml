@@ -57,7 +57,7 @@ Page {
                 visible: text.length
                 elide: Text.ElideRight
                 wrapMode: Text.WordWrap
-                maximumLineCount: 8
+                maximumLineCount: 16
             }
         }
 
