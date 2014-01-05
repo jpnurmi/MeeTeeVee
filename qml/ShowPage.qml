@@ -87,6 +87,8 @@ Page {
                 }
             }
         }
+
+        VerticalScrollDecorator { }
     }
 
     Component {

@@ -71,5 +71,7 @@ Page {
                 pageStack.push(showPage, {showId: showid})
             }
         }
+
+        VerticalScrollDecorator { }
     }
 }

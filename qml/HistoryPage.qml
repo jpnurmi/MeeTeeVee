@@ -61,5 +61,7 @@ Page {
                 }
             }
         }
+
+        VerticalScrollDecorator { }
     }
 }

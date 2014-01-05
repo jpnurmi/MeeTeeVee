@@ -59,5 +59,7 @@ Page {
                 maximumLineCount: 8
             }
         }
+
+        VerticalScrollDecorator { }
     }
 }

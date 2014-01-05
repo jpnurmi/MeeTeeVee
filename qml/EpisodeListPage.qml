@@ -48,6 +48,8 @@ Page {
             hasScreencap: model.screencap !== ""
             onClicked: pageStack.push(episodePage, {title: page.title, subtitle: qsTr("%1: %2").arg(badge).arg(delegate.title), summary: model.summary, screencap: model.screencap, link: model.link})
         }
+
+        VerticalScrollDecorator { }
     }
 
     Component {
