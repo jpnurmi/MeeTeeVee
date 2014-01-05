@@ -13,7 +13,6 @@
 */
 import QtQuick 2.1
 import Sailfish.Silica 1.0
-import QtGraphicalEffects 1.0
 
 Dialog {
     SilicaListView {
@@ -59,11 +58,6 @@ Dialog {
                     id: image
                     source: "images/banner.png"
                     anchors { horizontalCenter: parent.horizontalCenter }
-                }
-                ColorOverlay {
-                    source: image
-                    anchors.fill: image
-                    color: parent.pressed ? Theme.secondaryColor : Theme.highlightColor
                 }
                 onClicked: Qt.openUrlExternally("http://www.tvrage.com")
             }
