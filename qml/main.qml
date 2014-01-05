@@ -44,8 +44,8 @@ ApplicationWindow {
     }
 
     Component {
-        id: homePage
-        HomePage { objectName: "home" }
+        id: updatesPage
+        UpdatesPage { objectName: "updates" }
     }
 
     Component {
@@ -90,7 +90,7 @@ ApplicationWindow {
         else if (tab === "history")
             pageStack.push(historyPage)
         else
-            pageStack.push(homePage)
+            pageStack.push(updatesPage)
     }
 
     Component.onDestruction: {

@@ -38,7 +38,7 @@ Page {
             }
             MenuItem {
                 text: qsTr("Updates")
-                onClicked: pageStack.replace(homePage)
+                onClicked: pageStack.replace(updatesPage)
             }
         }
 
