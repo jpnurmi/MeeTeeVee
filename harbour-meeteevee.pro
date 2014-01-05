@@ -1,4 +1,4 @@
-TARGET = MeeTeeVee
+TARGET = harbour-meeteevee
 CONFIG += sailfishapp
 QT += network
 
