@@ -15,8 +15,42 @@ import QtQuick 2.1
 import Sailfish.Silica 1.0
 
 CoverBackground {
+    id: cover
+
+    signal searchRequested()
+    signal favoritesRequested()
+
     CoverPlaceholder {
-        text: Qt.application.name
         icon.source: "images/logo.png"
+    }
+
+    Column {
+        anchors.centerIn: parent
+        Label {
+            text: Qt.application.name
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+        Item { width: 1; height: Theme.paddingLarge }
+        Label {
+            font.pixelSize: Theme.fontSizeExtraSmall
+            text: qsTr("Updates: %1").arg(updatesModel.count)
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+        Label {
+            font.pixelSize: Theme.fontSizeExtraSmall
+            text: qsTr("Favorites: %1").arg(favoritesModel.count)
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+    }
+
+    CoverActionList {
+        CoverAction {
+            iconSource: "image://theme/icon-m-search"
+            onTriggered: cover.searchRequested()
+        }
+        CoverAction {
+            iconSource: "image://theme/icon-m-favorite"
+            onTriggered: cover.favoritesRequested()
+        }
     }
 }

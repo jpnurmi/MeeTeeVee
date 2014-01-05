@@ -69,7 +69,16 @@ ApplicationWindow {
     }
 
     cover: Component {
-        CoverPage { }
+        CoverPage {
+            onSearchRequested: {
+                pageStack.replaceAbove(null, searchPage)
+                window.activate()
+            }
+            onFavoritesRequested: {
+                pageStack.replaceAbove(null, favoritesPage)
+                window.activate()
+            }
+        }
     }
 
     Component.onCompleted: {
