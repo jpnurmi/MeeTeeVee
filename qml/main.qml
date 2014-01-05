@@ -64,6 +64,10 @@ ApplicationWindow {
         AboutDialog { }
     }
 
+    cover: Component {
+        CoverPage { }
+    }
+
     Component.onCompleted: {
         var tab = Settings.read("current");
         if (tab === "search")
