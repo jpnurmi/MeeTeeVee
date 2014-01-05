@@ -26,21 +26,6 @@ ListItem {
 
     contentHeight: Theme.itemSizeLarge
 
-//    Image {
-//        id: overlay
-//        anchors.fill: thumbnail
-//        source: (show.error && !show.empty) || thumbnail.error ? "image://theme/icon-l-error" :
-//                thumbnail.loading || !show.image ? "images/squircle.png" : ""
-//        opacity: root.pressed ? UI.DISABLED_OPACITY : 1.0
-
-//        Image {
-//            anchors.centerIn: parent
-//            visible: thumbnail.loading || thumbnail.status == Image.Null
-//            source: thumbnail.loading ? "icons/download.png" :
-//                    thumbnail.status == Image.Null ? "icons/image.png" : ""
-//        }
-//    }
-
     Row {
         id: row
 
