@@ -12,7 +12,7 @@
 * GNU General Public License for more details.
 */
 #include <QGuiApplication>
-#include <QDesktopServices>
+#include <QStandardPaths>
 #include <QPixmapCache>
 #include <QQuickView>
 #include <QDebug>
@@ -49,7 +49,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     QPixmapCache::setCacheLimit(20 * 1024);
 
-    QString cachePath = QDesktopServices::storageLocation(QDesktopServices::CacheLocation);
+    QString cachePath = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
     NetworkAccessManagerFactory *factory = new NetworkAccessManagerFactory(cachePath);
     viewer->engine()->setNetworkAccessManagerFactory(factory);
 
