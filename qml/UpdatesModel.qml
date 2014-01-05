@@ -18,7 +18,7 @@ XmlListModel {
     id: root
 
     source: "http://services.tvrage.com/feeds/last_updates.php?&sort=episodes&hours=1"
-    query: "/updates/show[position() < 11]"
+    query: "/updates/show[position() < 16]"
 
     XmlRole { name: "showid"; query: "id/string()"; isKey: true }
     XmlRole { name: "last"; query: "last/number()" }

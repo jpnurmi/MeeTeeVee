@@ -25,8 +25,8 @@ StorageModel {
         }
 
         insert(0, {"showid": showId});
-        if (count > 10)
-            remove(10, count - 10);
+        if (count > 15)
+            remove(15, count - 15);
     }
 
     function removeShow(showId) {
