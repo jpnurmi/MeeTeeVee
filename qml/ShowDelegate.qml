@@ -18,6 +18,7 @@ ListItem {
     id: root
 
     property alias showId: show.showId
+    property alias favorited: show.favorited
 
     Show {
         id: show

@@ -50,10 +50,21 @@ Page {
         model: historyModel
 
         delegate: ShowDelegate {
+            id: delegate
             showId: showid
             onClicked: pageStack.push(showPage, {showId: showid})
             menu: Component {
                 ContextMenu {
+                    MenuItem {
+                        text: qsTr("Favorite")
+                        visible: !delegate.favorited
+                        onClicked: favoritesModel.setFavorited(showId, true)
+                    }
+                    MenuItem {
+                        text: qsTr("Unfavorite")
+                        visible: delegate.favorited
+                        onClicked: favoritesModel.setFavorited(showId, false)
+                    }
                     MenuItem {
                         text: qsTr("Remove")
                         onClicked: historyModel.removeShow(showId)
