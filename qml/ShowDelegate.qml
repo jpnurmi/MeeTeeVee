@@ -64,11 +64,19 @@ ListItem {
 
             Label {
                 text: show.name
-                width: parent.width
+                width: parent.width - indicator.width - Theme.paddingMedium
                 font.pixelSize: Theme.fontSizeMedium
                 color: Theme.primaryColor
                 textFormat: Text.PlainText
                 elide: Text.ElideRight
+
+                Image {
+                    id: indicator
+                    anchors.left: parent.right
+                    anchors.margins: Theme.paddingMedium
+                    anchors.verticalCenter: parent.verticalCenter
+                    source: show.favorited ? "image://theme/icon-s-favorite" : ""
+                }
             }
 
             Label {
