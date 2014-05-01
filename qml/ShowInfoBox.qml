@@ -35,41 +35,41 @@ Item {
         width: (parent.width - Theme.paddingMedium) / 2
         anchors.right: parent.right
 
-        InfoLabel {
+        ShowInfoLabel {
             title: qsTr("Classification")
             value: show.classification
         }
-        InfoLabel {
+        ShowInfoLabel {
             title: qsTr("Network")
             value: show.network
         }
-        InfoLabel {
+        ShowInfoLabel {
             title: qsTr("Genres")
             value: show.genres
         }
-        InfoLabel {
+        ShowInfoLabel {
             title: qsTr("Status")
             value: show.status
         }
-        InfoLabel {
+        ShowInfoLabel {
             title: qsTr("Started")
             value: show.started
         }
-        InfoLabel {
+        ShowInfoLabel {
             title: qsTr("Ended")
             value: show.ended
         }
-        InfoLabel {
+        ShowInfoLabel {
             title: qsTr("Airing")
             value: show.airing
             visible: show.airing && !show.ended
         }
-        InfoLabel {
+        ShowInfoLabel {
             title: qsTr("Timezone")
             value: show.timezone
             visible: show.timezone && show.airtime && !show.ended
         }
-        InfoLabel {
+        ShowInfoLabel {
             title: qsTr("Runtime")
             value: qsTr("%1 minutes").arg(show.runtime)
             visible: show.runtime
