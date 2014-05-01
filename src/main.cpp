@@ -45,7 +45,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
     QGuiApplication::setOrganizationName("harbour-meeteevee");
     QGuiApplication::setApplicationName("MeeTeeVee");
-    QGuiApplication::setApplicationVersion("0.1");
+    QGuiApplication::setApplicationVersion("0.2");
 
     QScopedPointer<QQuickView> viewer(SailfishApp::createView());
 
