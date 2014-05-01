@@ -25,7 +25,7 @@ Dialog {
         model: VisualItemModel {
 
             PageHeader {
-                title: qsTr("%1 %2").arg(Qt.application.name).arg(Qt.application.version)
+                title: qsTr("MeeTeeVee %2").arg(Qt.application.version)
             }
 
             Label {
